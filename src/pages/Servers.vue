@@ -1,15 +1,36 @@
 <template>
   <q-page class="flex flex-center">
+
+    <template>
+      <div class="q-pa-md q-gutter-sm">
+
+        <q-dialog v-model="showServerModal" transition-show="scale" transition-hide="scale">
+          <q-card style="width: 700px; max-width: 80vw;">
+            <q-card-section>
+              <div class="text-h6">
+                {{currentServer.isNew ? 'Create Server' : 'Edit Server Settings'}}
+              </div>
+            </q-card-section>
+
+            <q-card-section class="q-pt-none">
+              <server-form :server-data="currentServer"></server-form>
+            </q-card-section>
+
+          </q-card>
+        </q-dialog>
+      </div>
+    </template>
+
     <q-list bordered class="rounded-borders" >
       <q-item-label header>
         Servers
       </q-item-label>
 
-      <q-item v-for="server in servers" :key="`server-${server.ipAddress}`">
+      <q-item v-for="(server, index) in servers" :key="`server-${index}-${server.ipAddress}`" clickable v-ripple>
 
         <q-item-section >
           <q-item-label lines="1">
-            <span class="text-grey-8">
+            <span class="text-grey-8" @click="chooseServer(server)">
               {{server.displayName || server.ipAddress}}
             </span>
           </q-item-label>
@@ -19,45 +40,45 @@
           <div class="text-grey-8 q-gutter-xs">
             <q-btn class="gt-xs"
                    size="12px"
+                   @click="editServer(server)"
+                   flat dense round
+                   icon="edit">
+            </q-btn>
+            <q-btn class="gt-xs"
+                   size="12px"
                    @click="checkServer(server)"
                    flat dense round
                    :icon="server.connection == 'success' ? 'done' : 'link_off'">
             </q-btn>
             <q-btn @click="deleteServer(server)" class="gt-xs" size="12px" flat dense round icon="delete"></q-btn>
-            <!-- <q&#45;btn @click="deleteServer(server)" size="12px" flat dense round icon="more_vert"></q&#45;btn> -->
           </div>
         </q-item-section>
       </q-item>
 
       <q-separator spaced></q-separator>
 
-          <q-item>
+      <q-item>
 
-            <q-item-section>
-              <q-item-label lines="1">
-                <span class="text-grey-8">
-                  Add another one
-                </span>
-              </q-item-label>
-            </q-item-section>
+        <q-item-section>
+          <q-item-label lines="1">
+            <span class="text-grey-8">
+              Add another one
+            </span>
+          </q-item-label>
+        </q-item-section>
 
-            <q-item-section side>
-              <div class="text-grey-8 q-gutter-xs">
-                <q-btn class="gt-xs" size="12px" flat dense round icon="add" />
-              </div>
-            </q-item-section>
-          </q-item>
+        <q-item-section side>
+          <div class="text-grey-8 q-gutter-xs">
+            <q-btn class="gt-xs"
+                   size="12px"
+                   flat dense round
+                   icon="add"
+                   @click='addServer'>
+            </q-btn>
+          </div>
+        </q-item-section>
+      </q-item>
     </q-list>
-    <!-- choose your server here <br> -->
-    <!-- or -->
-    <!-- <br> -->
-    <!-- add another one -->
-    <!-- <br> -->
-    <!-- <br> -->
-    <!--  -->
-    <!-- <router&#45;link :to="{name: 'torrents&#45;list'}"> -->
-    <!--   when done (server chosen) go see torrents -->
-    <!-- </router&#45;link> -->
   </q-page>
 </template>
 
@@ -65,51 +86,53 @@
 
 
 import { mapState, mapActions } from 'vuex'
+import ServerForm from '../components/ServerForm'
+import {LocalStorage } from 'quasar'
+import {defaultServerTemplate } from '../lib/servers'
 
 export default {
   name: 'Servers',
-  created() {
-    // load servers from vuex
+  components: {
+    ServerForm,
   },
   data () {
     return {
-      servers: [
-        {
-          displayName: null,
-          ipAddress: 'localhost',
-          rpcEndpoint: '/transmission/rpc',
-          ssl: false,
-          port: 9091,
-          username: '',
-          password: '',
-          connection: 'unknown',
-        },
-        {
-          displayName: 'lachina',
-          ipAddress: 'lachina.local',
-          rpcEndpoint: '/transmission/rpc',
-          ssl: false,
-          port: 9091,
-          username: '',
-          password: '',
-          connection: 'unknown',
-        }
-      ]
+      showServerModal: false,
     }
   },
+  mounted()
+  {
+    this.initialize() // initialize vuex store
+  },
   methods: {
-    // add vuex servers
+    ...mapActions('configs', [
+      'deleteServer',
+      'initialize',
+      'setCurrentServer',
+    ]),
+    editServer(server)
+    {
+      this.setCurrentServer(server)
+      this.showServerModal = true
+    },
+    addServer()
+    {
+      this.setCurrentServer(defaultServerTemplate())
+      this.showServerModal = true
+    },
     checkServer: function (server)
     {
-      // TOOD: TransmissionClient check connection
+      // TODO: TransmissionClient check connection
       this.servers[this.servers.indexOf(server)].connection = 'success'
     },
-    deleteServer: function (server)
+    chooseServer(server)
     {
-      this.servers.splice(this.servers.indexOf(server), 1)
+      this.setCurrentServer(server)
+      this.$router.push({name: 'torrents-list'})
     }
   },
   computed: {
+    ...mapState('configs', ['servers', 'currentServer'])
   }
 
 }

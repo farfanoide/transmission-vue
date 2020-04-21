@@ -49,23 +49,26 @@ module.exports = function (/* ctx */) {
       //            (fastest compile time; minimum bundle size; most tedious)
       // * true   - Import everything from Quasar
       //            (not treeshaking Quasar; biggest bundle size; convenient)
-      all: false,
+      all: true, // TODO: only for development load all quasar for convenience
 
       components: [
-        'QLayout',
-        'QHeader',
+        'QBtn',
         'QDrawer',
-        'QPageContainer',
+        'QHeader',
+        'QIcon',
+        'QItem',
+        'QItemLabel',
+        'QItemSection',
+        'QLayout',
+        'QList',
         'QPage',
+        'QPageContainer',
+        'QSeparator',
+        'QTab',
+        'QTabPanel',
+        'QTabPanels',
         'QToolbar',
         'QToolbarTitle',
-        'QBtn',
-        'QIcon',
-        'QList',
-        'QItem',
-        'QItemSection',
-        'QItemLabel',
-        'QSeparator',
       ],
 
       directives: [
@@ -73,7 +76,9 @@ module.exports = function (/* ctx */) {
       ],
 
       // Quasar plugins
-      plugins: []
+      plugins: [
+        'LocalStorage',
+      ]
     },
 
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie

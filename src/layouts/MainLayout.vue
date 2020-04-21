@@ -3,19 +3,19 @@
 
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="left = !left" />
-
-          <q-toolbar-title>
-            <router-link to='/'>
-              TransmissionVue
-            </router-link>
-          </q-toolbar-title>
+        <q-toolbar-title>
+          <router-link to='/'>
+            <q-avatar size="40px" @click="left = !left">
+              <img src="~assets/logo.png" />
+            </q-avatar>
+          </router-link>
+        </q-toolbar-title>
       </q-toolbar>
     </q-header>
 
-    <q-drawer show-if-above v-model="left" side="left" elevated>
-      <!-- drawer content -->
-    </q-drawer>
+    <!-- <q&#45;drawer v&#45;model="left" side="left" elevated> -->
+    <!--   <!&#45;&#45; drawer content &#45;&#45;> -->
+    <!-- </q&#45;drawer> -->
 
     <q-page-container>
       <router-view />
