@@ -18,7 +18,6 @@ export default {
   {
     // create api client
     this.service = new Transmission(this.currentServer)
-    window.transmission = this.service
     // get session data
     this.service.session().then(data => {
 

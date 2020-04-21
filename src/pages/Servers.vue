@@ -26,12 +26,12 @@
         Servers
       </q-item-label>
 
-      <q-item v-for="(server, index) in servers" :key="`server-${index}-${server.ipAddress}`" clickable v-ripple>
+      <q-item v-for="(server, index) in servers" :key="`server-${index}-${server.host}`" clickable v-ripple>
 
         <q-item-section >
           <q-item-label lines="1">
             <span class="text-grey-8" @click="chooseServer(server)">
-              {{server.displayName || server.ipAddress}}
+              {{server.displayName || server.host}}
             </span>
           </q-item-label>
         </q-item-section>

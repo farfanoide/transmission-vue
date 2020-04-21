@@ -13,14 +13,14 @@
 
       <q-input
         filled
-        v-model="server.ipAddress"
+        v-model="server.host"
         label="Ip Address of the server"
         hint="Something like: 192.168.0.1 or seedbox.local">
       </q-input>
 
       <q-input
         filled
-        v-model="server.rpcEndpoint"
+        v-model="server.url"
         hint="Leave blank for default of `/transmission/rpc`"
         label="RPC endoint">
       </q-input>

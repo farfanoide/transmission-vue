@@ -4,8 +4,8 @@ export function defaultServerTemplate()
   // serialize and deserialize server objects from localstorage
   return {
     displayName: null,
-    ipAddress: 'localhost',
-    rpcEndpoint: '/transmission/rpc',
+    host: 'localhost',
+    url: '/transmission/rpc',
     ssl: false,
     port: 9091,
     username: '',
@@ -20,8 +20,8 @@ export function emptyServerTemplate()
 {
   return {
     displayName: null,
-    ipAddress: '',
-    rpcEndpoint: '',
+    host: '',
+    url: '',
     ssl: null,
     port: 0,
     username: '',
