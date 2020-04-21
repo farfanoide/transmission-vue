@@ -1,0 +1,4 @@
+- Server CRUD validations
+  - do not allow duplicate domains servers, you might have more that one
+    torrent client on a single domain but the should at least differ on ports
+  - check connection before saving

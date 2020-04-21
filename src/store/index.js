@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import torrents from './torrents'
 import configs from './configs'
+import session from './session'
 
 Vue.use(Vuex)
 
@@ -20,7 +20,7 @@ export default function (/* { ssrContext } */) {
     modules: {
       // example
       configs,
-      torrents,
+      session,
     },
 
     // enable strict mode (adds overhead!)
