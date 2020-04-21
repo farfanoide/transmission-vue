@@ -1,0 +1,22 @@
+Project idea:
+-------------
+
+Simple vuejs web client for the transmissionbt
+
+project's desired features and goals:
+-------------------------------------
+
+- beautifull
+- theme capable, at least light and dark
+- pluggable keyboard navigation, ie: '/' for search on web but 'ctrl'+'f' on desktop
+- localization
+- multi target builds, ie:
+    - transmission web drop-in replacement
+    - regular web page
+    - pwa
+    - electron for desktop
+    - chrome plugin
+    - mobile versions with capacitor
+
+
+

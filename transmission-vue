@@ -1,0 +1,11 @@
+# -*- mode: sh -*-
+# vi: set ft=sh :
+
+#= AUTHOR: farfanoide (https://github.com/farfanoide)
+#= DESCRIPTION: TransmissionVue yat.sh development session
+
+new_session -n 'editor'
+send_line 'editor' 'vi'
+
+new_window -n 'server'
+send_line 'server' 'quasar dev'
