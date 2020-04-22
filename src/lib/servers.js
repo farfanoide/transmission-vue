@@ -12,7 +12,6 @@ export function defaultServerTemplate()
     password: '',
     connection: 'unknown',
     isNew: true,
-    editing: true,
   }
 }
 
@@ -28,7 +27,6 @@ export function emptyServerTemplate()
     password: '',
     connection: '',
     isNew: null,
-    editing: null,
   }
 }
 

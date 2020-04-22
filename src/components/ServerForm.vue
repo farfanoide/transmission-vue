@@ -67,6 +67,11 @@
 <script>
 import { mapActions } from 'vuex'
 
+function UUID ()
+{
+  return String(Math.random())
+}
+
 export default {
   name: 'ServerFrom',
   props: [
@@ -77,17 +82,29 @@ export default {
     return {
       showPassword: false,
       server: {},
-      editing: false,
+      editing: true, // editing an existing server
+      disabled: false,
     }
   },
   created()
   {
-    this.editing = !this.server.isNew
     this.server = Object.assign({}, this.serverData)
-    this.server.isNew = false
+    if (! this.server.id)
+    {
+      this.server.id = UUID()
+      this.editing = false
+    }
   },
   methods: {
-    ...mapActions('configs', ['addServer', 'updateServer']),
+    ...mapActions('configs',
+      [
+      'addServer', 'updateServer'
+      ]
+    //   {
+    //   addServer: 'ADD_SERVER',
+    //   updateServer: 'UPDATE_SERVER',
+    // }
+    ),
     onSubmit () {
       // check rpc connection
       // store server or show alert
@@ -114,11 +131,5 @@ export default {
        }, 500)
     },
   },
-  computed: {
-    disabled: function ()
-    {
-      return false
-    }
-  }
 }
 </script>

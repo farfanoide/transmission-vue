@@ -44,11 +44,13 @@
                    flat dense round
                    icon="edit">
             </q-btn>
+                   <!-- @click="checkServer(server)" -->
+                   <!-- TODO: check server connections -->
+
             <q-btn class="gt-xs"
                    size="12px"
-                   @click="checkServer(server)"
                    flat dense round
-                   :icon="server.connection == 'success' ? 'done' : 'link_off'">
+                   :icon="server.connection == 'success' ? 'done' : 'settings_ethernet'">
             </q-btn>
             <q-btn @click="deleteServer(server)" class="gt-xs" size="12px" flat dense round icon="delete"></q-btn>
           </div>
@@ -85,9 +87,8 @@
 <script>
 
 
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import ServerForm from '../components/ServerForm'
-import {LocalStorage } from 'quasar'
 import {defaultServerTemplate } from '../lib/servers'
 
 export default {
@@ -100,16 +101,8 @@ export default {
       showServerModal: false,
     }
   },
-  mounted()
-  {
-    this.initialize() // initialize vuex store
-  },
   methods: {
-    ...mapActions('configs', [
-      'deleteServer',
-      'initialize',
-      'setCurrentServer',
-    ]),
+    ...mapActions('configs', ['deleteServer', 'setCurrentServer']),
     editServer(server)
     {
       this.setCurrentServer(server)
@@ -120,11 +113,11 @@ export default {
       this.setCurrentServer(defaultServerTemplate())
       this.showServerModal = true
     },
-    checkServer: function (server)
-    {
-      // TODO: TransmissionClient check connection
-      this.servers[this.servers.indexOf(server)].connection = 'success'
-    },
+    // checkServer: function (server)
+    // {
+    //   // TODO: TransmissionClient check connection
+    //   this.servers[this.servers.indexOf(server)].connection = 'success'
+    // },
     chooseServer(server)
     {
       this.setCurrentServer(server)
