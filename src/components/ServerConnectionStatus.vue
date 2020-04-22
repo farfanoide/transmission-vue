@@ -1,4 +1,5 @@
 <template>
+  <div>
     <q-btn class="gt-xs"
            size="12px"
            flat dense round
@@ -8,6 +9,8 @@
         {{this.tooltipMessage}}
       </q-tooltip>
     </q-btn>
+    <label v-if="this.withLabel">{{this.tooltipMessage}}</label>
+  </div>
 </template>
 
 <script>
@@ -18,7 +21,6 @@ export default {
   data()
   {
     return {
-      client: null,
       connection: null,
       status: 'initial',
       icons: {
@@ -36,11 +38,7 @@ export default {
       // TODO: add colors and animations
     }
   },
-  props: ['server'],
-  created()
-  {
-    this.client = new TransmissionClient(this.server)
-  },
+  props: ['server', 'with-label'],
   methods: {
     checkConnection()
     {
@@ -60,9 +58,17 @@ export default {
     {
       return this.icons[this.status]
     },
+    connectionLabel: function ()
+    {
+      return this.withLabel ? this.tooltipMessage : ''
+    },
     tooltipMessage: function ()
     {
       return this.messages[this.status]
+    },
+    client: function ()
+    {
+      return new TransmissionClient(this.server)
     }
   }
 }

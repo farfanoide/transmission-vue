@@ -18,7 +18,7 @@
         </q-item-section>
 
         <q-item-section side>
-          <q-fab flat icon="more_vert" direction="left">
+          <q-fab flat icon="more_vert" direction="left" size="btn_size_sq_xs">
             <q-fab-action @click="editServer(server)" icon="edit" flat>
               <q-tooltip anchor="top middle" :offset="[30, 30]">
                 Edit Server

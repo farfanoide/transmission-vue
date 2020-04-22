@@ -51,6 +51,11 @@
 
       <q-toggle v-model="server.ssl" label="Use SSL for connection">
       </q-toggle>
+
+      <q-separator></q-separator>
+      <server-connection-status :server="server" :with-label="true"></server-connection-status>
+      <q-separator></q-separator>
+
       <div>
         <q-btn label="Save" type="submit" color="primary"></q-btn>
         <q-btn label="Cancel"
@@ -66,6 +71,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex'
+import ServerConnectionStatus from './ServerConnectionStatus'
 
 function UUID ()
 {
@@ -74,6 +80,9 @@ function UUID ()
 
 export default {
   name: 'ServerFrom',
+  components: {
+    ServerConnectionStatus,
+  },
   props: [
     'serverData',
   ],
@@ -96,15 +105,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions('configs',
-      [
-      'addServer', 'updateServer'
-      ]
-    //   {
-    //   addServer: 'ADD_SERVER',
-    //   updateServer: 'UPDATE_SERVER',
-    // }
-    ),
+    ...mapActions('configs', ['addServer', 'updateServer']),
     onSubmit () {
       // check rpc connection
       // store server or show alert
@@ -126,7 +127,7 @@ export default {
       setTimeout(() => {
         this.$refs["cancel-btn"].$el.click()
         this.server = {}
-       }, 500)
+      }, 500)
     },
   },
 }
