@@ -1,0 +1,12 @@
+{
+  "name": "transmission-vue",
+  "version": "0.0.1",
+  "description": "Simple vuejs web client for the transmissionbt",
+  "author": "Ivan Karl <ivan6258@gmail.com>",
+  "private": true,
+  "dependencies": {
+    "@capacitor/android": "^2.0.1",
+    "@capacitor/cli": "^1.0.0",
+    "@capacitor/core": "^1.0.0"
+  }
+}

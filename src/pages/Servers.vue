@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
 
-    <q-list bordered class="rounded-borders" style="min-width: 500px" >
+    <q-list bordered class="rounded-borders" style="min-width: 400px" >
       <q-item-label header>
         Servers
       </q-item-label>
@@ -40,7 +40,8 @@
 
         <q-item-section>
           <q-item-label lines="1">
-            <span class="text-grey-8">
+            <span class="text-grey-8"
+                   @click='addServer'>
               Add another one
             </span>
           </q-item-label>

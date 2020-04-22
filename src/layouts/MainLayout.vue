@@ -5,7 +5,7 @@
       <q-toolbar>
         <q-toolbar-title>
           <router-link to='/'>
-            <q-avatar size="40px" @click="left = !left">
+            <q-avatar size="40px">
               <img src="~assets/logo.png" />
             </q-avatar>
           </router-link>
