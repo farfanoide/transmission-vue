@@ -1,15 +1,14 @@
 <template>
-  <div>
+  <div @click="checkConnection">
     <q-btn class="gt-xs"
            size="12px"
            flat dense round
-           @click="checkConnection"
            :icon="connectionIcon">
       <q-tooltip anchor="top middle" :offset="[30, 30]">
-        {{this.tooltipMessage}}
+        {{this.message}}
       </q-tooltip>
     </q-btn>
-    <label v-if="this.withLabel">{{this.tooltipMessage}}</label>
+    <label v-if="this.withLabel">{{this.message}}</label>
   </div>
 </template>
 
@@ -44,12 +43,8 @@ export default {
     {
       this.status = 'loading'
       this.client.session()
-        .then((resp) => {
-          this.status = 'success'
-        })
-        .catch(error => {
-          this.status = 'error'
-        })
+        .then(resp => {   this.status = 'success' })
+        .catch(error => { this.status = 'error' })
     },
   },
   computed:
@@ -60,9 +55,9 @@ export default {
     },
     connectionLabel: function ()
     {
-      return this.withLabel ? this.tooltipMessage : ''
+      return this.withLabel ? this.message : ''
     },
-    tooltipMessage: function ()
+    message: function ()
     {
       return this.messages[this.status]
     },
