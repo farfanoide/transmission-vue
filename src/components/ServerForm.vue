@@ -110,17 +110,15 @@ export default {
       // store server or show alert
       // TODO: add validations
       if ( this.editing ) {
-        console.log('updateServer')
         this.updateServer(this.server)
       } else {
         this.addServer(this.server)
-        console.log('addServer')
       }
 
       this.$q.notify({
         color: 'green-4',
         textColor: 'white',
-        icon: 'cloud_done',
+        icon: 'storage',
         message: `Server successfully ${this.editing ? 'updated' : 'added'}`
       })
 

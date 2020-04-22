@@ -7,7 +7,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import TorrentList from '../components/TorrentList'
-import Transmission from 'transmission-promise'
+import TransmissionClient from '../services/transmission'
 
 export default {
   name: 'TorrentsListing',
@@ -17,7 +17,7 @@ export default {
   created()
   {
     // create api client
-    this.service = new Transmission(this.currentServer)
+    this.service = new TransmissionClient(this.currentServer)
     // get session data
     this.service.session().then(data => {
 

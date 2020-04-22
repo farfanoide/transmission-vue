@@ -1,3 +1,4 @@
+// TODO: change to Models
 export function defaultServerTemplate()
 {
   // TODO: add a Server class for all this logic and maybe more. we could also
