@@ -1,61 +1,26 @@
-const percent = function (val)
-{
-  return val * 100
-}
-
-const date = function (seconds)
-{
-  return seconds > 0 ? new Date( 1000 * seconds ): "-";
-}
-
-const size = function (bytes)
-{
-   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-   if (bytes == 0) return '0 Byte';
-   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-}
-
-const mappers = {
-  'percentDone': percent,
-  'dateCreated': date,
-  'sizeWhenDone': size,
-}
-class TorrentMapper {
-
-  static hasMapperFor(prop)
-  {
-    return true
-  }
-
-  static mapperFor(prop)
-  {
-    return mappers[prop] || function (v) { return v }
-  }
-
-  static mapValue(prop, value)
-  {
-    return this.mapperFor(prop)(value)
-  }
-}
-
-window.TorrentMapper = TorrentMapper
-
 const TorrentPresenterHandler = {
+  // here we store all presentation logic, for example how to format specific
+  // dates, etc
 
   get: function(target, prop, receiver)
   {
-    if (TorrentMapper.hasMapperFor(prop))
+    if (this.hasOwnProperty(prop))
     {
-      return TorrentMapper.mapValue(prop, target[prop])
+      return this[prop](target[prop])
     }
     return Reflect.get(...arguments);
+  },
+
+  percentDone: function(percent)
+  {
+    return percent + '%'
   }
+
 }
 
-const TorrentPresenter = function (data)
+const TorrentPresenter = function (torrent)
 {
-  return new Proxy(data, TorrentPresenterHandler)
+  return new Proxy(torrent, TorrentPresenterHandler)
 }
 
 export default TorrentPresenter

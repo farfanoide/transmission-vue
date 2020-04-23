@@ -8,6 +8,7 @@
 import { mapState, mapMutations } from 'vuex'
 import TorrentList from '../components/TorrentList'
 import TransmissionClient from '../services/transmission'
+import Torrent from '../models/torrent'
 
 export default {
   name: 'TorrentsListing',
@@ -25,7 +26,9 @@ export default {
       // get session stats
       this.service.sessionStats().then((stats) => this.setSessionStats(stats))
       // get torrents data
-      this.service.get().then(({torrents}) => this.setSessionTorrents(torrents))
+      this.service.get().then(({torrents}) => {
+        this.setSessionTorrents(torrents.map(td => new Torrent(td)))
+      })
     // get active torrents
       this.service.active().then(({torrents}) => this.setActiveTorrents(torrents))
     })

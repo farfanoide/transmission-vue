@@ -23,74 +23,10 @@
 </template>
 
 <script>
+
 import { mapState, mapActions } from 'vuex'
 import TorrentRow from './TorrentRow'
-
-const TorrentColumnsReference = {
-  'activityDate':            'Activity Date',
-  'addedDate':               'Added Date',
-  'bandwidthPriority':       'Bandwidth Priority',
-  'comment':                 'Comment',
-  'corruptEver':             'Corrupt Ever',
-  'creator':                 'Creator',
-  'dateCreated':             'Date Created',
-  'desiredAvailable':        'Desired Available',
-  'doneDate':                'Done Date',
-  'downloadDir':             'Download Dir',
-  'downloadLimit':           'Download Limit',
-  'downloadLimited':         'Download Limited',
-  'downloadedEver':          'Downloaded Ever',
-  'error':                   'Error',
-  'errorString':             'Error String',
-  'eta':                     'Eta',
-  'fileStats':               'File Stats',
-  'files':                   'Files',
-  'hashString':              'Hash String',
-  'haveUnchecked':           'Have Unchecked',
-  'haveValid':               'Have Valid',
-  'honorsSessionLimits':     'Honors Session Limits',
-  'id':                      'Id',
-  'isFinished':              'Is Finished',
-  'isPrivate':               'Is Private',
-  'leftUntilDone':           'Left Until Done',
-  'magnetLink':              'Magnet Link',
-  'manualAnnounceTime':      'Manual Announce Time',
-  'maxConnectedPeers':       'Max Connected Peers',
-  'metadataPercentComplete': 'Metadata Percent Complete',
-  'name':                    'Name',
-  'peer-limit':              'Peer-limit',
-  'peers':                   'Peers',
-  'peersConnected':          'Peers Connected',
-  'peersFrom':               'Peers From',
-  'peersGettingFromUs':      'Peers Getting From Us',
-  'peersSendingToUs':        'Peers Sending To Us',
-  'percentDone':             'Percent Done',
-  'pieceCount':              'Piece Count',
-  'pieceSize':               'Piece Size',
-  'pieces':                  'Pieces',
-  'priorities':              'Priorities',
-  'rateDownload':            'Rate Download',
-  'rateUpload':              'Rate Upload',
-  'recheckProgress':         'Recheck Progress',
-  'seedIdleLimit':           'Seed Idle Limit',
-  'seedIdleMode':            'Seed Idle Mode',
-  'seedRatioLimit':          'Seed Ratio Limit',
-  'seedRatioMode':           'Seed Ratio Mode',
-  'sizeWhenDone':            'Size When Done',
-  'startDate':               'Start Date',
-  'status':                  'Status',
-  'torrentFile':             'Torrent File',
-  'totalSize':               'Total Size',
-  'trackerStats':            'Tracker Stats',
-  'trackers':                'Trackers',
-  'uploadLimit':             'Upload Limit',
-  'uploadLimited':           'Upload Limited',
-  'uploadRatio':             'Upload Ratio',
-  'uploadedEver':            'Uploaded Ever',
-  'wanted':                  'Wanted',
-  'webseeds':                'Webseeds',
-  'webseedsSendingToUs':     'Webseeds Sending To Us',
-}
+import RPCReference from  '../lib/rpc'
 
 export default {
   name: 'TorrentList',
@@ -100,7 +36,7 @@ export default {
   data()
   {
     return {
-      TorrentColumnsReference: TorrentColumnsReference,
+      //TODO: add enabledColumns to config
       enabledColumns: [
         'name',
         'percentDone',
@@ -116,10 +52,9 @@ export default {
   filters: {
     colname: function (column)
     {
-      return TorrentColumnsReference[column] || column
+      return RPCReference.columnName(column)
     }
   }
-
 }
 </script>
 
