@@ -14,8 +14,15 @@ const TorrentPresenterHandler = {
   percentDone: function(percent)
   {
     return percent + '%'
-  }
+  },
 
+  dateCreated: function(date)
+  {
+
+    return (typeof(date) == "object" ) ?
+      date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() :
+      date
+  }
 }
 
 const TorrentPresenter = function (torrent)

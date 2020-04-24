@@ -64,6 +64,8 @@ const TorrentColumnsReference = {
   'webseedsSendingToUs':     'Webseeds Sending To Us',
 }
 
+// TODO: maybe move torrent_mapper.MAPPERS reference here and have
+// a SSOT for all RPC related data
 class RPCReference {
   static columnName(column)
   {
