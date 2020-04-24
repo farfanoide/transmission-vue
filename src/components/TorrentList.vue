@@ -42,6 +42,7 @@ export default {
         'percentDone',
         'dateCreated',
         'sizeWhenDone',
+        'eta',
       ]
     }
   },

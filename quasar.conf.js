@@ -50,7 +50,7 @@ module.exports = function (/* ctx */) {
       //            (fastest compile time; minimum bundle size; most tedious)
       // * true   - Import everything from Quasar
       //            (not treeshaking Quasar; biggest bundle size; convenient)
-      all: true, // TODO: only for development load all quasar for convenience
+      all: 'auto',
 
       components: [
         'QBtn',
