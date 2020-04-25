@@ -7,20 +7,29 @@ Simple vuejs web client for the transmissionbt
 yarn
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Currently supported only BEX mode (Browser Extension)
+
+Start the app in development mode (hot-code reloading, error reporting, etc.)
+
 ```bash
-quasar dev
+quasar dev -m bex
 ```
 
-### Lint the files
+### Install extension in development mode
+ - Open Browser, go to preferences -> extensions
+ - `Load Unpacked` and choose PATH_TO_REPO/src-bex
+
+### Use vue-devtools
+
+Make sure it's running on port 8098, otherwise update entry in
+(manifest.json)[./src-bex/manifest.json]
+
 ```bash
-yarn run lint
+yarn run vue-devtools
 ```
 
-### Build the app for production
-```bash
-quasar build
-```
+### Desktop app supported via electron
 
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+```bash
+quasar dev -m electron
+```
