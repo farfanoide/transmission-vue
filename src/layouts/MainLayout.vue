@@ -12,6 +12,7 @@
         </q-toolbar-title>
 
         <network-status></network-status>
+        <speed-setting></speed-setting>
 
       </q-toolbar>
     </q-header>
@@ -29,11 +30,13 @@
 
 <script>
 import NetworkStatus from '../components/NetworkStatus'
+import SpeedSetting from '../components/SpeedSetting'
 
 export default {
   components:
   {
     NetworkStatus,
+    SpeedSetting,
   },
   data () {
     return {
