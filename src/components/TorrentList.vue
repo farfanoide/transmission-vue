@@ -9,7 +9,7 @@
 
 <script>
 
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
 import TorrentRow from './TorrentRow'
 
 export default {
@@ -18,7 +18,7 @@ export default {
     TorrentRow
   },
   computed: {
-    ...mapState('session', ['torrents']),
+    ...mapGetters('session', ['torrents']),
   },
 }
 </script>

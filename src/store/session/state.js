@@ -2,7 +2,7 @@ export default function () {
   return {
     data: {},
     stats: {},
-    torrents: [],
+    torrents: {},
     activeTorrents: {},
   }
 }

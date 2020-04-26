@@ -20,6 +20,8 @@ class Torrent {
   {
     return this.status == RPCReference.status.DOWNLOAD
   }
+  // TODO: add a fromMany method to handle instantiation of multiple torrents
+  // at once
 }
 
 export default Torrent

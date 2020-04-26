@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from 'vuex'
+import { mapState, mapMutations, mapGetters } from 'vuex'
 import TorrentList from '../components/TorrentList'
 import TransmissionClient from '../services/transmission'
 import Torrent from '../models/torrent'
@@ -34,9 +34,13 @@ export default {
       // get torrents data
       this.fetchData()
       // get active torrents
-      this.service.active().then(({torrents}) => this.setActiveTorrents(torrents))
+      this.service.active().then(({torrents}) => {
+        this.setActiveTorrents(Object.fromEntries(
+          torrents.map(td => [td.id, (new Torrent(td))])
+        ))
+        this.interval = setInterval(this.fetchActives, 2000)
+      })
     })
-    this.interval = setInterval(this.fetchData, 2000)
     // TODO: set interval to check for active torrents
     // TODO: set interval to check if new active torrents
   },
@@ -51,12 +55,25 @@ export default {
       setSessionStats: 'SET_SESSION_STATS',
       setSessionTorrents: 'SET_SESSION_TORRENTS',
       setActiveTorrents: 'SET_ACTIVE_TORRENTS',
+      updateActiveTorrents: 'UPDATE_ACTIVE_TORRENTS',
     }),
+    fetchActives: function ()
+    {
+      // TODO: after first fetch, get only active-torrents
+      this.service.get(this.activeTorrentsIds).then(({torrents}) => {
+        this.updateActiveTorrents(torrents.map(td => new Torrent(td)))
+      })
+    },
     fetchData: function ()
     {
       // TODO: after first fetch, get only active-torrents
       this.service.get().then(({torrents}) => {
-        this.setSessionTorrents(torrents.map(td => new Torrent(td)))
+        this.setSessionTorrents(Object.fromEntries(
+          // TODO: maybe the store should be in charge of how to save the
+          // torrents, ie: always send and expect an array to and from the store,
+          // however the store can internally mutate that as needed
+          torrents.map(td => [td.id, (new Torrent(td))])
+        ))
       })
     }
   },
@@ -68,6 +85,7 @@ export default {
       'stats',
       'activeTorrents'
     ]),
+    ...mapGetters('session', ['activeTorrentsIds']),
   }
 }
 </script>
