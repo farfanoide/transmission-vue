@@ -36,15 +36,11 @@ export default {
       // get active torrents
       this.service.active().then(({torrents}) => this.setActiveTorrents(torrents))
     })
-    if (!this.interval) // extra check for HMR while developing
-    {
-      // TODO: add interval config
-      this.interval = setInterval(this.fetchData, 2000)
-    }
-    // set interval to check for active torrents
-    // set interval to check if new active torrents
+    this.interval = setInterval(this.fetchData, 2000)
+    // TODO: set interval to check for active torrents
+    // TODO: set interval to check if new active torrents
   },
-  onBeforeDestroy()
+  beforeDestroy()
   {
     clearInterval(this.interval)
   },
