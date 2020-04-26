@@ -54,6 +54,7 @@ module.exports = function (/* ctx */) {
 
       components: [
         'QBtn',
+        'QDialog',
         'QDrawer',
         'QHeader',
         'QIcon',
@@ -73,12 +74,14 @@ module.exports = function (/* ctx */) {
       ],
 
       directives: [
-        'Ripple'
+        'ClosePopup',
+        'Ripple',
       ],
 
       // Quasar plugins
       plugins: [
-        'LocalStorage',
+        'Dialog',
+        'Notify',
       ]
     },
 

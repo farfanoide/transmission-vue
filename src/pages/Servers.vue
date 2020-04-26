@@ -41,7 +41,7 @@
         <q-item-section>
           <q-item-label lines="1">
             <span class="text-grey-8"
-                   @click='addServer'>
+                  @click='addServer'>
               Add another one
             </span>
           </q-item-label>
@@ -60,25 +60,21 @@
       </q-item>
     </q-list>
 
-    <template>
-      <div class="q-pa-md q-gutter-sm">
 
-        <q-dialog v-model="showServerModal" transition-show="scale" transition-hide="scale">
-          <q-card style="width: 700px; max-width: 80vw;">
-            <q-card-section>
-              <div class="text-h6">
-                {{currentServer.isNew ? 'Create Server' : 'Edit Server Settings'}}
-              </div>
-            </q-card-section>
+    <q-dialog v-model="showServerModal" transition-show="scale" transition-hide="scale" :maximized="modalsMaximized">
+      <q-card style="min-width: 700px;">
+        <q-card-section>
+          <div class="text-h6">
+            {{currentServer.isNew ? 'Create Server' : 'Edit Server Settings'}}
+          </div>
+        </q-card-section>
 
-            <q-card-section class="q-pt-none">
-              <server-form :server-data="currentServer"></server-form>
-            </q-card-section>
+        <q-card-section class="q-pt-none">
+          <server-form :server-data="currentServer"></server-form>
+        </q-card-section>
 
-          </q-card>
-        </q-dialog>
-      </div>
-    </template>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -99,6 +95,7 @@ export default {
   data () {
     return {
       showServerModal: false,
+      modalsMaximized: false,  // TODO: show modal maximised on mobiles
     }
   },
   methods: {
