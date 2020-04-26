@@ -1,4 +1,5 @@
 import RPCReference from './rpc'
+import TransmissionFormatter from './formatter'
 
 const TorrentPresenterHandler = {
   // here we store all presentation logic, for example how to format specific
@@ -42,6 +43,11 @@ const TorrentPresenterHandler = {
       // happy path, we have both peers and webseed available
       return `Downloading from ${target.webseedsSendingToUs} webseed${target.webseedsSendingToUs > 1 ? 's' : ''}`
     }
+  },
+
+  networkStats: function (target, prop, receiver)
+  {
+    return `↓ ${TransmissionFormatter.speedBps(target.rateDownload)} ↑ ${TransmissionFormatter.speedBps(target.rateUpload)}`
   },
 
 

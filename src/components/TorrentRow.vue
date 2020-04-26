@@ -7,7 +7,7 @@
         </div>
         <div class="networking">
           <template v-if="torrent.isDownloading()">
-            {{torrentPresenter.downloadingPeersInfo}}
+            {{torrentPresenter.downloadingPeersInfo}} - {{torrentPresenter.networkStats}}
           </template>
           <template v-else>
             {{torrentPresenter.statusName}}
