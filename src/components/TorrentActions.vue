@@ -1,17 +1,25 @@
 <template>
-  <q-page class="flex flex-center">
-    show buttons and actions available to one or more torrents
-  </q-page>
+  <div>
+    <q-btn flat size="sm">
+      Remove
+    </q-btn>
+    <br>
+    <q-btn flat size="sm">
+      Pause
+    </q-btn>
+    <br>
+    <q-btn flat size="sm">
+      Restart
+    </q-btn>
+    <!-- TODO: A `Share` button would be nice -->
+  </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 export default {
   name: 'TorrentActions',
-  computed: {
-    // torrent-session
-    // torrents
-  }
+  props: ['torrent', 'torrentPresenter'],
 }
 </script>
 

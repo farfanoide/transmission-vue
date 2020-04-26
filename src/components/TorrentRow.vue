@@ -22,17 +22,21 @@
       </div>
     </div>
     <div class="col-2 actions-container">
-      actions
+      <torrent-actions :torrent="torrent" :torrentPresenter="torrentPresenter"></torrent-actions>
     </div>
   </div>
 </template>
 
 <script>
 import TorrentPresenter from '../lib/torrent_presenter'
+import TorrentActions from './TorrentActions.vue'
 
 export default {
   name: 'TorrentRow',
   props: ['torrent', 'enabledColumns'],
+  components: {
+    TorrentActions,
+  },
   computed:
   {
     torrentPresenter: function ()

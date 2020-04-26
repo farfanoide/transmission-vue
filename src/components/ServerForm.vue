@@ -7,6 +7,7 @@
 
       <q-input
         filled
+        autofocus
         v-model="server.displayName"
         label="Display Name for the server (optional)">
       </q-input>
