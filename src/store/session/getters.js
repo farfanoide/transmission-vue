@@ -7,3 +7,8 @@ export function activeTorrentsIds (state)
 {
   return Object.keys(state.activeTorrents).map(strId => Number(strId))
 }
+
+export function selectedTorrents (state)
+{
+  return state.selectedTorrents
+}

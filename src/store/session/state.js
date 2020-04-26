@@ -4,5 +4,6 @@ export default function () {
     stats: {},
     torrents: {},
     activeTorrents: {},
+    selectedTorrents: [],
   }
 }

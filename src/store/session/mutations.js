@@ -27,3 +27,15 @@ export function UPDATE_ACTIVE_TORRENTS (state, torrents)
     state.torrents[torrent.id] = torrent
   }
 }
+
+export function TOGGLE_SELECED_TORRENT ({ selectedTorrents }, torrentId)
+{
+  selectedTorrents.includes(torrentId) ?
+    selectedTorrents.splice(selectedTorrents.indexOf(torrentId), 1) :
+    selectedTorrents.push(torrentId)
+}
+
+export function CLEAR_SELECTED_TORRENTS (state)
+{
+  state.selectedTorrents = []
+}

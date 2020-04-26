@@ -1,6 +1,34 @@
 <template>
   <q-page class="flex">
     <torrent-list></torrent-list>
+
+    <q-dialog v-model="showMultTorrentActions" seamless position="bottom">
+      <q-card style="width: 100%">
+
+        <q-card-section class="row items-center no-wrap">
+          <div>
+            <div class="text-weight-bold">
+              Apply action on multiple Torrents
+            </div>
+            <div class="text-grey">
+            </div>
+          </div>
+
+          <q-space></q-space>
+
+          <q-btn flat round icon="play_arrow">
+          </q-btn>
+          <q-btn flat round icon="pause">
+          </q-btn>
+          <q-btn flat round icon="delete">
+          </q-btn>
+
+          <q-space></q-space>
+
+          <q-btn flat round icon="close" @click="clearSelectedTorrents"/>
+        </q-card-section>
+      </q-card>
+    </q-dialog>
   </q-page>
 </template>
 
@@ -19,6 +47,7 @@ export default {
   {
     return {
       interval: null,
+
     }
   },
   created()
@@ -56,6 +85,7 @@ export default {
       setSessionTorrents: 'SET_SESSION_TORRENTS',
       setActiveTorrents: 'SET_ACTIVE_TORRENTS',
       updateActiveTorrents: 'UPDATE_ACTIVE_TORRENTS',
+      clearSelectedTorrents: 'CLEAR_SELECTED_TORRENTS',
     }),
     fetchActives: function ()
     {
@@ -85,7 +115,11 @@ export default {
       'stats',
       'activeTorrents'
     ]),
-    ...mapGetters('session', ['activeTorrentsIds']),
+    ...mapGetters('session', ['activeTorrentsIds', 'selectedTorrents']),
+    showMultTorrentActions: function ()
+    {
+      return this.selectedTorrents.length > 0
+    },
   }
 }
 </script>

@@ -1,5 +1,8 @@
 <template>
-  <div class="torrent-row row">
+  <div class="torrent-row row shadow-transition"
+       :class="{selected: isSelected, 'shadow-6': isSelected}"
+       @click="toggleSelecedTorrent(torrent.id)">
+
     <div class="col-10 data-container">
       <div class="column">
         <div class="name">
@@ -14,7 +17,7 @@
           </template>
         </div>
         <div class="progressbar">
-          <q-linear-progress :value="torrent.percentDone" class="q-mt-md" />
+          <q-linear-progress color='positive' :value="torrent.percentDone" class="q-mt-md" />
         </div>
         <div class="file-stats">
           {{torrentPresenter.sizeWhenDone}}
@@ -28,6 +31,7 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex'
 import TorrentPresenter from '../lib/torrent_presenter'
 import TorrentActions from './TorrentActions.vue'
 
@@ -37,14 +41,25 @@ export default {
   components: {
     TorrentActions,
   },
+  methods:
+  {
+    ...mapMutations('session', {
+      // TODO: add `shift` modifier
+      toggleSelecedTorrent: 'TOGGLE_SELECED_TORRENT'
+    }),
+  },
   computed:
   {
+    ...mapGetters('session', ['selectedTorrents']),
     torrentPresenter: function ()
     {
       return new TorrentPresenter(this.torrent)
+    },
+    isSelected: function ()
+    {
+      return this.selectedTorrents.includes(this.torrent.id)
     }
   }
-
 }
 </script>
 
@@ -55,6 +70,10 @@ export default {
   border: 1px solid rgba(0, 0, 0, 0.3);
   background: rgba(245, 245, 245, 0.61);
   border-radius: .2em;
+}
+
+.torrent-row.selected {
+  background: rgba(245, 245, 245, 1);
 }
 
 .torrent-row .data-container,
