@@ -2,12 +2,12 @@
   <q-page class="flex">
     <torrent-list></torrent-list>
 
-    <q-dialog v-model="showMultTorrentActions" seamless position="bottom">
+    <q-dialog v-model="showTorrentActions" seamless position="bottom">
       <q-card style="width: 100%">
 
         <q-card-section class="row items-center no-wrap">
           <div>
-            <div class="text-weight-bold">
+            <div class="text-weight-bold" v-show="multipleTorrentsSelected">
               Apply action on multiple Torrents
             </div>
             <div class="text-grey">
@@ -47,13 +47,19 @@ export default {
   {
     return {
       interval: null,
-
-    }
+      service: null,
   },
   created()
   {
     // create api client
-    this.service = new TransmissionClient(this.currentServer)
+    if (this.$q.platform.is.android)
+    {
+      let clientConfig = {httpInterface: this.$q.capacitor.Plugins.Http}
+      Object.assign(clientConfig, this.currentServer)
+      this.service = new TransmissionClient(clientConfig)
+    } else {
+      this.service = new TransmissionClient(this.currentServer)
+    }
     // get session data
     this.service.session().then(data => {
 
@@ -116,10 +122,14 @@ export default {
       'activeTorrents'
     ]),
     ...mapGetters('session', ['activeTorrentsIds', 'selectedTorrents']),
-    showMultTorrentActions: function ()
+    showTorrentActions: function ()
     {
       return this.selectedTorrents.length > 0
     },
+    multipleTorrentsSelected: function ()
+    {
+      return this.selectedTorrents.length > 1
+    }
   }
 }
 </script>
