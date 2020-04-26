@@ -3,14 +3,17 @@
     <div class="col-10 data-container">
       <div class="column">
         <div class="name">
-          {{torrent.name}}
+          <strong>{{torrent.name}}</strong>
         </div>
         <div class="networking">
-          {{torrentPresenter.statusName}}
-          ETA: {{torrentPresenter.eta}}
+          <template v-if="torrent.isDownloading()">
+            {{torrentPresenter.downloadingPeersInfo}}
+          </template>
+          <template v-else>
+            {{torrentPresenter.statusName}}
+          </template>
         </div>
         <div class="progressbar">
-          <!-- {{torrent.percentDone}} -->
           <q-linear-progress :value="torrent.percentDone" class="q-mt-md" />
         </div>
         <div class="file-stats">

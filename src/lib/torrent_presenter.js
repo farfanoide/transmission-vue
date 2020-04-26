@@ -23,6 +23,28 @@ const TorrentPresenterHandler = {
     return RPCReference.statusName(target.status)
   },
 
+  downloadingPeersInfo: function (target, prop, receiver)
+  {
+    if (target.peersConnected && target.webseedsSendingToUs)
+    {
+      // happy path, we have both peers and webseed available
+      return `Downloading from ${target.peersSendingToUs} of ${target.peersConnected} peer${target.peersConnected > 1 ? 's' : ''} and ${target.webseedsSendingToUs} webseed${target.webseedsSendingToUs > 1 ? 's' : ''}`
+    }
+
+    if (target.peersConnected)
+    {
+      // happy path, we have both peers and webseed available
+      return `Downloading from ${target.peersSendingToUs} of ${target.peersConnected} peer${target.peersConnected > 1 ? 's' : ''}`
+    }
+
+    if (target.webseedsSendingToUs)
+    {
+      // happy path, we have both peers and webseed available
+      return `Downloading from ${target.webseedsSendingToUs} webseed${target.webseedsSendingToUs > 1 ? 's' : ''}`
+    }
+  },
+
+
   dateCreated: function(target, prop, receiver)
   {
     let date = target[prop]

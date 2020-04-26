@@ -65,18 +65,33 @@ const TorrentColumnsReference = {
 }
 
 const StatusReference = {
-  0: 'STOPPED',         // Torrent is stopped
-  1: 'CHECK_WAIT',      // Queued to check files
-  2: 'CHECK',           // Checking files
-  3: 'DOWNLOAD_WAIT',   // Queued to download
-  4: 'DOWNLOAD',        // Downloading
-  5: 'SEED_WAIT',       // Queued to seed
-  6: 'SEED',            // Seeding
-  7: 'ISOLATED',        // Torrent can't find peers
+
+  // local representation of possible statuses
+  STOPPED:       'STOPPED',         // Torrent is stopped
+  CHECK_WAIT:    'CHECK_WAIT',      // Queued to check files
+  CHECK:         'CHECK',           // Checking files
+  DOWNLOAD_WAIT: 'DOWNLOAD_WAIT',   // Queued to download
+  DOWNLOAD:      'DOWNLOAD',        // Downloading
+  SEED_WAIT:     'SEED_WAIT',       // Queued to seed
+  SEED:          'SEED',            // Seeding
+  ISOLATED:      'ISOLATED',        // Torrent can't find peers
+
+}
+
+StatusReference.fromRpc = {
+  // mapping of RPC status codes to local representation
+  0: StatusReference.STOPPED,         // Torrent is stopped
+  1: StatusReference.CHECK_WAIT,      // Queued to check files
+  2: StatusReference.CHECK,           // Checking files
+  3: StatusReference.DOWNLOAD_WAIT,   // Queued to download
+  4: StatusReference.DOWNLOAD,        // Downloading
+  5: StatusReference.SEED_WAIT,       // Queued to seed
+  6: StatusReference.SEED,            // Seeding
+  7: StatusReference.ISOLATED,        // Torrent cant find peers
 }
 
 StatusReference.names = {
-  // now by slug first
+  // Display Representation of torrent statuses
   STOPPED:       'Paused',
   CHECK_WAIT:    'Queued for verification',
   CHECK:         'Verifying local data',
@@ -101,7 +116,7 @@ class RPCReference {
 
   static statusSlug(statusId)
   {
-    return this.status[statusId] || 'Unknown'
+    return this.status.fromRpc[statusId] || 'Unknown'
   }
 
   static statusName(statusSlug)

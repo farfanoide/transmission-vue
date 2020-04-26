@@ -1,4 +1,5 @@
 import RPCReference from './rpc'
+import TransmissionFormatter from './formatter'
 
 export function percent (val)
 {
@@ -12,13 +13,16 @@ export function  date (seconds)
 
 export  function size (bytes)
 {
-   var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-   if (bytes == 0) return '0 Byte';
-   var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-   return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
+  return TransmissionFormatter.size(bytes)
 }
 
 export function status (statusId)
 {
+  // Map RPC status to our personal more readable status slugs, ie: `0` becomes
+  // "STOPPED"
+  // TODO: theres a special status not present in the rpc which is when the
+  // torrent is 'STOPPED' but has also the isFinished flag set to true which
+  // represents a "Finished Seeding" status, this could be an extra status on
+  // our side to make filters easy and everything more cohesive.
   return RPCReference.statusSlug(statusId)
 }
