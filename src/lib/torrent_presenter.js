@@ -1,3 +1,5 @@
+import RPCReference from './rpc'
+
 const TorrentPresenterHandler = {
   // here we store all presentation logic, for example how to format specific
   // dates, etc
@@ -6,26 +8,32 @@ const TorrentPresenterHandler = {
   {
     if (this.hasOwnProperty(prop))
     {
-      return this[prop](target[prop])
+      return this[prop](target, prop, receiver)
     }
     return Reflect.get(...arguments);
   },
 
-  percentDone: function(percent)
+  percentDone: function(target, prop, receiver)
   {
-    return percent + '%'
+    return `${target.percentDone}%`
   },
 
-  dateCreated: function(date)
+  statusName: function (target, prop, receiver)
   {
+    return RPCReference.statusName(target.status)
+  },
 
+  dateCreated: function(target, prop, receiver)
+  {
+    let date = target[prop]
     return (typeof(date) == "object" ) ?
       date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds() :
       date
   },
 
-  eta: function (seconds)
+  eta: function (target, prop, receiver)
   {
+    let seconds = target[prop]
     if (seconds <= 0) { return '-' }
     let days = Math.floor(seconds / 86400);
     let hours = Math.floor((seconds % 86400) / 3600);

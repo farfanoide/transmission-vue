@@ -1,4 +1,5 @@
 import * as libmappers from './libmappers'
+import TransmissionFormatter from './formatter'
 
 const MAPPERS = {
   'activityDate':            libmappers.date,
@@ -52,7 +53,7 @@ const MAPPERS = {
   // 'seedRatioMode':           'Seed Ratio Mode',
   'sizeWhenDone':            libmappers.size,
   'startDate':               libmappers.date,
-  // 'status':                  'Status',
+  'status':                  libmappers.status,
   // 'torrentFile':             'Torrent File',
   'totalSize':               libmappers.size,
   // 'trackerStats':            'Tracker Stats',

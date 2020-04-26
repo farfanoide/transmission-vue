@@ -64,13 +64,51 @@ const TorrentColumnsReference = {
   'webseedsSendingToUs':     'Webseeds Sending To Us',
 }
 
+const StatusReference = {
+  0: 'STOPPED',         // Torrent is stopped
+  1: 'CHECK_WAIT',      // Queued to check files
+  2: 'CHECK',           // Checking files
+  3: 'DOWNLOAD_WAIT',   // Queued to download
+  4: 'DOWNLOAD',        // Downloading
+  5: 'SEED_WAIT',       // Queued to seed
+  6: 'SEED',            // Seeding
+  7: 'ISOLATED',        // Torrent can't find peers
+}
+
+StatusReference.names = {
+  // now by slug first
+  STOPPED:       'Paused',
+  CHECK_WAIT:    'Queued for verification',
+  CHECK:         'Verifying local data',
+  DOWNLOAD_WAIT: 'Queued for download',
+  DOWNLOAD:      'Downloading',
+  SEED_WAIT:     'Queued for seeding',
+  SEED:          'Seeding',
+  ISOLATED:      'Isolated',
+}
+
 // TODO: maybe move torrent_mapper.MAPPERS reference here and have
 // a SSOT for all RPC related data
 class RPCReference {
+
+  static status = StatusReference;
+  static fields = TorrentColumnsReference;
+
   static columnName(column)
   {
-    return TorrentColumnsReference[column] || column
+    return this.fields[column] || column
   }
+
+  static statusSlug(statusId)
+  {
+    return this.status[statusId] || 'Unknown'
+  }
+
+  static statusName(statusSlug)
+  {
+    return this.status.names[statusSlug]
+  }
+
 }
 
 export default RPCReference

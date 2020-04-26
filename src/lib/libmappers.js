@@ -1,6 +1,8 @@
+import RPCReference from './rpc'
+
 export function percent (val)
 {
-  return (val * 100).toFixed(2).substring(0, 3)
+  return val * 100
 }
 
 export function  date (seconds)
@@ -16,4 +18,7 @@ export  function size (bytes)
    return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
 }
 
-
+export function status (statusId)
+{
+  return RPCReference.statusSlug(statusId)
+}

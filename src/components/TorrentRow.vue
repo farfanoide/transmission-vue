@@ -1,10 +1,27 @@
 <template>
-  <tr>
-    <td v-for="(column, index) in enabledColumns"
-        :key="`col-${column}-${index}`">
-      {{torrentPresenter[column]}}
-    </td>
-  </tr>
+  <div class="torrent-row row">
+    <div class="col-10 data-container">
+      <div class="column">
+        <div class="name">
+          {{torrent.name}}
+        </div>
+        <div class="networking">
+          {{torrentPresenter.statusName}}
+          ETA: {{torrentPresenter.eta}}
+        </div>
+        <div class="progressbar">
+          <!-- {{torrent.percentDone}} -->
+          <q-linear-progress :value="torrent.percentDone" class="q-mt-md" />
+        </div>
+        <div class="file-stats">
+          {{torrentPresenter.sizeWhenDone}}
+        </div>
+      </div>
+    </div>
+    <div class="col-2 actions-container">
+      actions
+    </div>
+  </div>
 </template>
 
 <script>
@@ -25,3 +42,20 @@ export default {
 </script>
 
 
+<style>
+.torrent-row {
+  margin: 1em;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: rgba(245, 245, 245, 0.61);
+  border-radius: .2em;
+}
+
+.torrent-row .data-container,
+.torrent-row .actions-container {
+  padding: .5em;
+}
+
+.torrent-row .data-container {
+  border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+</style>
