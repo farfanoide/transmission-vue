@@ -10,6 +10,9 @@
             </q-avatar>
           </router-link>
         </q-toolbar-title>
+
+        <network-status></network-status>
+
       </q-toolbar>
     </q-header>
 
@@ -25,7 +28,13 @@
 </template>
 
 <script>
+import NetworkStatus from '../components/NetworkStatus'
+
 export default {
+  components:
+  {
+    NetworkStatus,
+  },
   data () {
     return {
       left: false

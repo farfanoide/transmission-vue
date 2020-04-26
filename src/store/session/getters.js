@@ -1,6 +1,6 @@
 export function torrents (state)
 {
-  return Object.keys(state.torrents).map(id => state.torrents[id])
+  return Object.keys(state.torrents).map(id => state.torrents[id]) || []
 }
 
 export function activeTorrentsIds (state)
@@ -11,4 +11,14 @@ export function activeTorrentsIds (state)
 export function selectedTorrents (state)
 {
   return state.selectedTorrents
+}
+
+export function totalUploadRate (state)
+{
+  return torrents(state).reduce((sum, torrent) => {return sum + torrent.rateUpload}, 0)
+}
+
+export function totalDownloadRate (state)
+{
+  return torrents(state).reduce((sum, torrent) => {return sum + torrent.rateDownload}, 0)
 }

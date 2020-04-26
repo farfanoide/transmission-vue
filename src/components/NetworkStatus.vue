@@ -1,17 +1,25 @@
 <template>
-  <q-page class="flex flex-center">
-    Show network status, graph, arrows, etc
-  </q-page>
+  <div>
+    ↓ {{ totalDownloadRate | speedBps }} ↑ {{ totalUploadRate | speedBps}}
+  </div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
+import TransmissionFormatter from '../lib/formatter'
+
 export default {
   name: 'NetworkStatus',
   computed: {
+    ...mapGetters('session', ['totalUploadRate', 'totalDownloadRate'])
+  },
+  filters:
+  {
+    speedBps: function (bytes)
+    {
+      return TransmissionFormatter.speedBps(bytes)
+    }
   }
+
 }
 </script>
-
-
-
