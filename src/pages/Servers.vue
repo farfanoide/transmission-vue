@@ -62,7 +62,7 @@
 
 
     <q-dialog v-model="showServerModal" transition-show="scale" transition-hide="scale" :maximized="modalsMaximized">
-      <q-card style="min-width: 700px;">
+      <q-card style="min-width: 400px;">
         <q-card-section>
           <div class="text-h6">
             {{currentServer.isNew ? 'Create Server' : 'Edit Server Settings'}}
