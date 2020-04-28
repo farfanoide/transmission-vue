@@ -23,3 +23,16 @@ export function SET_CURRENT_SERVER (state, server)
   state.currentServer = server
 }
 
+export function TOGGLE_DEFAULT_SERVER (state, server)
+{
+  let setDefault = !server.isDefault
+  for (let s of state.servers)
+  {
+    // toggle specific server to iether default or not, regardles of other
+    // servers
+    s.isDefault = (s.id == server.id) ?
+      setDefault :
+      ((setDefault) ? false : s.isDefault)
+      // other servers must only be changed if a new default is set
+  }
+}

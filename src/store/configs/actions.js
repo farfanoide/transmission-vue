@@ -25,3 +25,8 @@ export function deleteServer ({ commit }, server)
 {
   commit('DELETE_SERVER', server)
 }
+
+export function toggleDefaultServer ({ commit }, server)
+{
+  commit('TOGGLE_DEFAULT_SERVER', server)
+}

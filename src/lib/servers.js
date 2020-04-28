@@ -4,6 +4,7 @@ export function defaultServerTemplate()
   // TODO: add a Server class for all this logic and maybe more. we could also
   // serialize and deserialize server objects from localstorage
   return {
+    isDefault: false,
     displayName: null,
     host: 'localhost',
     url: '/transmission/rpc',
@@ -19,6 +20,7 @@ export function defaultServerTemplate()
 export function emptyServerTemplate()
 {
   return {
+    isDefault: false,
     displayName: null,
     host: '',
     url: '',
