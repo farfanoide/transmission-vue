@@ -18,6 +18,8 @@
         </div>
         <div class="progressbar">
           <q-linear-progress color='positive' :value="torrent.percentDone" class="q-mt-md" />
+            <!-- TODO: check how to add  gradient to progressbars -->
+            <!-- style="background: linear&#45;gradient(145deg,#1976d2 11%,#0f477e 75%)"  -->
         </div>
         <div class="file-stats">
           {{torrentPresenter.sizeWhenDone}}
@@ -74,6 +76,7 @@ export default {
 
 .torrent-row.selected {
   background: rgba(245, 245, 245, 1);
+  border-color: var(--q-color-positive);
 }
 
 .torrent-row .data-container,

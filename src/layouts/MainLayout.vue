@@ -11,6 +11,7 @@
           </router-link>
         </q-toolbar-title>
 
+        <!-- TODO: only show this if a server is actually selected -->
         <network-status></network-status>
         <speed-setting></speed-setting>
 
@@ -22,7 +23,7 @@
     <!-- </q&#45;drawer> -->
 
     <q-page-container>
-      <router-view />
+      <router-view></router-view>
     </q-page-container>
 
   </q-layout>
