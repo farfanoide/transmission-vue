@@ -1,9 +1,6 @@
 <template>
   <div @click="checkConnection">
-    <q-btn class="gt-xs"
-           size="12px"
-           flat dense round
-           :icon="connectionIcon">
+    <q-btn size="sm" flat round :icon="connectionIcon">
       <q-tooltip anchor="top middle" :offset="[30, 30]">
         {{this.message}}
       </q-tooltip>
@@ -22,6 +19,9 @@ export default {
     return {
       connection: null,
       status: 'initial',
+      //TODO: make status reactive by props, ie: if server data changes we
+      // should know our config is no longer valid and status should be reset
+      // to initial
       icons: {
         initial: 'link',
         success: 'done',
@@ -47,6 +47,21 @@ export default {
         .catch(error => { this.status = 'error' })
     },
   },
+  mounted()
+  {
+    if (this.server) { this.checkConnection() }
+  },
+  // TODO: try and check when server data changes, however if for example
+  // serverForm is being used, its very uncomfortable getting the http basic auth
+  // prompt on every keystroke so maybe checkConnection on 'ENTER' or on 'SUBMIT'
+  // watch:
+  // {
+  //   server:
+  //   {
+  //     handler: 'checkConnection',
+  //     deep: true,
+  //   }
+  // },
   computed:
   {
     connectionIcon: function ()

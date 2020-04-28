@@ -8,13 +8,13 @@
 
       <q-item v-for="(server, index) in servers" :key="`server-${index}-${server.host}`" clickable v-ripple>
 
-        <q-item-section avatar>
+        <q-item-section side>
           <server-connection-status :server="server">
           </server-connection-status>
         </q-item-section>
 
         <q-item-section @click="chooseServer(server)">
-          {{server.displayName || server.host}}
+            {{server.displayName || server.host}}
         </q-item-section>
 
         <q-item-section side>
@@ -24,6 +24,14 @@
                 Edit Server
               </q-tooltip>
             </q-fab-action>
+
+            <q-fab-action @click="toggleDefaultServer(server)"
+                         :icon="server.isDefault ? 'star' : 'star_outline'" flat>
+              <q-tooltip anchor="top middle" :offset="[30, 30]">
+                {{server.isDefault ? 'Unset' : 'Set'}} as default server.
+              </q-tooltip>
+            </q-fab-action>
+
             <q-fab-action @click="confirmAndDeleteServer(server)" icon="delete" flat>
               <q-tooltip anchor="top middle" :offset="[30, 30]">
                 Delete Server
@@ -62,7 +70,7 @@
 
 
     <q-dialog v-model="showServerModal" transition-show="scale" transition-hide="scale" :maximized="modalsMaximized">
-      <q-card style="min-width: 700px;">
+      <q-card style="min-width: 400px;">
         <q-card-section>
           <div class="text-h6">
             {{currentServer.isNew ? 'Create Server' : 'Edit Server Settings'}}
@@ -99,7 +107,11 @@ export default {
     }
   },
   methods: {
-    ...mapActions('configs', ['deleteServer', 'setCurrentServer']),
+    ...mapActions('configs', [
+      'deleteServer',
+      'setCurrentServer',
+      'toggleDefaultServer'
+    ]),
     editServer(server)
     {
       this.setCurrentServer(server)
