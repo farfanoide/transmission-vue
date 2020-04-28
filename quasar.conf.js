@@ -71,6 +71,8 @@ module.exports = function (/* ctx */) {
         'QTabPanels',
         'QToolbar',
         'QToolbarTitle',
+        'QInput',
+        'QForm'
       ],
 
       directives: [

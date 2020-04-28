@@ -9,8 +9,10 @@
               <img src="~assets/logo.png" />
             </q-avatar>
           </router-link>
+          
+          
         </q-toolbar-title>
-
+        <torrent-search></torrent-search>
         <network-status></network-status>
         <speed-setting></speed-setting>
 
@@ -31,12 +33,14 @@
 <script>
 import NetworkStatus from '../components/NetworkStatus'
 import SpeedSetting from '../components/SpeedSetting'
+import TorrentSearch from '../components/TorrentSearch'
 
 export default {
   components:
   {
     NetworkStatus,
     SpeedSetting,
+    TorrentSearch
   },
   data () {
     return {

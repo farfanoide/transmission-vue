@@ -37,6 +37,15 @@ export default function attachBackgroundHooks (bridge /* , allActiveConnections 
     })
   })
 
+
+  // The quick search input has been filled and submitted
+  bridge.on('app.pirateSearch', event => {
+    const queryString = event.data.searchString.split(' ').join('+')
+    chrome.tabs.create(
+      {url: `https://boatmy.art/search.php?q=${queryString}`}
+    )
+    bridge.send(event.eventResponseKey);
+  })
   /*
   // EXAMPLES
   // Listen to a message from the client
