@@ -6,6 +6,14 @@ export function toggleSpeedSetting ({ rootGetters, state, commit })
     .then((resp) => commit('UPDATE_SESSION_DATA', sessionParams))
 }
 
+// TODO: after calling the api, need to update active torrents
+export function startTorrentsNow ( {rootGetters, commit }, torrentIds )
+{
+  rootGetters['configs/client'].startNow(torrentIds)
+    .then(console.log)
+    .catch(console.log)
+}
+
 export function startTorrents( {rootGetters, commit }, torrentIds )
 {
   rootGetters['configs/client'].start(torrentIds)

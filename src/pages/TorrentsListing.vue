@@ -17,6 +17,11 @@
           <q-space></q-space>
 
           <!-- TODO: move to its own component -->
+          <q-btn flat round icon="priority_high" @click="startTorrentsNow(selectedTorrents)">
+            <q-tooltip anchor="top middle" :offset="[30, 30]">
+              Start Now
+            </q-tooltip>
+          </q-btn>
           <q-btn flat round icon="play_arrow" @click="startTorrents(selectedTorrents)">
             <q-tooltip anchor="top middle" :offset="[30, 30]">
               Start
@@ -108,6 +113,7 @@ export default {
       clearSelectedTorrents: 'CLEAR_SELECTED_TORRENTS',
     }),
     ...mapActions('session', [
+      'startTorrentsNow',
       'startTorrents',
       'stopTorrents',
     ]),
