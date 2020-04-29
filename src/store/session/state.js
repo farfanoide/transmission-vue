@@ -1,6 +1,6 @@
 export default function () {
   return {
-    data: {},
+    data: {}, // rename to session or something better
     stats: {},
     torrents: {},
     activeTorrents: {},

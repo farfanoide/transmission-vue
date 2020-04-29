@@ -16,16 +16,36 @@
 
           <q-space></q-space>
 
-          <q-btn flat round icon="play_arrow">
+          <!-- TODO: move to its own component -->
+          <q-btn flat round icon="play_arrow" @click="startTorrents(selectedTorrents)">
+            <q-tooltip anchor="top middle" :offset="[30, 30]">
+              Start
+            </q-tooltip>
           </q-btn>
-          <q-btn flat round icon="pause">
+          <q-btn flat round icon="pause" @click="stopTorrents(selectedTorrents)">
+            <q-tooltip anchor="top middle" :offset="[30, 30]">
+              Pause
+            </q-tooltip>
           </q-btn>
-          <q-btn flat round icon="delete">
+
+          <q-btn flat round icon="delete" disabled>
+            <q-tooltip anchor="top middle" :offset="[30, 30]">
+              Remove
+            </q-tooltip>
+          </q-btn>
+          <q-btn flat round icon="delete_forever" disabled>
+            <q-tooltip anchor="top middle" :offset="[30, 30]">
+              Delete Files and Remove
+            </q-tooltip>
           </q-btn>
 
           <q-space></q-space>
 
-          <q-btn flat round icon="close" @click="clearSelectedTorrents"/>
+          <q-btn flat round icon="close" @click="clearSelectedTorrents">
+            <q-tooltip anchor="top middle" :offset="[30, 30]">
+              Cancel
+            </q-tooltip>
+          </q-btn>
         </q-card-section>
       </q-card>
     </q-dialog>
@@ -33,7 +53,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations, mapGetters } from 'vuex'
+import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import TorrentList from '../components/TorrentList'
 import TransmissionClient from '../services/transmission'
 import Torrent from '../models/torrent'
@@ -87,6 +107,10 @@ export default {
       updateActiveTorrents: 'UPDATE_ACTIVE_TORRENTS',
       clearSelectedTorrents: 'CLEAR_SELECTED_TORRENTS',
     }),
+    ...mapActions('session', [
+      'startTorrents',
+      'stopTorrents',
+    ]),
     fetchActives: function ()
     {
       // TODO: after first fetch, get only active-torrents
