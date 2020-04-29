@@ -3,6 +3,11 @@ export function SET_SESSION_DATA (state, data)
   state.data = data;
 }
 
+export function UPDATE_SESSION_DATA (state, data)
+{
+  Object.assign(state.data, data)
+}
+
 export function SET_SESSION_STATS (state, stats)
 {
   state.stats = stats;
@@ -15,8 +20,6 @@ export function SET_SESSION_TORRENTS (state, torrents)
 
 export function SET_ACTIVE_TORRENTS (state, torrentIds)
 {
-  // TODO: active torrents are only needed for their ids, no need for the extra
-  // work and memory
   state.activeTorrents = torrentIds;
 }
 

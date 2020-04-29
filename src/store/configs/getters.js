@@ -1,3 +1,5 @@
+import TransmissionClient from '../../services/transmission'
+
 export function servers (state)
 {
   return state.servers
@@ -16,4 +18,9 @@ export function defaultServer (state)
 export function hasDefaultServer (state)
 {
   return state.servers.some(server => server.isDefault)
+}
+
+export function client (state)
+{
+  return new TransmissionClient(state.currentServer)
 }

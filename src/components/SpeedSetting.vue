@@ -1,5 +1,5 @@
 <template>
-  <q-btn icon='speed' flat round :class="iconClass">
+  <q-btn icon='speed' flat round :class="iconClass" @click="toggleSpeedSetting">
     <q-tooltip anchor="bottom left" :offset="[30, 30]">
       {{message}}
     </q-tooltip>
@@ -8,11 +8,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 import TransmissionFormatter from '../lib/formatter'
 
 export default {
   name: 'SpeedSetting',
+  methods:
+  {
+    // TODO: check and add a loading state
+    ...mapActions('session', ['toggleSpeedSetting']),
+  },
   computed:
   {
     ...mapState('session', ['data']),
