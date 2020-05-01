@@ -33,8 +33,8 @@
             </q-tooltip>
           </q-btn>
 
-          <q-btn flat round icon="delete" disabled>
-            <q-tooltip anchor="top middle" :offset="[30, 30]">
+          <q-btn flat round icon="delete" @click="deleteTorrents({torrentIds: selectedTorrents, deleteFiles: false})">
+            <q-tooltip anchor="top middle" :offset="[30, 30]" >
               Remove
             </q-tooltip>
           </q-btn>
@@ -92,7 +92,7 @@ export default {
         this.setActiveTorrents(Object.fromEntries(
           torrents.map(td => [td.id, (new Torrent(td))])
         ))
-        this.interval = setInterval(this.fetchActives, 2000)
+        this.interval = setInterval(this.fetchActives, 10000)
       })
     })
     // TODO: set interval to check for active torrents
@@ -116,6 +116,7 @@ export default {
       'startTorrentsNow',
       'startTorrents',
       'stopTorrents',
+      'deleteTorrents',
     ]),
     fetchActives: function ()
     {
