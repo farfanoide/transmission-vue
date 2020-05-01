@@ -33,12 +33,14 @@
             </q-tooltip>
           </q-btn>
 
-          <q-btn flat round icon="delete" @click="deleteTorrents({torrentIds: selectedTorrents, deleteFiles: false})">
+          <q-btn flat round icon="delete" 
+            @click="deleteTorrents({torrentIds: selectedTorrents, deleteFiles: false})">
             <q-tooltip anchor="top middle" :offset="[30, 30]" >
               Remove
             </q-tooltip>
           </q-btn>
-          <q-btn flat round icon="delete_forever" disabled>
+          <q-btn flat round icon="delete_forever" 
+            @click="deleteTorrents({torrentIds: selectedTorrents, deleteFiles: true})">
             <q-tooltip anchor="top middle" :offset="[30, 30]">
               Delete Files and Remove
             </q-tooltip>
