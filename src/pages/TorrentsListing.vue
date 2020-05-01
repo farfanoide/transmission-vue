@@ -1,67 +1,15 @@
 <template>
   <q-page class="flex">
     <torrent-list></torrent-list>
-
-    <q-dialog v-model="showMultTorrentActions" seamless position="bottom">
-      <q-card style="width: 100%">
-
-        <q-card-section class="row items-center no-wrap">
-          <div>
-            <div class="text-weight-bold">
-              Apply action on multiple Torrents
-            </div>
-            <div class="text-grey">
-            </div>
-          </div>
-
-          <q-space></q-space>
-
-          <!-- TODO: move to its own component -->
-          <q-btn flat round icon="priority_high" @click="startTorrentsNow(selectedTorrents)">
-            <q-tooltip anchor="top middle" :offset="[30, 30]">
-              Start Now
-            </q-tooltip>
-          </q-btn>
-          <q-btn flat round icon="play_arrow" @click="startTorrents(selectedTorrents)">
-            <q-tooltip anchor="top middle" :offset="[30, 30]">
-              Start
-            </q-tooltip>
-          </q-btn>
-          <q-btn flat round icon="pause" @click="stopTorrents(selectedTorrents)">
-            <q-tooltip anchor="top middle" :offset="[30, 30]">
-              Pause
-            </q-tooltip>
-          </q-btn>
-
-          <q-btn flat round icon="delete" 
-            @click="deleteTorrents({torrentIds: selectedTorrents, deleteFiles: false})">
-            <q-tooltip anchor="top middle" :offset="[30, 30]" >
-              Remove
-            </q-tooltip>
-          </q-btn>
-          <q-btn flat round icon="delete_forever" 
-            @click="deleteTorrents({torrentIds: selectedTorrents, deleteFiles: true})">
-            <q-tooltip anchor="top middle" :offset="[30, 30]">
-              Delete Files and Remove
-            </q-tooltip>
-          </q-btn>
-
-          <q-space></q-space>
-
-          <q-btn flat round icon="close" @click="clearSelectedTorrents">
-            <q-tooltip anchor="top middle" :offset="[30, 30]">
-              Cancel
-            </q-tooltip>
-          </q-btn>
-        </q-card-section>
-      </q-card>
-    </q-dialog>
+    <!-- bottom sheet -->
+    <multi-torrent-actions> </multi-torrent-actions>
   </q-page>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import TorrentList from '../components/TorrentList'
+import MultiTorrentActions from '../components/MultiTorrentActions'
 import TransmissionClient from '../services/transmission'
 import Torrent from '../models/torrent'
 
@@ -69,6 +17,7 @@ export default {
   name: 'TorrentsListing',
   components: {
     TorrentList,
+    MultiTorrentActions
   },
   data()
   {
@@ -112,14 +61,8 @@ export default {
       setSessionTorrents: 'SET_SESSION_TORRENTS',
       setActiveTorrents: 'SET_ACTIVE_TORRENTS',
       updateActiveTorrents: 'UPDATE_ACTIVE_TORRENTS',
-      clearSelectedTorrents: 'CLEAR_SELECTED_TORRENTS',
+      //clearSelectedTorrents: 'CLEAR_SELECTED_TORRENTS',
     }),
-    ...mapActions('session', [
-      'startTorrentsNow',
-      'startTorrents',
-      'stopTorrents',
-      'deleteTorrents',
-    ]),
     fetchActives: function ()
     {
       // TODO: after first fetch, get only active-torrents
@@ -147,12 +90,7 @@ export default {
       'data',
       'stats',
       'activeTorrents'
-    ]),
-    ...mapGetters('session', ['activeTorrentsIds', 'selectedTorrents']),
-    showMultTorrentActions: function ()
-    {
-      return this.selectedTorrents.length > 0
-    },
+    ])
   }
 }
 </script>
