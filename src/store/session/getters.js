@@ -25,7 +25,7 @@ export function totalDownloadRate (state)
 
 export function filteredTorrents (state)
 {
-  let { nameFilter, statusFilters } = state.activeFilters
+  let { nameFilter, statusFilters } = state
   let filtered = torrents(state)
 
   // TODO: check for all status types and move into Stand alone object

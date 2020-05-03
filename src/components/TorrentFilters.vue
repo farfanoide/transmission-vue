@@ -8,7 +8,7 @@
         </q-item-label>
         <q-item>
           <q-item-section>
-            <q-input dense outlined v-model="localFilters.nameFilter" >
+            <q-input dense outlined v-model="nameFilter" >
               <template v-slot:append>
                 <q-icon name="search" />
               </template>
@@ -29,7 +29,7 @@
             </q-item-label>
           </q-item-section>
           <q-item-section avatar>
-            <q-toggle color="blue" v-model="localFilters.statusFilters" :val="filter.value" />
+            <q-toggle color="blue" v-model="statusFilters" :val="filter.value" />
           </q-item-section>
         </q-item>
       </q-list>
@@ -55,10 +55,6 @@ export default {
   name: 'TorrentFilters',
   data() {
     return {
-      localFilters: {
-        nameFilter: '',
-        statusFilters: [],
-      },
       filters: [
         {
           icon: 'swap_vert',
@@ -89,37 +85,35 @@ export default {
       ],
     }
   },
-  created()
-  {
-    this.updateLocalFilters()
-  },
-  watch:
-  {
-    activeFilters: {
-      deep: true,
-      handler: 'updateLocalFilters',
-    },
-    localFilters: {
-      deep: true,
-      handler: function () {
-        this.updateActiveFilters(extend(true, {}, this.localFilters))
-      },
-    },
-  },
-
   methods: {
     ...mapMutations('session', {
-      updateActiveFilters: 'UPDATE_ACTIVE_FILTERS',
+      updateNameFilter: 'UPDATE_NAME_FILTER',
+      updateStatusFilters: 'UPDATE_STATUS_FILTERS',
       clearFilters: 'CLEAR_FILTERS',
     }),
-    updateLocalFilters: function ()
-    {
-      this.localFilters = extend(true, this.localFilters, this.activeFilters)
-    }
   },
   computed: {
-    ...mapState('session', ['activeFilters']),
     ...mapGetters('session', ['filteredTorrents']),
+    nameFilter: {
+      get: function ()
+      {
+        return this.$store.state.session.nameFilter
+      },
+      set: function (nameSubstring)
+      {
+        this.updateNameFilter(nameSubstring)
+      }
+    },
+    statusFilters: {
+      get: function ()
+      {
+        return this.$store.state.session.statusFilters
+      },
+      set: function (filters)
+      {
+        this.updateStatusFilters(filters)
+      }
+    },
     // TODO: add computed property that recalculates trackers only when new
     // torrents are added/removed
   }

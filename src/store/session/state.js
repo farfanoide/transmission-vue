@@ -7,9 +7,7 @@ export default function () {
     // TODO: Maybe change name to reflect that
     // data stored are Ids. Should also rename getter.
     selectedTorrents: [],
-    activeFilters: {
-      nameFilter: '',
-      statusFilters: [],
-    },
+    nameFilter: '',
+    statusFilters: [],
   }
 }
