@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md">
-    <q-btn-dropdown flat icon="filter_list">
+    <q-btn-dropdown flat icon="filter_list" :color="anyActiveFilters ? 'red' : 'white'">
 
       <q-list>
         <q-item-label header>
@@ -114,6 +114,10 @@ export default {
       {
         this.updateStatusFilters(filters)
       }
+    },
+    anyActiveFilters: function ()
+    {
+      return this.nameFilter || this.statusFilters.length > 0
     },
     // TODO: add computed property that recalculates trackers only when new
     // torrents are added/removed
