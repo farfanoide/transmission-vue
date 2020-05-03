@@ -8,4 +8,4 @@ new_session -n 'editor'
 send_line 'editor' 'vi'
 
 new_window -n 'server'
-send_line 'server' 'quasar dev'
+send_line 'server' 'quasar dev -m bex'
