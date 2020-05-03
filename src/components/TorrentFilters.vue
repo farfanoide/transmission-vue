@@ -58,7 +58,7 @@ export default {
       filters: [
         {
           icon: 'swap_vert',
-          value: 'Active',
+          value: 'ACTIVE',
           label: 'Active'
         },
         {
@@ -78,7 +78,7 @@ export default {
         },
         {
           icon: 'check',
-          value: 'Finished',
+          value: 'FINISHED',
           label: 'Finished'
         },
 
@@ -93,11 +93,12 @@ export default {
     }),
   },
   computed: {
+    ...mapState('session', ['activeFilters']),
     ...mapGetters('session', ['filteredTorrents']),
     nameFilter: {
       get: function ()
       {
-        return this.$store.state.session.nameFilter
+        return this.activeFilters.nameFilter
       },
       set: function (nameSubstring)
       {
@@ -107,7 +108,7 @@ export default {
     statusFilters: {
       get: function ()
       {
-        return this.$store.state.session.statusFilters
+        return this.activeFilters.statusFilters
       },
       set: function (filters)
       {

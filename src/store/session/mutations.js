@@ -45,16 +45,18 @@ export function CLEAR_SELECTED_TORRENTS (state)
 
 export function CLEAR_FILTERS  (state)
 {
-  state.nameFilter = ''
-  state.statusFilters = []
+  state.activeFilters = {
+    nameFilter: '',
+    statusFilters: [],
+  }
 }
 
 export function UPDATE_STATUS_FILTERS (state, statusFilters)
 {
-  state.statusFilters = statusFilters
+  state.activeFilters.statusFilters = statusFilters
 }
 
 export function UPDATE_NAME_FILTER (state, nameFilter)
 {
-  state.nameFilter = nameFilter
+  state.activeFilters.nameFilter = nameFilter
 }
