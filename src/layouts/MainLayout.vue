@@ -10,12 +10,14 @@
 
 
         </q-toolbar-title>
-        <torrent-filters></torrent-filters>
-        <torrent-search></torrent-search>
+        <template v-if="currentServer">
+          <torrent-filters></torrent-filters>
+          <torrent-search></torrent-search>
 
-        <!-- TODO: only show this if a server is actually selected -->
-        <network-status></network-status>
-        <speed-setting></speed-setting>
+          <!-- TODO: only show this if a server is actually selected -->
+          <network-status></network-status>
+          <speed-setting></speed-setting>
+        </template>
         <router-link :to="{name: 'servers'}">
           <q-btn round flat color="white" icon='settings'></q-btn>
         </router-link>
@@ -39,6 +41,7 @@ import NetworkStatus from '../components/NetworkStatus'
 import SpeedSetting from '../components/SpeedSetting'
 import TorrentSearch from '../components/TorrentSearch'
 import TorrentFilters from '../components/TorrentFilters'
+import { mapState } from 'vuex'
 
 export default {
   components:
@@ -52,6 +55,10 @@ export default {
     return {
       left: false
     }
+  },
+  computed:
+  {
+    ...mapState('configs', ['currentServer'])
   }
 }
 </script>
