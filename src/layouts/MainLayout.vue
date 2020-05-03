@@ -10,6 +10,7 @@
 
 
         </q-toolbar-title>
+        <torrent-filters></torrent-filters>
         <torrent-search></torrent-search>
 
         <!-- TODO: only show this if a server is actually selected -->
@@ -37,13 +38,15 @@
 import NetworkStatus from '../components/NetworkStatus'
 import SpeedSetting from '../components/SpeedSetting'
 import TorrentSearch from '../components/TorrentSearch'
+import TorrentFilters from '../components/TorrentFilters'
 
 export default {
   components:
   {
     NetworkStatus,
     SpeedSetting,
-    TorrentSearch
+    TorrentFilters,
+    TorrentSearch,
   },
   data () {
     return {

@@ -42,3 +42,13 @@ export function CLEAR_SELECTED_TORRENTS (state)
 {
   state.selectedTorrents = []
 }
+
+export function CLEAR_FILTERS  (state)
+{
+  state.activeFilters = { nameFilter: '', statusFilters: [] }
+}
+
+export function UPDATE_ACTIVE_FILTERS (state, activeFilters)
+{
+  state.activeFilters = activeFilters
+}

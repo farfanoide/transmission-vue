@@ -18,7 +18,9 @@ export default {
     TorrentRow
   },
   computed: {
-    ...mapGetters('session', ['torrents']),
+    ...mapGetters('session', {
+      torrents: 'filteredTorrents'
+    }),
   },
 }
 </script>

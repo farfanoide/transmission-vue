@@ -56,8 +56,10 @@ module.exports = function (/* ctx */) {
         'QBtn',
         'QDialog',
         'QDrawer',
+        'QForm',
         'QHeader',
         'QIcon',
+        'QInput',
         'QItem',
         'QItemLabel',
         'QItemSection',
@@ -65,14 +67,13 @@ module.exports = function (/* ctx */) {
         'QList',
         'QPage',
         'QPageContainer',
+        'QSelect',
         'QSeparator',
         'QTab',
         'QTabPanel',
         'QTabPanels',
         'QToolbar',
         'QToolbarTitle',
-        'QInput',
-        'QForm'
       ],
 
       directives: [
