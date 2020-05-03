@@ -21,6 +21,11 @@ export function setCurrentServer ({ commit }, server)
   commit('SET_CURRENT_SERVER', server)
 }
 
+export function setDefaultServerAsCurrent ({ commit, getters, state })
+{
+  return setCurrentServer({ commit }, getters.defaultServer)
+}
+
 export function deleteServer ({ commit }, server)
 {
   commit('DELETE_SERVER', server)

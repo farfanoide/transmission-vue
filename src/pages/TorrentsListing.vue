@@ -23,38 +23,34 @@ export default {
   {
     return {
       interval: null,
-
     }
   },
   created()
   {
-    // create api client
-    this.service = new TransmissionClient(this.currentServer)
-    // get session data
-    this.service.session().then(data => {
-
-      this.setSessionData(data)
-      // get session stats
-      this.service.sessionStats().then((stats) => this.setSessionStats(stats))
-      // get torrents data
-      this.fetchData()
-      // get active torrents
-      this.service.active().then(({torrents}) => {
-        this.setActiveTorrents(Object.fromEntries(
-          torrents.map(td => [td.id, (new Torrent(td))])
-        ))
-        this.interval = setInterval(this.fetchActives, 10000)
-      })
-    })
-    // TODO: set interval to check for active torrents
-    // TODO: set interval to check if new active torrents
+    // TODO: move to maybe a beforeEnter on the route itself
+    if (!this.currentServer)
+    {
+      if (this.hasDefaultServer)
+      {
+        this.setDefaultServerAsCurrent().then(this.activateClient)
+      } else {
+        this.$router.push({name: 'servers'})
+      }
+    } else {
+      this.activateClient()
+    }
   },
   beforeDestroy()
   {
-    clearInterval(this.interval)
+    this.deactivateClient()
+    this.setCurrentServer(null)
   },
   methods:
   {
+    ...mapActions('configs', [
+      'setCurrentServer',
+      'setDefaultServerAsCurrent'
+    ]),
     ...mapMutations('session', {
       setSessionData: 'SET_SESSION_DATA',
       setSessionStats: 'SET_SESSION_STATS',
@@ -81,10 +77,41 @@ export default {
           torrents.map(td => [td.id, (new Torrent(td))])
         ))
       })
+    },
+    deactivateClient: function ()
+    {
+      clearInterval(this.interval)
+    },
+    activateClient: function ()
+    {
+      // TODO: handle this on client itself
+      // create api client
+      this.service = new TransmissionClient(this.currentServer)
+      // get session data
+      this.service.session().then(data => {
+
+        this.setSessionData(data)
+        // get session stats
+        this.service.sessionStats().then((stats) => this.setSessionStats(stats))
+        // get torrents data
+        this.fetchData()
+        // get active torrents
+        this.service.active().then(({torrents}) => {
+          this.setActiveTorrents(Object.fromEntries(
+            torrents.map(td => [td.id, (new Torrent(td))])
+          ))
+          this.interval = setInterval(this.fetchActives, 10000)
+        })
+      })
+      // TODO: set interval to check for active torrents
+      // TODO: set interval to check if new active torrents
+
+
     }
   },
   computed:
   {
+    ...mapGetters('configs', ['hasDefaultServer']),
     ...mapState('configs', ['currentServer']),
     ...mapState('session', [
       'data',

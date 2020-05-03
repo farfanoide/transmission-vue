@@ -73,11 +73,11 @@
       <q-card style="min-width: 400px;">
         <q-card-section>
           <div class="text-h6">
-            {{currentServer.isNew ? 'Create Server' : 'Edit Server Settings'}}
+            {{(currentServer ? currentServer.isNew : false) ? 'Create Server' : 'Edit Server Settings'}}
           </div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none">
+        <q-card-section class="q-pt-none" v-if="currentServer">
           <server-form :server-data="currentServer"></server-form>
         </q-card-section>
 

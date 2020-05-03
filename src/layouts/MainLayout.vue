@@ -4,19 +4,20 @@
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar>
         <q-toolbar-title>
-          <router-link to='/'>
-            <q-avatar size="40px">
-              <img src="~assets/logo.png" />
-            </q-avatar>
-          </router-link>
-          
-          
+          <q-avatar size="40px">
+            <img src="~assets/logo.png" />
+          </q-avatar>
+
+
         </q-toolbar-title>
         <torrent-search></torrent-search>
 
         <!-- TODO: only show this if a server is actually selected -->
         <network-status></network-status>
         <speed-setting></speed-setting>
+        <router-link :to="{name: 'servers'}">
+          <q-btn round flat color="white" icon='settings'></q-btn>
+        </router-link>
 
       </q-toolbar>
     </q-header>

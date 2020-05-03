@@ -6,12 +6,13 @@ const routes = [
     children: [
       {
         path: '',
-        component: () => import('pages/Servers.vue'),
-        name: 'servers' },
-      {
-        path: 'torrents-list',
         component: () => import('pages/TorrentsListing.vue') ,
         name: 'torrents-list'
+      },
+      {
+        path: 'servers',
+        component: () => import('pages/Servers.vue'),
+        name: 'servers'
       },
     ]
   }
