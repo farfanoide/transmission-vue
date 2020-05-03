@@ -48,7 +48,6 @@
 
 <script>
 import { mapState, mapMutations, mapGetters } from 'vuex'
-import { extend } from 'quasar'
 import RPCReference from '../lib/rpc'
 
 export default {
@@ -94,7 +93,6 @@ export default {
   },
   computed: {
     ...mapState('session', ['activeFilters']),
-    ...mapGetters('session', ['filteredTorrents']),
     nameFilter: {
       get: function ()
       {
