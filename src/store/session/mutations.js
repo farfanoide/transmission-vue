@@ -15,12 +15,23 @@ export function SET_SESSION_STATS (state, stats)
 
 export function SET_SESSION_TORRENTS (state, torrents)
 {
+  /**
+   * Set all torrents returned by transmission rpc.
+   */
+  console.log("SST", torrents)
   state.torrents = torrents;
+  console.log(state)
 }
 
 export function SET_ACTIVE_TORRENTS (state, torrentIds)
+/**
+ * Set current torrents that had some recent activity
+ * i.e: has been seeded, has been downloaded, etc...
+ */
 {
+  console.log("SAT", torrentIds)
   state.activeTorrents = torrentIds;
+  console.log(state)
 }
 
 export function UPDATE_ACTIVE_TORRENTS (state, torrents)
