@@ -16,12 +16,15 @@ class Torrent {
   {
     return this.isFinished
   }
+
   isDownloading()
   {
-    return [
-      RPCReference.status.DOWNLOAD,
-      RPCReference.status.DOWNLOAD_WAIT
-    ].includes(this.status)
+    return this.status === RPCReference.status.DOWNLOAD
+  }
+
+  isWaitingToDownload()
+  {
+    return this.status === RPCReference.status.DOWNLOAD_WAIT
   }
 
   isActive()
@@ -32,12 +35,24 @@ class Torrent {
       (this.status === RPCReference.status.CHECK)
   }
 
+  isChecking()
+  {
+    return this.status === RPCReference.status.CHECK
+  }
+
+  isWaitingToCheck()
+  {
+    return this.status === RPCReference.status.CHECK_WAIT
+  }
+
   isSeeding()
   {
-    return [
-      RPCReference.status.SEED,
-      RPCReference.status.SEED_WAIT
-    ].includes(this.status)
+    return this.status === RPCReference.status.SEED
+  }
+
+  isWaitingToSeed()
+  {
+    return this.status === RPCReference.status.SEED_WAIT
   }
 
   isPaused()

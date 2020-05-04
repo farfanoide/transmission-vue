@@ -9,12 +9,10 @@
           <strong>{{torrent.name}}</strong>
         </div>
         <div class="networking">
-          <template v-if="torrent.isDownloading()">
-            {{torrentPresenter.downloadingPeersInfo}} - {{torrentPresenter.networkStats}}
-          </template>
-          <template v-else>
-            {{torrentPresenter.statusName}}
-          </template>
+            {{torrentPresenter.peersInfo}}
+            <template v-if="torrent.isActive() && !torrent.isChecking()">
+              - {{torrentPresenter.networkStats}}
+            </template>
         </div>
         <div class="progressbar">
           <q-linear-progress color='positive' :value="torrent.percentDone" class="q-mt-md" />

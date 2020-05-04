@@ -45,11 +45,35 @@ const TorrentPresenterHandler = {
     }
   },
 
-  networkStats: function (target, prop, receiver)
+  seedingPeersInfo: function (target, prop, receiver)
   {
-    return `↓ ${TransmissionFormatter.speedBps(target.rateDownload)} ↑ ${TransmissionFormatter.speedBps(target.rateUpload)}`
+    // TODO: add localization to use proper pluralization
+    return `Seeding to ${target.peersGettingFromUs} of ${target.peersConnected} ${target.peersConnected > 1 ? 'peer' : 'peers'  }`
   },
 
+  checkingPeersInfo: function (target, prop, receiver)
+  {
+    return `Verifying local data (${TransmissionFormatter.percentString(target.recheckProgress * 100)}% tested)`
+  },
+
+  peersInfo: function (target, prop, receiver)
+  {
+    if (target.isDownloading()) {
+      return this.downloadingPeersInfo(target, prop, receiver)
+    } else if (target.isSeeding()) {
+      return this.seedingPeersInfo(target, prop, receiver)
+    } else if (target.isChecking()) {
+      return this.checkingPeersInfo(target, prop, receiver)
+    }
+    return this.statusName(target, prop, receiver)
+  },
+
+  networkStats: function (target, prop, receiver)
+  {
+    return target.isDownloading() ?
+      `↓ ${TransmissionFormatter.speedBps(target.rateDownload)} ↑ ${TransmissionFormatter.speedBps(target.rateUpload)}` :
+      `↑ ${TransmissionFormatter.speedBps(target.rateUpload)}`
+  },
 
   dateCreated: function(target, prop, receiver)
   {

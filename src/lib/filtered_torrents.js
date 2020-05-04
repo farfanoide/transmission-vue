@@ -2,8 +2,8 @@
 const AvailableFilters = {
   name: (torrent, nameSubstring) => torrent.name.toLowerCase().includes(nameSubstring.toLowerCase()),
   ACTIVE: (torrent) => torrent.isActive(),
-  SEED: (torrent) => torrent.isSeeding(),
-  DOWNLOAD: (torrent) => torrent.isDownloading(),
+  SEED: (torrent) => torrent.isSeeding() || torrent.isWaitingToSeed(),
+  DOWNLOAD: (torrent) => torrent.isDownloading() || torrent.isWaitingToDownload(),
   STOPPED: (torrent) => torrent.isPaused(),
   FINISHED: (torrent) => torrent.hasFinished(),
 }
