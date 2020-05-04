@@ -1,3 +1,5 @@
+import TransmissionService from '../../services/transmissionService';
+
 export function toggleSpeedSetting ({ rootGetters, state, commit })
 {
   let sessionParams = {'alt-speed-enabled': !state.data['alt-speed-enabled']}

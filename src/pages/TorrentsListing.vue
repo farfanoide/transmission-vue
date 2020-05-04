@@ -12,6 +12,7 @@ import TorrentList from '../components/TorrentList'
 import MultiTorrentActions from '../components/MultiTorrentActions'
 import TransmissionClient from '../services/transmission'
 import Torrent from '../models/torrent'
+import TransmissionService from '../services/transmissionService';
 
 export default {
   name: 'TorrentsListing',
@@ -27,6 +28,7 @@ export default {
   },
   created()
   {
+    
     // TODO: move to maybe a beforeEnter on the route itself
     if (!this.currentServer)
     {
@@ -80,7 +82,8 @@ export default {
     },
     deactivateClient: function ()
     {
-      clearInterval(this.interval)
+      TransmissionService.getInstance().stopFetching();
+      //clearInterval(this.interval)
     },
     activateClient: function ()
     {
@@ -94,15 +97,21 @@ export default {
         // get session stats
         this.service.sessionStats().then((stats) => this.setSessionStats(stats))
         // get torrents data
-        this.fetchData()
+        TransmissionService.getInstance().fetchAllTorrents()
+        //this.fetchData() ^^^^^^^^^^^^^^^^^
         // get active torrents
-        this.service.active().then(({torrents}) => {
+        TransmissionService.getInstance().fetchActiveTorrents()
+        /* this.service.active().then(({torrents}) => {^^^^^^^
           this.setActiveTorrents(Object.fromEntries(
             torrents.map(td => [td.id, (new Torrent(td))])
           ))
-          this.interval = setInterval(this.fetchActives, 10000)
+        
+ */  
+        // service will fetch constantly and save to store.
+        TransmissionService.getInstance().startFetchingTorrents();
+  /*      this.interval = setInterval(this.fetchActives, 10000)
         })
-      })
+   */    })
       // TODO: set interval to check for active torrents
       // TODO: set interval to check if new active torrents
 
