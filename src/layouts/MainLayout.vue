@@ -4,20 +4,12 @@
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar>
         <q-toolbar-title>
-          <q-avatar size="40px">
+
+          <q-avatar size="40px" @click="left = !left">
             <img src="~assets/logo.png" />
           </q-avatar>
 
-
         </q-toolbar-title>
-        <template v-if="currentServer">
-          <torrent-filters></torrent-filters>
-          <torrent-search></torrent-search>
-
-          <!-- TODO: only show this if a server is actually selected -->
-          <network-status></network-status>
-          <speed-setting></speed-setting>
-        </template>
         <router-link :to="{name: 'servers'}">
           <q-btn round flat color="white" icon='settings'></q-btn>
         </router-link>
@@ -25,9 +17,13 @@
       </q-toolbar>
     </q-header>
 
-    <!-- <q&#45;drawer v&#45;model="left" side="left" elevated> -->
-    <!--   <!&#45;&#45; drawer content &#45;&#45;> -->
-    <!-- </q&#45;drawer> -->
+    <q-drawer v-model="left" side="left" elevated dark>
+      <template v-if="currentServer">
+        <network-status></network-status>
+        <torrent-search></torrent-search>
+        <torrent-filters></torrent-filters>
+      </template>
+    </q-drawer>
 
     <q-page-container>
       <router-view></router-view>
@@ -38,7 +34,6 @@
 
 <script>
 import NetworkStatus from '../components/NetworkStatus'
-import SpeedSetting from '../components/SpeedSetting'
 import TorrentSearch from '../components/TorrentSearch'
 import TorrentFilters from '../components/TorrentFilters'
 import { mapState } from 'vuex'
@@ -47,13 +42,12 @@ export default {
   components:
   {
     NetworkStatus,
-    SpeedSetting,
     TorrentFilters,
     TorrentSearch,
   },
   data () {
     return {
-      left: false
+      left: true
     }
   },
   computed:

@@ -1,7 +1,5 @@
 <template>
   <div class="q-pa-md">
-    <q-btn-dropdown flat icon="filter_list" :color="anyActiveFilters ? 'red' : 'white'">
-
       <q-list>
         <q-item-label header>
           Filter by Name
@@ -39,10 +37,10 @@
       <q-btn class="full-width"
              align="between"
              icon-right="clear"
-             @click="clearFilters">
+             @click="clearFilters"
+             v-if="anyActiveFilters">
         Clear
       </q-btn>
-    </q-btn-dropdown>
   </div>
 </template>
 
