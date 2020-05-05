@@ -66,6 +66,11 @@ class Torrent {
   }
   // TODO: add a fromMany method to handle instantiation of multiple torrents
   // at once
+
+  static fromRPC(rpcData)
+  {
+    return rpcData.map(data => new Torrent(data))
+  }
 }
 
 export default Torrent

@@ -16,18 +16,20 @@ export function SET_SESSION_STATS (state, stats)
 export function SET_SESSION_TORRENTS (state, torrents)
 {
   /**
-   * Set all torrents returned by transmission rpc.
+   * Set all torrents returned by transmission rpc as a dictionary where each
+   * key is a torrent id and points to that torrent. This makes updates much
+   * easyer.
    */
-  state.torrents = torrents;
+  state.torrents = Object.fromEntries(torrents.map(torrent => [torrent.id, torrent]))
 }
 
-export function SET_ACTIVE_TORRENTS (state, torrentIds)
+export function SET_ACTIVE_TORRENTS (state, torrents)
 /**
  * Set current torrents that had some recent activity
  * i.e: has been seeded, has been downloaded, etc...
  */
 {
-  state.activeTorrents = torrentIds;
+  state.activeTorrentsIds = torrents.map(torrent => torrent.id);
 }
 
 export function UPDATE_ACTIVE_TORRENTS (state, torrents)
