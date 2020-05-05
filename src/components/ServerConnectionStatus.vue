@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import TransmissionClient from '../services/transmission.js'
+import TransmissionClient from '../services/transmission_client'
 
 export default {
   name: 'ServerConnectionStatus',

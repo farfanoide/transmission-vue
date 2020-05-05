@@ -1,5 +1,3 @@
-import TransmissionService from '../../services/transmissionService';
-
 export function toggleSpeedSetting ({ rootGetters, state, commit })
 {
   let sessionParams = {'alt-speed-enabled': !state.data['alt-speed-enabled']}
@@ -18,7 +16,6 @@ export function startTorrentsNow ( {rootGetters, commit }, torrentIds )
 
 export function startTorrents( {rootGetters, commit }, torrentIds )
 {
-  console.log("startTorrents")
   rootGetters['configs/client'].start(torrentIds)
     .then(console.log)
     .catch(console.log)

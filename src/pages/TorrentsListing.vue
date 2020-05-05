@@ -2,7 +2,7 @@
   <q-page class="flex">
     <torrent-list></torrent-list>
     <!-- bottom sheet -->
-    <multi-torrent-actions> </multi-torrent-actions>
+    <multi-torrent-actions></multi-torrent-actions>
   </q-page>
 </template>
 
@@ -10,10 +10,7 @@
 import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import TorrentList from '../components/TorrentList'
 import MultiTorrentActions from '../components/MultiTorrentActions'
-import TransmissionClient from '../services/transmission'
-import Torrent from '../models/torrent'
-import TransmissionService from '../services/transmissionService';
-import TransmissionServiceAlt from '../services/altService.js';
+import TransmissionService from '../services/transmission_service';
 
 export default {
   name: 'TorrentsListing',
@@ -24,13 +21,11 @@ export default {
   data()
   {
     return {
-      interval: null,
-      altService: null,
+      service: null,
     }
   },
   created()
   {
-
     // TODO: move to maybe a beforeEnter on the route itself
     if (!this.currentServer)
     {
@@ -57,27 +52,20 @@ export default {
     ]),
     deactivateClient: function ()
     {
-      this.altService.deactivate()
-      // TransmissionService.getInstance().stopFetching();
-      //clearInterval(this.interval)
+      this.service.deactivate()
     },
     activateClient: function ()
     {
-      this.altService = new TransmissionServiceAlt(
+      this.service = new TransmissionService(
         Object.assign({store: this.$store}, this.currentServer)
       )
-      this.altService.activate()
+      this.service.activate()
     }
   },
   computed:
   {
     ...mapGetters('configs', ['hasDefaultServer']),
     ...mapState('configs', ['currentServer']),
-    ...mapState('session', [
-      'data',
-      'stats',
-      'activeTorrents'
-    ])
   }
 }
 </script>

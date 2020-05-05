@@ -1,4 +1,4 @@
-import TransmissionClient from '../../services/transmission'
+import TransmissionClient from '../../services/transmission_client'
 
 export function servers (state)
 {

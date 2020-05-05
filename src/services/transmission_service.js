@@ -1,13 +1,12 @@
-import Transmission from 'transmission-promise'
 import Torrent from '../models/torrent'
-// const TransmissionClient = Transmission
+import TransmissionClient from './transmission_client'
 
-class TransmissionServiceAlt {
+class TransmissionService {
 
   constructor(options)
   {
     this.store = options.store
-    this.client = new Transmission(options)
+    this.client = new TransmissionClient(options)
     this.fetchDataInterval = null
     this.fetchActivesInterval = null
   }
@@ -50,11 +49,9 @@ class TransmissionServiceAlt {
 
   fetchActives()
   {
-    console.log(this)
-      this.client.get(this.store.state.session.activeTorrentsIds).then(({torrents}) => {
-        this.store.commit('session/UPDATE_ACTIVE_TORRENTS', (torrents.map(td => new Torrent(td))))
-      })
+    this.client.get(this.store.state.session.activeTorrentsIds).then(({torrents}) => {
+      this.store.commit('session/UPDATE_ACTIVE_TORRENTS', (torrents.map(td => new Torrent(td))))
+    })
   }
 }
-export default TransmissionServiceAlt
-
+export default TransmissionService
