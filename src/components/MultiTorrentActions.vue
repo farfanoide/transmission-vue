@@ -10,13 +10,13 @@
         </div>
 
         <q-space></q-space>
-
+        <!-- TODO: Add a mark all btn? -->
         <!-- TODO: move to its own component -->
         <q-btn
           flat
           round
           icon="priority_high"
-          @click="startTorrentsNow(selectedTorrentsIds)"
+          @click="startTorrentsNow"
         >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Start Now
@@ -26,13 +26,13 @@
           flat
           round
           icon="play_arrow"
-          @click="startTorrents(selectedTorrentsIds)"
+          @click="startTorrents"
         >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Start
           </q-tooltip>
         </q-btn>
-        <q-btn flat round icon="pause" @click="stopTorrents(selectedTorrentsIds)">
+        <q-btn flat round icon="pause" @click="stopTorrents">
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Pause
           </q-tooltip>
@@ -43,7 +43,7 @@
           round
           icon="delete"
           @click="
-            deleteTorrents({ torrentIds: selectedTorrentsIds, deleteFiles: false })
+            deleteTorrents({deleteFiles: false })
           "
         >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
@@ -55,7 +55,7 @@
           round
           icon="delete_forever"
           @click="
-            deleteTorrents({ torrentIds: selectedTorrentsIds, deleteFiles: true })
+            deleteTorrents({deleteFiles: true })
           "
         >
           <q-tooltip anchor="top middle" :offset="[30, 30]">

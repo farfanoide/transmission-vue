@@ -7,23 +7,36 @@ export function toggleSpeedSetting ({ rootGetters, state, commit })
 }
 
 // TODO: after calling the api, need to update active torrents
-export function startTorrentsNow ( {rootGetters, commit }, torrentIds )
+export function startTorrentsNow ( {rootGetters, getters } )
 {
-  rootGetters['configs/client'].startNow(torrentIds)
+  /**
+   * Start marked torrents inmediately calling transmission rpc
+   * thru torrent service wrapper. 
+   * Bypasses the download queue says the docs.
+   */
+  rootGetters['configs/client'].startNow(getters.selectedTorrentsIds)
+    .then(console.log)
+    .catch(console.log)      
+}
+
+export function startTorrents( {rootGetters, getters} )
+{ 
+  /**
+   * Start marked torrents calling transmission rpc thru torrent
+   * service wrapper.
+   */
+  rootGetters['configs/client'].start(getters.selectedTorrentsIds)
     .then(console.log)
     .catch(console.log)
 }
 
-export function startTorrents( {rootGetters, commit }, torrentIds )
+export function stopTorrents ( {rootGetters, getters} )
 {
-  rootGetters['configs/client'].start(torrentIds)
-    .then(console.log)
-    .catch(console.log)
-}
-
-export function stopTorrents ( {rootGetters, commit}, torrentIds )
-{
-  rootGetters['configs/client'].stop(torrentIds)
+  /**
+   * Stop marked torrents calling transmission rpc thru torrent
+   * service wrapper.
+   */
+  rootGetters['configs/client'].stop(getters.selectedTorrentsIds)
     .then(console.log)
     .catch(console.log)
 }
@@ -33,12 +46,11 @@ export function deleteTorrents( {rootGetters, getters, commit}, payload){
    * Perform a torrent deletion calling transmission rpc thru torrent
    * service wrapper.
    * @param payload A js plain object consisting of :
-   *                * torrentIds : Array<number> => Ids of the torrents
-   *                  to be deleted
    *                * deleteFiles : boolean => Wether to delete or not
    *                  torrent associated files(the downloads)
    */
-  rootGetters['configs/client'].remove(payload.torrentIds, payload.deleteFiles)
+  rootGetters['configs/client']
+    .remove(getters.selectedTorrentsIds, payload.deleteFiles)
     .then(
       //success!
       resp => {
