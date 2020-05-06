@@ -34,7 +34,7 @@ export default {
 
     this.smoothie = new SmoothieChart({
       labels: {disabled: true},
-      grid: { strokeStyle: 'rgb(125, 0, 0)',
+      grid: { strokeStyle: 'rgb(0, 0, 0)',
         fillStyle: 'transparent',
         lineWidth: 0,
         millisPerLine: 0,
