@@ -8,7 +8,9 @@ import { SmoothieChart, TimeSeries } from 'smoothie'
 
 export default {
   name: 'NetworkChart',
-  props: ['uploadRate', 'downloadRate'],
+  props: ['uploadRate', 'downloadRate', 'bandwidthLimited'],
+  // TODO: split bandwidthLimited into uploadLimited and downlaodLimited to
+  // account for usage per torrent instead of session wide
   data ()
   {
     return {
@@ -34,7 +36,8 @@ export default {
 
     this.smoothie = new SmoothieChart({
       labels: {disabled: true},
-      grid: { strokeStyle: 'rgb(0, 0, 0)',
+      grid: {
+        strokeStyle: 'transparent',
         fillStyle: 'transparent',
         lineWidth: 0,
         millisPerLine: 0,
@@ -42,19 +45,48 @@ export default {
       }
     });
 
+    console.log(this.bandwidthLimited)
     // TODO: add configurable colors or matche them to the current style
-    this.smoothie.addTimeSeries(downloadGraph, {
-      strokeStyle: 'rgb(0, 255, 0)',
-      fillStyle: 'rgba(0, 255, 0, 0.4)',
-      lineWidth: 2
-    });
-    this.smoothie.addTimeSeries(uploadGraph, {
-      strokeStyle: 'rgb(44, 133, 244)',
-      fillStyle: 'rgba(44, 133, 244, 0.3)',
-      lineWidth: 2
-    });
+    this.smoothie.addTimeSeries(downloadGraph, this.downloadGraphColors);
+    this.smoothie.addTimeSeries(uploadGraph, this.uploadGraphColors);
 
     this.smoothie.streamTo(this.$refs.chartCanvas, 1000);
   },
+  methods:
+  {
+    toggleAltSpeedColors: function ()
+    {
+      let seriesIndex = { downloadGraph: 0, uploadGraph: 1 }
+      this.smoothie.seriesSet[seriesIndex.downloadGraph].options = this.downloadGraphColors
+      this.smoothie.seriesSet[seriesIndex.uploadGraph].options = this.uploadGraphColors
+    }
+  },
+  watch:
+  {
+    'bandwidthLimited': function ()
+    {
+      setTimeout(this.toggleAltSpeedColors, 2000)
+    },
+  },
+  computed:
+  {
+    downloadGraphColors: function ()
+    {
+      return {
+        strokeStyle: this.bandwidthLimited ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)',
+        fillStyle: this.bandwidthLimited ? 'rgba(255, 0, 0, 0.4)' : 'rgba(0, 255, 0, 0.4)',
+        lineWidth: 2
+      }
+    },
+    uploadGraphColors: function ()
+    {
+      return {
+        // TODO: find some kind of violet for alt speed upload
+        strokeStyle: this.bandwidthLimited ?  'rgb(44, 133, 244)' : 'rgb(44, 133, 244)',
+        fillStyle: this.bandwidthLimited ? 'rgba(44, 133, 244, 0.3)' : 'rgba(44, 133, 244, 0.3)',
+        lineWidth: 2
+      }
+    }
+  }
 }
 </script>

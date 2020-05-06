@@ -19,7 +19,7 @@
         <q-item-label header>
           Filter by Status
         </q-item-label>
-        <q-item v-for="filter in filters" :key="`filter-${filter.value}`" tag="label" v-ripple>
+        <q-item v-for="filter in filters" :key="`filter-${filter.value}`" tag="label" v-ripple dense>
           <q-item-section>
             <q-item-label>
               <q-icon :name="filter.icon"></q-icon>

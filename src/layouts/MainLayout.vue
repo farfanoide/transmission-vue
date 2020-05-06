@@ -17,7 +17,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="left" side="left" elevated dark>
+    <q-drawer v-model="left" side="left" elevated content-class="bg-primary text-white">
       <template v-if="currentServer">
         <network-status></network-status>
         <torrent-search></torrent-search>

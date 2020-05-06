@@ -24,3 +24,8 @@ export function filteredTorrents (state)
 {
   return FilteredTorrents(state.activeFilters, torrents(state))
 }
+
+export function altSpeedEnabled (state)
+{
+  return state.data['alt-speed-enabled']
+}

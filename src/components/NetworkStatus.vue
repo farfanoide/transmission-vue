@@ -8,10 +8,12 @@
         ↑ {{ totalUploadRate | speedBps}}
       </div>
 
-        <speed-setting></speed-setting>
+      <speed-setting></speed-setting>
     </div>
     <div class="chart">
-      <network-chart :downloadRate="totalDownloadRate" :uploadRate="totalUploadRate">
+      <network-chart :downloadRate="totalDownloadRate"
+         :uploadRate="totalUploadRate"
+         :bandwidthLimited="altSpeedEnabled">
       </network-chart>
     </div>
   </div>
@@ -31,7 +33,7 @@ export default {
     SpeedSetting,
   },
   computed: {
-    ...mapGetters('session', ['totalUploadRate', 'totalDownloadRate'])
+    ...mapGetters('session', ['totalUploadRate', 'totalDownloadRate', 'altSpeedEnabled'])
   },
   filters:
   {
