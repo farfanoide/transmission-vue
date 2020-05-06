@@ -7,7 +7,7 @@ export function torrents (state)
 
 export function selectedTorrents (state)
 {
-  return state.selectedTorrents
+  return state.selectedTorrentsIds
 }
 
 export function totalUploadRate (state)
