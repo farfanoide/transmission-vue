@@ -40,16 +40,16 @@ export function UPDATE_ACTIVE_TORRENTS (state, torrents)
   }
 }
 
-export function TOGGLE_SELECED_TORRENT ({ selectedTorrents }, torrentId)
+export function TOGGLE_SELECED_TORRENT ({ selectedTorrentsIds }, torrentId)
 {
-  selectedTorrents.includes(torrentId) ?
-    selectedTorrents.splice(selectedTorrents.indexOf(torrentId), 1) :
-    selectedTorrents.push(torrentId)
+  selectedTorrentsIds.includes(torrentId) ?
+    selectedTorrentsIds.splice(selectedTorrentsIds.indexOf(torrentId), 1) :
+    selectedTorrentsIds.push(torrentId)
 }
 
 export function CLEAR_SELECTED_TORRENTS (state)
 {
-  state.selectedTorrents = []
+  state.selectedTorrentsIds = []
 }
 
 export function CLEAR_FILTERS  (state)

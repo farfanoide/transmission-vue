@@ -4,9 +4,7 @@ export default function () {
     stats: {},
     torrents: {},
     activeTorrentsIds: [],
-    // TODO: Maybe change name to reflect that
-    // data stored are Ids. Should also rename getter.
-    selectedTorrents: [],
+    selectedTorrentsIds: [],
     activeFilters: {
       nameFilter: '',
       statusFilters: [],
