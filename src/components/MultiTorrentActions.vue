@@ -16,7 +16,7 @@
           flat
           round
           icon="priority_high"
-          @click="startTorrentsNow(selectedTorrents)"
+          @click="startTorrentsNow(selectedTorrentsIds)"
         >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Start Now
@@ -26,13 +26,13 @@
           flat
           round
           icon="play_arrow"
-          @click="startTorrents(selectedTorrents)"
+          @click="startTorrents(selectedTorrentsIds)"
         >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Start
           </q-tooltip>
         </q-btn>
-        <q-btn flat round icon="pause" @click="stopTorrents(selectedTorrents)">
+        <q-btn flat round icon="pause" @click="stopTorrents(selectedTorrentsIds)">
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Pause
           </q-tooltip>
@@ -43,7 +43,7 @@
           round
           icon="delete"
           @click="
-            deleteTorrents({ torrentIds: selectedTorrents, deleteFiles: false })
+            deleteTorrents({ torrentIds: selectedTorrentsIds, deleteFiles: false })
           "
         >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
@@ -55,7 +55,7 @@
           round
           icon="delete_forever"
           @click="
-            deleteTorrents({ torrentIds: selectedTorrents, deleteFiles: true })
+            deleteTorrents({ torrentIds: selectedTorrentsIds, deleteFiles: true })
           "
         >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
@@ -91,9 +91,9 @@ export default {
   },
   //TODO:use selected torrents within vuex store
   computed: {
-    ...mapGetters("session", ["selectedTorrents"]),
+    ...mapGetters("session", ["selectedTorrentsIds"]),
     showMultTorrentActions: function() {
-      return this.selectedTorrents.length > 0;
+      return this.selectedTorrentsIds.length > 0;
     }
   }
 };

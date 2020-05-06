@@ -50,14 +50,14 @@ export default {
   },
   computed:
   {
-    ...mapGetters('session', ['selectedTorrents']),
+    ...mapGetters('session', ['selectedTorrentsIds']),
     torrentPresenter: function ()
     {
       return new TorrentPresenter(this.torrent)
     },
     isSelected: function ()
     {
-      return this.selectedTorrents.includes(this.torrent.id)
+      return this.selectedTorrentsIds.includes(this.torrent.id)
     }
   }
 }
