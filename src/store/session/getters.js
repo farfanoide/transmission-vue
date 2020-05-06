@@ -5,7 +5,7 @@ export function torrents (state)
   return Object.keys(state.torrents).map(id => state.torrents[id]) || []
 }
 
-export function selectedTorrents (state)
+export function selectedTorrentsIds (state)
 {
   return state.selectedTorrentsIds
 }
