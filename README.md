@@ -33,3 +33,39 @@ yarn run vue-devtools
 ```bash
 quasar dev -m electron
 ```
+
+Replace default transmission web interface (not yet recommended)
+----------------------------------------------------------------
+
+Becuase of CORS policy, TransmissionVue cannot be used as an spa except if
+served by transmission itself.
+
+Currently only manual installation supported:
+
+- Create override folder so as not to remove original transmission files
+  ```console
+  mkdir -p ~/.local/share/transmission/
+  ```
+- Build SPA
+  ```console
+  # from within the repo run
+  yarn run quasar build -m spa
+  ```
+- Symlink folder
+  ```console
+  ln -s $PWD/build/spa ~/.local/share/transmission/web
+  ```
+This way when updates are available you can simply rebuild app and it will be
+automatically available.
+
+Alternatively copy files instead of symlink
+- Instead of symlink step
+  ```console
+  cp -r $PWD/build/spa ~/.local/share/transmission/web
+  ```
+
+Note: you will need to restart transmission for the new web interface to be
+available.
+
+
+<!-- TODO: add proper wiki -->

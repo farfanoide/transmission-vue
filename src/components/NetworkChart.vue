@@ -1,6 +1,7 @@
 <template>
   <!-- TODO: add configurable or fluid dimensions -->
-  <canvas ref="chartCanvas" height="140px" style="width: 100%"></canvas>
+  <canvas ref="chartCanvas" height="140px" style="width: 100%">
+  </canvas>
 </template>
 
 <script>
@@ -45,7 +46,6 @@ export default {
       }
     });
 
-    console.log(this.bandwidthLimited)
     // TODO: add configurable colors or matche them to the current style
     this.smoothie.addTimeSeries(downloadGraph, this.downloadGraphColors);
     this.smoothie.addTimeSeries(uploadGraph, this.uploadGraphColors);
@@ -74,7 +74,8 @@ export default {
     {
       return {
         strokeStyle: this.bandwidthLimited ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)',
-        fillStyle: this.bandwidthLimited ? 'rgba(255, 0, 0, 0.4)' : 'rgba(0, 255, 0, 0.4)',
+        fillStyle: 'rgba(0, 255, 0, 0.4)',
+        // fillStyle: this.bandwidthLimited ? 'rgba(255, 0, 0, 0.4)' : 'rgba(0, 255, 0, 0.4)',
         lineWidth: 2
       }
     },
