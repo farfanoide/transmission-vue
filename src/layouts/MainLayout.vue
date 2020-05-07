@@ -13,10 +13,14 @@
         <router-link :to="{name: 'servers'}">
           <q-btn round flat color="white" icon='settings'></q-btn>
         </router-link>
-
+        <q-btn round flat color="yellow" icon='build' @click="generalSettings=true"></q-btn>
       </q-toolbar>
     </q-header>
-
+    <q-dialog v-model='generalSettings'>
+      <q-layout container class="bg-white">
+        <general-settings></general-settings>
+      </q-layout>
+    </q-dialog>
     <q-drawer v-model="left" side="left" elevated content-class="bg-primary text-white">
       <template v-if="currentServer">
         <network-status></network-status>
@@ -36,6 +40,7 @@
 import NetworkStatus from '../components/NetworkStatus'
 import TorrentSearch from '../components/TorrentSearch'
 import TorrentFilters from '../components/TorrentFilters'
+import GeneralSettings from '../components/GeneralSettings'
 import { mapState } from 'vuex'
 
 export default {
@@ -44,10 +49,12 @@ export default {
     NetworkStatus,
     TorrentFilters,
     TorrentSearch,
+    GeneralSettings,
   },
   data () {
     return {
-      left: true
+      left: true,
+      generalSettings:false
     }
   },
   computed:
