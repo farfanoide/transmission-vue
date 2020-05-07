@@ -74,8 +74,7 @@ export default {
     {
       return {
         strokeStyle: this.bandwidthLimited ? 'rgb(255, 0, 0)' : 'rgb(0, 255, 0)',
-        fillStyle: 'rgba(0, 255, 0, 0.4)',
-        // fillStyle: this.bandwidthLimited ? 'rgba(255, 0, 0, 0.4)' : 'rgba(0, 255, 0, 0.4)',
+        fillStyle: this.bandwidthLimited ? 'rgba(255, 0, 0, 0.4)' : 'rgba(0, 255, 0, 0.4)',
         lineWidth: 2
       }
     },

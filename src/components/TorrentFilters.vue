@@ -4,6 +4,7 @@
         <q-item-label header>
           Filter by Name
         </q-item-label>
+        <!-- TODO: add ? icon to show info on how filters are applied -->
         <q-item>
           <q-item-section>
             <q-input dense outlined v-model="nameFilter" >
