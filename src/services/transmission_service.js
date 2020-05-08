@@ -47,5 +47,12 @@ class TransmissionService {
       this.store.commit('session/UPDATE_ACTIVE_TORRENTS', Torrent.fromRPC(torrents))
     })
   }
+
+  fetchClientSettings()
+  {
+    this.client.session().then( ({settings}) => {
+      this.store.commit('session/SET_SETTINGS', settings)
+    })
+  }
 }
 export default TransmissionService
