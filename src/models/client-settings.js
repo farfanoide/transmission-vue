@@ -1,7 +1,7 @@
-export default class ClientConfig
+export default class ClientSettings
 {
     /**
-     * This class represents all configurations
+     * This class represents all settings
      * that can be setted/getted to/from the 
      * Transmission client thru rpc
      * 
@@ -12,6 +12,6 @@ export default class ClientConfig
      *        
      */
     constructor(data) {
-        this.configs = Object.assign({}, data)
+        this.settings = Object.assign({}, data)
     }
 }
