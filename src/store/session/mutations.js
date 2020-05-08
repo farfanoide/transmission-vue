@@ -69,3 +69,7 @@ export function UPDATE_NAME_FILTER (state, nameFilter)
 {
   state.activeFilters.nameFilter = nameFilter
 }
+
+export function SET_SETTINGS (state, settings) {
+  state.settings = settings;
+}

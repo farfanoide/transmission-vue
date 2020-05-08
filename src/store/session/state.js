@@ -8,6 +8,7 @@ export default function () {
     activeFilters: {
       nameFilter: '',
       statusFilters: [],
-    }
+    },
+    settings: {} //store current server configs
   }
 }
