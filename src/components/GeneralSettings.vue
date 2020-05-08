@@ -51,8 +51,7 @@ export default {
     name: "GeneralSettings",
     data () {
     return {
-      tab: 'mails',
-      splitterModel: 20
+      tab: 'torrents'
     }
   }
 }
