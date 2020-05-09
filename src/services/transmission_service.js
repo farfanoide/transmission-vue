@@ -50,8 +50,8 @@ class TransmissionService {
 
   fetchClientSettings()
   {
-    this.client.session().then( ({settings}) => {
-      this.store.commit('session/SET_SETTINGS', settings)
+    this.client.session().then( response => {
+      this.store.commit('session/SET_SETTINGS', response)
     })
   }
 }
