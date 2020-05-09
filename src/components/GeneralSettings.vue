@@ -25,7 +25,9 @@
         >
           <q-tab-panel name="torrents">
             <div class="text-h4 q-mb-md">Torrents</div>
-            <p> Under construction </p>
+            <q-input outlined v-model="settings['download-dir']" label="Download dir" />
+            <q-checkbox left-label v-model="settings['start-added-torrents']" label="Start when added" />
+            <q-checkbox left-label v-model="settings['rename-partial-files']" label="Append .part to incomplete files" />
           </q-tab-panel>
 
           <q-tab-panel name="speed">
@@ -47,12 +49,24 @@
 </template>
 
 <script>
+import TransmissionService from '../services/transmission_service';
+import { mapState } from 'vuex';
+
 export default {
     name: "GeneralSettings",
     data () {
-    return {
-      tab: 'torrents'
+      return {
+        tab: 'torrents'
+      }
+    },
+    created() {
+      this.service = new TransmissionService({store: this.$store}, this.currentServer)
+      this.service.fetchClientSettings();
+
+    },
+    computed: {
+      ...mapState('session',['settings']),
+      ...mapState('configs', ['currentServer'])
     }
-  }
 }
 </script>
