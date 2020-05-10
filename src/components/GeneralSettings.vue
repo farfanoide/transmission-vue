@@ -38,7 +38,7 @@
               <q-input outlined 
                 v-model="settings['seedRatioLimit']"
                 label="seed ratio"
-                :disable="!setings['seedRatioLimited']"
+                :disable="!settings['seedRatioLimited']"
                 />
               <q-checkbox  v-model="settings['idle-seeding-limit-enabled']"
                 label="stop seeding if idle for" />
