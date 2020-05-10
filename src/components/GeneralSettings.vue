@@ -24,10 +24,27 @@
           transition-next="jump-up"
         >
           <q-tab-panel name="torrents">
-            <div class="text-h4 q-mb-md">Torrents</div>
-            <q-input outlined v-model="settings['download-dir']" label="Download dir" />
-            <q-checkbox left-label v-model="settings['start-added-torrents']" label="Start when added" />
-            <q-checkbox left-label v-model="settings['rename-partial-files']" label="Append .part to incomplete files" />
+              <div class="text-h4 text-center q-mb-md">Torrents</div>
+              <q-input outlined v-model="settings['download-dir']" label="Download dir" />
+            <div class="row">
+              <q-checkbox  v-model="settings['start-added-torrents']"
+                label="Start when added" />
+              <q-checkbox  v-model="settings['rename-partial-files']"
+                label="Append .part to incomplete files" />
+            </div>
+            <div class="text-h4 text-center q-mb-md">Seeding</div>
+              <q-checkbox  v-model="settings['seedRatioLimited']"
+                label="Stop seeding at ratio" />
+              <q-input outlined 
+                v-model="settings['seedRatioLimit']"
+                label="seed ratio"
+                />
+              <q-checkbox  v-model="settings['idle-seeding-limit-enabled']"
+                label="stop seeding if idle for" />
+              <q-input outlined 
+                v-model="settings['idle-seeding-limit']"
+                label="minutes"
+                />
           </q-tab-panel>
 
           <q-tab-panel name="speed">
