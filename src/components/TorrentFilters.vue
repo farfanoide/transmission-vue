@@ -79,6 +79,11 @@ export default {
           value: 'FINISHED',
           label: 'Finished'
         },
+        {
+          icon: 'warning',
+          value: 'ERROR',
+          label: 'Has Error'
+        },
 
       ],
     }

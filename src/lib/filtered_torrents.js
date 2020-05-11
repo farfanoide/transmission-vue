@@ -6,6 +6,7 @@ const AvailableFilters = {
   DOWNLOAD: (torrent) => torrent.isDownloading() || torrent.isWaitingToDownload(),
   STOPPED: (torrent) => torrent.isPaused(),
   FINISHED: (torrent) => torrent.hasFinished(),
+  ERROR: (torrent) => torrent.hasErrors(),
 }
 
 AvailableFilters.enabled = function (statusFilters)
