@@ -43,6 +43,7 @@ export default {
   {
     this.deactivateClient()
     this.setCurrentServer(null)
+    this.clearSessionTorrents()
   },
   methods:
   {
@@ -50,6 +51,9 @@ export default {
       'setCurrentServer',
       'setDefaultServerAsCurrent'
     ]),
+    ...mapMutations('session', {
+      clearSessionTorrents: 'CLEAR_SESSION_TORRENTS',
+    }),
     deactivateClient: function ()
     {
       this.service.deactivate()

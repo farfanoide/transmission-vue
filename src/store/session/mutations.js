@@ -13,6 +13,18 @@ export function SET_SESSION_STATS (state, stats)
   state.stats = stats;
 }
 
+export function CLEAR_SESSION_TORRENTS (state)
+{
+  /**
+   * Clear sessions torrents, particularly useful when changing
+   * from one server to the next so we dont show old data while
+   * new torrent service is being enabled.
+   **/
+  state.torrents = {}
+  // TODO: check if we should delete state.torrents before to avoid mem leaks
+  // or too much GC dependency
+}
+
 export function SET_SESSION_TORRENTS (state, torrents)
 {
   /**
