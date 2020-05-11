@@ -26,7 +26,7 @@ class TransmissionService {
       })
       // TODO make intervals configurable
       this.fetchActiveIdsInterval = setInterval(this.fetchActiveIds.bind(this), 2000 * 2)
-      this.fetchActivesInterval = setInterval(this.fetchActives.bind(this), 2000)
+      this.fetchActivesInterval = setInterval(this.fetchActiveTorrents.bind(this), 2000)
     })
   }
 
@@ -40,16 +40,16 @@ class TransmissionService {
   {
     // get active torrents
     this.client.active().then(({torrents}) => {
+      // TODO: handle 'removed' from request as well
       this.store.commit('session/SET_ACTIVE_TORRENTS', Torrent.fromRPC(torrents))
     })
   }
 
-  fetchActives()
+  fetchActiveTorrents()
   {
     let activeTorrentsIds = this.store.state.session.activeTorrentsIds
     this.client.get(activeTorrentsIds).then(({torrents}) => {
-      // TODO: rename to UPDATE_TORRENTS
-      this.store.commit('session/UPDATE_ACTIVE_TORRENTS', Torrent.fromRPC(torrents))
+      this.store.commit('session/UPDATE_TORRENTS', Torrent.fromRPC(torrents))
     })
   }
 }

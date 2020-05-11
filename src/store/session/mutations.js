@@ -37,7 +37,7 @@ export function ADD_ACTIVE_TORRENTS_IDS (state, torrentsIds)
   state.activeTorrentsIds = [...(new Set(state.activeTorrentsIds.concat(torrentsIds)))]
 }
 
-export function UPDATE_ACTIVE_TORRENTS (state, torrents)
+export function UPDATE_TORRENTS (state, torrents)
 {
   for (const torrent of torrents)
   {
