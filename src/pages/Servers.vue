@@ -119,6 +119,7 @@ export default {
     },
     addServer()
     {
+      // TODO: dont set current server for adding or editing servers, just pass it as prop
       this.setCurrentServer(defaultServerTemplate())
       this.showServerModal = true
     },

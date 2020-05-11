@@ -17,6 +17,7 @@ export default {
     return {
       smoothie: null,
       interval: null,
+      seriesIndex: { downloadGraph: 0, uploadGraph: 1 },
     }
   },
   beforeDestroy()
@@ -56,17 +57,13 @@ export default {
   {
     toggleAltSpeedColors: function ()
     {
-      let seriesIndex = { downloadGraph: 0, uploadGraph: 1 }
-      this.smoothie.seriesSet[seriesIndex.downloadGraph].options = this.downloadGraphColors
-      this.smoothie.seriesSet[seriesIndex.uploadGraph].options = this.uploadGraphColors
+      this.smoothie.seriesSet[this.seriesIndex.downloadGraph].options = this.downloadGraphColors
+      this.smoothie.seriesSet[this.seriesIndex.uploadGraph].options = this.uploadGraphColors
     }
   },
   watch:
   {
-    'bandwidthLimited': function ()
-    {
-      setTimeout(this.toggleAltSpeedColors, 2000)
-    },
+    'bandwidthLimited': 'toggleAltSpeedColors',
   },
   computed:
   {

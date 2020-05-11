@@ -1,47 +1,52 @@
 <template>
-  <div class="q-pa-md">
-      <q-list>
-        <q-item-label header>
-          Filter by Name
-        </q-item-label>
-        <!-- TODO: add ? icon to show info on how filters are applied -->
-        <q-item>
-          <q-item-section>
-            <q-input dense outlined v-model="nameFilter" >
-              <template v-slot:append>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </q-item-section>
-        </q-item>
-      </q-list>
+  <div class="q-pa-xs">
+    <q-list>
+      <!-- TODO: add ? icon to show info on how filters are applied -->
+      <q-item>
+        <q-item-section>
+          <q-input rounded standout dark dense
+                   placeholder="Filter by Name"
+                   input-class="text-left"
+                   class="q-mx-xs"
+                   clearable
+                   v-model="nameFilter">
 
-      <q-list>
-        <q-item-label header>
-          Filter by Status
-        </q-item-label>
-        <q-item v-for="filter in filters" :key="`filter-${filter.value}`" tag="label" v-ripple dense>
-          <q-item-section>
-            <q-item-label>
-              <q-icon :name="filter.icon"></q-icon>
-              {{filter.label}}
-            </q-item-label>
-          </q-item-section>
-          <q-item-section avatar>
-            <q-toggle color="blue" v-model="statusFilters" :val="filter.value" />
-          </q-item-section>
-        </q-item>
-      </q-list>
+                   <template v-slot:append>
+                     <q-icon name="search" />
+                   </template>
 
-      <q-separator></q-separator>
+          </q-input>
+        </q-item-section>
+      </q-item>
+    </q-list>
 
-      <q-btn class="full-width"
-             align="between"
-             icon-right="clear"
-             @click="clearFilters"
-             v-if="anyActiveFilters">
-        Clear
-      </q-btn>
+    <q-list>
+      <q-item-label header>
+        Filter by Status
+      </q-item-label>
+      <q-item v-for="filter in filters" :key="`filter-${filter.value}`" tag="label" v-ripple dense>
+        <q-item-section>
+          <q-item-label>
+            <q-icon :name="filter.icon"></q-icon>
+            {{filter.label}}
+          </q-item-label>
+        </q-item-section>
+        <q-item-section avatar>
+          <q-toggle color="blue" v-model="statusFilters" :val="filter.value" />
+        </q-item-section>
+      </q-item>
+    </q-list>
+
+    <q-separator></q-separator>
+
+    <q-btn class="full-width"
+           align="between"
+           icon-right="clear"
+           flat
+           @click="clearFilters"
+           v-if="anyActiveFilters">
+      Clear All
+    </q-btn>
   </div>
 </template>
 
