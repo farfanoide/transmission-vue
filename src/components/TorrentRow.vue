@@ -27,6 +27,9 @@
         </div>
         <div class="file-stats">
           {{torrentPresenter.progressInfo}}
+          <template v-if="torrent.isDownloading()">
+            - {{torrentPresenter.eta}} remaining
+          </template>
         </div>
       </div>
     </div>
