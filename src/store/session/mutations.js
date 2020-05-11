@@ -32,6 +32,11 @@ export function SET_ACTIVE_TORRENTS (state, torrents)
   state.activeTorrentsIds = torrents.map(torrent => torrent.id);
 }
 
+export function ADD_ACTIVE_TORRENTS_IDS (state, torrentsIds)
+{
+  state.activeTorrentsIds = state.activeTorrentsIds.concat(torrentsIds)
+}
+
 export function UPDATE_ACTIVE_TORRENTS (state, torrents)
 {
   for (const torrent of torrents)

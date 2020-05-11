@@ -6,55 +6,54 @@ export function toggleSpeedSetting ({ rootGetters, state, commit })
     .then((resp) => commit('UPDATE_SESSION_DATA', sessionParams))
 }
 
-export function verifyLocalData ( {rootGetters, getters } )
+export function verifyLocalData ( {rootGetters, getters, commit} )
 {
   /**
    * Set marked torrents to Verify Local Data
    **/
+  commit('ADD_ACTIVE_TORRENTS_IDS', getters.selectedTorrentsIds)
   rootGetters['configs/client'].verify(getters.selectedTorrentsIds)
 }
 
-export function reannounceSelectedTorrents ( {rootGetters, getters } )
+export function reannounceSelectedTorrents ( {rootGetters, getters, commit} )
 {
   /**
    * Reannounce selected torrents
    **/
+  commit('ADD_ACTIVE_TORRENTS_IDS', getters.selectedTorrentsIds)
   rootGetters['configs/client'].reannounce(getters.selectedTorrentsIds)
 }
 
 // TODO: after calling the api, need to update active torrents
-export function startTorrentsNow ( {rootGetters, getters } )
+export function startTorrentsNow ( {rootGetters, getters, commit} )
 {
   /**
    * Start marked torrents inmediately calling transmission rpc
    * thru torrent service wrapper.
    * Bypasses the download queue says the docs.
    */
+  commit('ADD_ACTIVE_TORRENTS_IDS', getters.selectedTorrentsIds)
   rootGetters['configs/client'].startNow(getters.selectedTorrentsIds)
-    .then(console.log)
-    .catch(console.log)
 }
 
-export function startTorrents( {rootGetters, getters} )
+export function startTorrents( {rootGetters, getters, commit} )
 {
   /**
    * Start marked torrents calling transmission rpc thru torrent
    * service wrapper.
    */
-  rootGetters['configs/client'].start(getters.selectedTorrentsIds)
-    .then(console.log)
-    .catch(console.log)
+  commit('ADD_ACTIVE_TORRENTS_IDS', getters.selectedTorrentsIds)
+  return rootGetters['configs/client'].start(getters.selectedTorrentsIds)
 }
 
-export function stopTorrents ( {rootGetters, getters} )
+export function stopTorrents ( {rootGetters, getters, commit} )
 {
   /**
    * Stop marked torrents calling transmission rpc thru torrent
    * service wrapper.
    */
+  commit('ADD_ACTIVE_TORRENTS_IDS', getters.selectedTorrentsIds)
   rootGetters['configs/client'].stop(getters.selectedTorrentsIds)
-    .then(console.log)
-    .catch(console.log)
 }
 
 export function deleteTorrents( {rootGetters, getters, commit}, payload){
@@ -77,8 +76,6 @@ export function deleteTorrents( {rootGetters, getters, commit}, payload){
           .filter( torrent => !payload.torrentIds.includes(torrent.id))
         commit('SET_SESSION_TORRENTS', remainingTorrents)
       },
-      // error :(
-      error => console.log(error)
     )
 }
 

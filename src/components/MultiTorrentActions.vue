@@ -103,11 +103,12 @@ export default {
       clearSelectedTorrents: 'CLEAR_SELECTED_TORRENTS',
     }),
     ...mapActions("session", [
-      "verifyLocalData",
-      "startTorrentsNow",
+      "deleteTorrents",
+      "reannounceSelectedTorrents",
       "startTorrents",
+      "startTorrentsNow",
       "stopTorrents",
-      "deleteTorrents"
+      "verifyLocalData",
     ])
   },
   //TODO:use selected torrents within vuex store
