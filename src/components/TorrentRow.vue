@@ -9,7 +9,9 @@
           <strong>{{torrent.name}}</strong>
         </div>
         <div class="networking">
-          {{torrentPresenter.peersInfo}}
+          <span :class="{'text-negative': torrent.hasErrors()}">
+            {{torrent.hasErrors() ? torrent.errorString : torrentPresenter.peersInfo}}
+          </span>
           <template v-if="torrent.isActive() && !torrent.isChecking()">
             - {{torrentPresenter.networkStats}}
           </template>

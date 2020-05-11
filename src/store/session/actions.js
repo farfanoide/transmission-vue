@@ -1,3 +1,8 @@
+//TODO: major problem found here, logic that belongs on the TransmissionService
+//is currently on the store.
+// The store should invoke the service instead, for this the service should be
+// probably stored on vuex itself.
+
 export function toggleSpeedSetting ({ rootGetters, state, commit })
 {
   let sessionParams = {'alt-speed-enabled': !state.data['alt-speed-enabled']}

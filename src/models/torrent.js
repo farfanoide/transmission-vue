@@ -64,6 +64,12 @@ class Torrent {
   {
     this.isFinished;
   }
+
+  hasErrors()
+  {
+    return this.error !== 0
+  }
+
   // TODO: add a fromMany method to handle instantiation of multiple torrents
   // at once
 
