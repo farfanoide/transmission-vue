@@ -1,7 +1,7 @@
 <template>
-  <q-layout view="hhh lpR fFf">
+  <q-layout view="HHH LpR fFf">
 
-    <q-header reveal elevated class="bg-primary text-white">
+    <q-header elevated class="bg-primary text-white">
       <q-toolbar>
         <q-toolbar-title>
 
@@ -17,7 +17,7 @@
       </q-toolbar>
     </q-header>
 
-    <q-drawer v-model="left" side="left" elevated content-class="bg-primary text-white">
+    <q-drawer v-model="left" side="left" content-class="bg-primary text-white">
       <template v-if="currentServer">
         <network-status></network-status>
         <torrent-search></torrent-search>
