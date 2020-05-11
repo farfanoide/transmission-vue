@@ -14,6 +14,14 @@ export function verifyLocalData ( {rootGetters, getters } )
   rootGetters['configs/client'].verify(getters.selectedTorrentsIds)
 }
 
+export function reannounceSelectedTorrents ( {rootGetters, getters } )
+{
+  /**
+   * Reannounce selected torrents
+   **/
+  rootGetters['configs/client'].reannounce(getters.selectedTorrentsIds)
+}
+
 // TODO: after calling the api, need to update active torrents
 export function startTorrentsNow ( {rootGetters, getters } )
 {

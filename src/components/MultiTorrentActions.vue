@@ -2,7 +2,7 @@
   <q-dialog v-model="showMultTorrentActions" seamless position="bottom">
     <q-card style="width: 100%">
       <q-card-section class="row items-center no-wrap">
-        <div>
+        <div v-if="selectedTorrentsIds.length > 1">
           <div class="text-weight-bold">
             Apply action on multiple Torrents
           </div>
@@ -12,7 +12,16 @@
         <q-space></q-space>
         <!-- TODO: Add a mark all btn? -->
         <!-- TODO: move to its own component -->
-
+        <!-- TODO: finde better UX for all available torrent actions -->
+        <q-btn
+          flat
+          round
+          icon="youtube_searched_for"
+          @click="reannounceSelectedTorrents">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Reannounce (ask tracker for more peers)
+          </q-tooltip>
+        </q-btn>
         <q-btn
           flat
           round
