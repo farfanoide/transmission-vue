@@ -12,12 +12,23 @@
         <q-space></q-space>
         <!-- TODO: Add a mark all btn? -->
         <!-- TODO: move to its own component -->
+
+        <q-btn
+          flat
+          round
+          icon="library_add_check"
+          @click="verifyLocalData">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Verify Local Data
+          </q-tooltip>
+        </q-btn>
+
         <q-btn
           flat
           round
           icon="priority_high"
           @click="startTorrentsNow"
-        >
+          >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Start Now
           </q-tooltip>
@@ -27,7 +38,7 @@
           round
           icon="play_arrow"
           @click="startTorrents"
-        >
+          >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Start
           </q-tooltip>
@@ -43,9 +54,9 @@
           round
           icon="delete"
           @click="
-            deleteTorrents({deleteFiles: false })
-          "
-        >
+                  deleteTorrents({deleteFiles: false })
+                  "
+          >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Remove
           </q-tooltip>
@@ -55,9 +66,9 @@
           round
           icon="delete_forever"
           @click="
-            deleteTorrents({deleteFiles: true })
-          "
-        >
+                  deleteTorrents({deleteFiles: true })
+                  "
+          >
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Delete Files and Remove
           </q-tooltip>
@@ -82,7 +93,8 @@ export default {
     ...mapMutations('session', {
       clearSelectedTorrents: 'CLEAR_SELECTED_TORRENTS',
     }),
-      ...mapActions("session", [
+    ...mapActions("session", [
+      "verifyLocalData",
       "startTorrentsNow",
       "startTorrents",
       "stopTorrents",

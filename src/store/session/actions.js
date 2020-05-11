@@ -6,21 +6,29 @@ export function toggleSpeedSetting ({ rootGetters, state, commit })
     .then((resp) => commit('UPDATE_SESSION_DATA', sessionParams))
 }
 
+export function verifyLocalData ( {rootGetters, getters } )
+{
+  /**
+   * Set marked torrents to Verify Local Data
+   **/
+  rootGetters['configs/client'].verify(getters.selectedTorrentsIds)
+}
+
 // TODO: after calling the api, need to update active torrents
 export function startTorrentsNow ( {rootGetters, getters } )
 {
   /**
    * Start marked torrents inmediately calling transmission rpc
-   * thru torrent service wrapper. 
+   * thru torrent service wrapper.
    * Bypasses the download queue says the docs.
    */
   rootGetters['configs/client'].startNow(getters.selectedTorrentsIds)
     .then(console.log)
-    .catch(console.log)      
+    .catch(console.log)
 }
 
 export function startTorrents( {rootGetters, getters} )
-{ 
+{
   /**
    * Start marked torrents calling transmission rpc thru torrent
    * service wrapper.
