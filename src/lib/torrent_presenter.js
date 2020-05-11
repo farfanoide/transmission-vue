@@ -29,13 +29,7 @@ const TorrentPresenterHandler = {
     if (target.peersConnected && target.webseedsSendingToUs)
     {
       // happy path, we have both peers and webseed available
-      return `Downloading from ${target.peersSendingToUs} of ${target.peersConnected} peer${target.peersConnected > 1 ? 's' : ''} and ${target.webseedsSendingToUs} webseed${target.webseedsSendingToUs > 1 ? 's' : ''}`
-    }
-
-    if (target.peersConnected)
-    {
-      // happy path, we have both peers and webseed available
-      return `Downloading from ${target.peersSendingToUs} of ${target.peersConnected} peer${target.peersConnected > 1 ? 's' : ''}`
+      return `Downloading from ${target.peersSendingToUs} of ${target.peersConnected} peer${target.peersConnected === 1 ? '' : 's'} and ${target.webseedsSendingToUs} webseed${target.webseedsSendingToUs > 1 ? 's' : ''}`
     }
 
     if (target.webseedsSendingToUs)
@@ -43,7 +37,12 @@ const TorrentPresenterHandler = {
       // happy path, we have both peers and webseed available
       return `Downloading from ${target.webseedsSendingToUs} webseed${target.webseedsSendingToUs > 1 ? 's' : ''}`
     }
+
+    // happy path, we have both peers and webseed available
+    return `Downloading from ${target.peersSendingToUs} of ${target.peersConnected} peer${target.peersConnected === 1 ? '' : 's'}`
+
   },
+
 
   seedingPeersInfo: function (target, prop, receiver)
   {
@@ -66,6 +65,23 @@ const TorrentPresenterHandler = {
       return this.checkingPeersInfo(target, prop, receiver)
     }
     return this.statusName(target, prop, receiver)
+  },
+
+  progressInfo: function (target, prop, receiver)
+  {
+    return target.isSeeding() ?
+      this.seedingProgressInfo(target, prop, receiver) :
+      this.downloadingProgressInfo(target, prop, receiver)
+  },
+
+  downloadingProgressInfo: function (target, prop, receiver)
+  {
+    return `${TransmissionFormatter.size(target.sizeWhenDone - target.leftUntilDone)} of ${TransmissionFormatter.size(target.sizeWhenDone)}`
+  },
+
+  seedingProgressInfo: function (target, prop, receiver)
+  {
+    return `${TransmissionFormatter.size(target.sizeWhenDone)}, uploaded ${TransmissionFormatter.size(target.uploadedEver)} (Ratio ${target.uploadRatio.toTruncFixed(2)})`
   },
 
   networkStats: function (target, prop, receiver)

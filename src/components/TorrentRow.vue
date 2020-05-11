@@ -26,7 +26,7 @@
             into black and white -->
         </div>
         <div class="file-stats">
-          {{torrentPresenter.sizeWhenDone}}
+          {{torrentPresenter.progressInfo}}
         </div>
       </div>
     </div>
