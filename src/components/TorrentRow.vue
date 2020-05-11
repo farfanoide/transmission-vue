@@ -9,18 +9,19 @@
           <strong>{{torrent.name}}</strong>
         </div>
         <div class="networking">
-            {{torrentPresenter.peersInfo}}
-            <template v-if="torrent.isActive() && !torrent.isChecking()">
-              - {{torrentPresenter.networkStats}}
-            </template>
+          {{torrentPresenter.peersInfo}}
+          <template v-if="torrent.isActive() && !torrent.isChecking()">
+            - {{torrentPresenter.networkStats}}
+          </template>
         </div>
         <div class="progressbar">
-          <q-linear-progress color='positive' :value="torrent.percentDone" class="q-mt-md" />
-            <!-- TODO: check how to add  gradient to progressbars -->
-            <!-- style="background: linear&#45;gradient(145deg,#1976d2 11%,#0f477e 75%)"  -->
-            <!-- idea: backound should be full progressbar with gradient, while
-              the filled progressbar has a css filter that changes background
-              into black and white -->
+          <q-linear-progress :color='progressColor' :value="torrent.percentDone" class="q-mt-md" size="10px">
+          </q-linear-progress>
+          <!-- TODO: check how to add  gradient to progressbars -->
+          <!-- style="background: linear&#45;gradient(145deg,#1976d2 11%,#0f477e 75%)"  -->
+          <!-- idea: backound should be full progressbar with gradient, while
+            the filled progressbar has a css filter that changes background
+            into black and white -->
         </div>
         <div class="file-stats">
           {{torrentPresenter.sizeWhenDone}}
@@ -44,6 +45,21 @@ export default {
   components: {
     TorrentActions,
   },
+  data()
+  {
+    return {
+      statusColors: {
+        STOPPED:       'blue-grey-6',
+        CHECK_WAIT:    'blue-grey-6',
+        CHECK:         'warning',
+        DOWNLOAD_WAIT: 'teal-6',
+        DOWNLOAD:      'blue',
+        SEED_WAIT:     'cyan-6',
+        SEED:          'positive',
+        ISOLATED:      'blue-2',
+      }
+    }
+  },
   methods:
   {
     ...mapMutations('session', {
@@ -54,6 +70,10 @@ export default {
   computed:
   {
     ...mapGetters('session', ['selectedTorrentsIds']),
+    progressColor: function ()
+    {
+      return this.statusColors[this.torrent.status]
+    },
     torrentPresenter: function ()
     {
       return new TorrentPresenter(this.torrent)
