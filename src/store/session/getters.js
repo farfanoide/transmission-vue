@@ -1,4 +1,5 @@
 import FilteredTorrents from '../../lib/filtered_torrents'
+import SortedTorrents from '../../lib/sorted_torrents'
 
 export function torrents (state)
 {
@@ -22,7 +23,11 @@ export function totalDownloadRate (state)
 
 export function filteredTorrents (state)
 {
-  return FilteredTorrents(state.activeFilters, torrents(state))
+  return SortedTorrents(
+    state.sorting.sortBy,
+    state.sorting.reverse,
+    FilteredTorrents(state.activeFilters, torrents(state))
+  )
 }
 
 export function altSpeedEnabled (state)

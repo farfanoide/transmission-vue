@@ -86,3 +86,13 @@ export function UPDATE_NAME_FILTER (state, nameFilter)
 {
   state.activeFilters.nameFilter = nameFilter
 }
+
+export function UPDATE_SORT_BY (state, sort)
+{
+  state.sorting.sortBy = sort
+}
+
+export function UPDATE_SORT_REVERSED (state, reverse)
+{
+  state.sorting.reverse = reverse
+}

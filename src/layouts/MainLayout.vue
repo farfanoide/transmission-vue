@@ -22,6 +22,7 @@
         <network-status></network-status>
         <torrent-search></torrent-search>
         <torrent-filters></torrent-filters>
+        <torrent-sorting></torrent-sorting>
       </template>
     </q-drawer>
 
@@ -36,6 +37,7 @@
 import NetworkStatus from '../components/NetworkStatus'
 import TorrentSearch from '../components/TorrentSearch'
 import TorrentFilters from '../components/TorrentFilters'
+import TorrentSorting from '../components/TorrentSorting'
 import { mapState } from 'vuex'
 
 export default {
@@ -44,6 +46,7 @@ export default {
     NetworkStatus,
     TorrentFilters,
     TorrentSearch,
+    TorrentSorting,
   },
   data () {
     return {
