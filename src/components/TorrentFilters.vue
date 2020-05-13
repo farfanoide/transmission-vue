@@ -90,7 +90,11 @@ export default {
           value: 'ERROR',
           label: 'Has Error'
         },
-
+        {
+          icon: 'disc_full',
+          value: 'CHECK',
+          label: 'Verifying'
+        }
       ],
     }
   },
