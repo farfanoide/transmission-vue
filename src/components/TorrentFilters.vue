@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pa-xs">
+  <div>
     <q-list>
       <!-- TODO: add ? icon to show info on how filters are applied -->
       <q-item>
@@ -7,13 +7,12 @@
           <q-input rounded standout dark dense
                    placeholder="Filter by Name"
                    input-class="text-left"
-                   class="q-mx-xs"
                    clearable
                    v-model="nameFilter">
 
-                   <template v-slot:append>
-                     <q-icon name="search" />
-                   </template>
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
 
           </q-input>
         </q-item-section>
@@ -24,7 +23,9 @@
       <q-item-label header>
         Filter by Status
       </q-item-label>
-      <q-item v-for="filter in filters" :key="`filter-${filter.value}`" tag="label" v-ripple dense>
+      <q-item v-for="filter in filters"
+              :key="`filter-${filter.value}`"
+              tag="label" v-ripple dense>
         <q-item-section>
           <q-item-label>
             <q-icon :name="filter.icon"></q-icon>
@@ -32,7 +33,7 @@
           </q-item-label>
         </q-item-section>
         <q-item-section avatar>
-          <q-toggle color="blue" v-model="statusFilters" :val="filter.value" />
+          <q-toggle color="blue" v-model="statusFilters" :val="filter.value" dense />
         </q-item-section>
       </q-item>
     </q-list>

@@ -20,9 +20,11 @@
     <q-drawer v-model="left" side="left" content-class="bg-primary text-white">
       <template v-if="currentServer">
         <network-status></network-status>
-        <torrent-search></torrent-search>
-        <torrent-filters></torrent-filters>
-        <torrent-sorting></torrent-sorting>
+        <div class="q-pa-xs">
+          <torrent-search></torrent-search>
+          <torrent-filters></torrent-filters>
+          <torrent-sorting></torrent-sorting>
+        </div>
       </template>
     </q-drawer>
 

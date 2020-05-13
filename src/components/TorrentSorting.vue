@@ -1,47 +1,37 @@
 <template>
-  <span class="q-mx-sm q-px-sm">
-    <!-- TODO: make this not look so hideous -->
-    <label for="">Sort By:</label>
-    <br>
-    <select v-model="sortBy">
-      <option v-for="option in sortOptions" :value="option.slug" :key="`sort-${option.slug}`">
-      {{option.name}}
-      </option>
-    </select>
-    <label for="">Reverse</label>
-    <input type="checkbox" v-model="reverse">
-  </span>
+  <q-list>
+    <q-item-label header>
+      Sort By
+    </q-item-label>
+    <q-item>
+      <q-item-section>
+        <q-select v-model="sortBy" :options="sortOptions" dense>
+        </q-select>
+      </q-item-section>
+    </q-item>
+    <q-item tag='label' v-ripple dense>
+      <q-item-section>
+        <q-item-label>
+          Reverse
+        </q-item-label>
+      </q-item-section>
+      <q-item-section avatar>
+        <q-toggle v-model="reverse" color='blue' dense>
+        </q-toggle>
+      </q-item-section>
+    </q-item>
+  </q-list>
 </template>
 <script>
 import { mapMutations, mapState } from 'vuex'
+import { SortReference } from  '../lib/sorted_torrents'
 
 export default {
   name: 'TorrentSorting',
   data()
   {
     return {
-      sortOptions: [
-        {
-          slug: 'dateCreated',
-          name: 'Date Created',
-        },
-        {
-          slug: 'size',
-          name: 'Size'
-        },
-        {
-          slug: 'name',
-          name: 'Name',
-        },
-        {
-          slug: 'queue',
-          name: 'Queue Order',
-        },
-        {
-          slug: 'percentDone',
-          name: 'Percent Done',
-        }
-      ],
+      sortOptions: SortReference.options,
     }
   },
   methods:
@@ -69,11 +59,11 @@ export default {
     {
       get: function ()
       {
-        return this.sorting.sortBy
+        return this.sortOptions.find((option) => option.value === this.sorting.sortBy)
       },
       set: function (sort)
       {
-        this.updateSortBy(sort)
+        this.updateSortBy(sort.value)
       }
     }
   }
