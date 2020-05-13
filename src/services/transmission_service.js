@@ -52,5 +52,18 @@ class TransmissionService {
       this.store.commit('session/UPDATE_TORRENTS', Torrent.fromRPC(torrents))
     })
   }
+
+  addTorrentFromUrl(url)
+  {
+    // TODO: add torrent
+    return this.client.addUrl(url)
+  }
+
+  addTorrentFromFile(file)
+  {
+    console.log('adding from file', file)
+    // TODO: add by file or base64
+    // return this.client.addFile(url)
+  }
 }
 export default TransmissionService

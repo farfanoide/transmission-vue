@@ -80,7 +80,8 @@ export function deleteTorrents( {rootGetters, getters, commit}, payload){
         const remainingTorrents = getters.torrents
           .filter( torrent => !payload.torrentIds.includes(torrent.id))
         commit('SET_SESSION_TORRENTS', remainingTorrents)
+        // TODO: maybe change this to a DELETE_TORRENT mutation, so the store
+        // is the only one that actually handles info within it
       },
     )
 }
-

@@ -10,6 +10,7 @@
           </q-avatar>
 
         </q-toolbar-title>
+        <add-torrent></add-torrent>
         <router-link :to="{name: 'servers'}">
           <q-btn round flat color="white" icon='settings'></q-btn>
         </router-link>
@@ -40,11 +41,13 @@ import NetworkStatus from '../components/NetworkStatus'
 import TorrentSearch from '../components/TorrentSearch'
 import TorrentFilters from '../components/TorrentFilters'
 import TorrentSorting from '../components/TorrentSorting'
+import AddTorrent from '../components/AddTorrent'
 import { mapState } from 'vuex'
 
 export default {
   components:
   {
+    AddTorrent,
     NetworkStatus,
     TorrentFilters,
     TorrentSearch,
