@@ -25,7 +25,11 @@
       </q-item-label>
       <q-item tag="label" v-ripple dense>
         <q-item-section>
-          <q-select v-model='statusFilter' :options="filters" dense>
+          <q-select v-model='statusFilter' :options="filters" dense borderless>
+            <template v-slot:selected>
+              <q-avatar :icon="statusFilter.icon"></q-avatar>
+              {{ statusFilter.label }}
+            </template>
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps"
                       v-on="scope.itemEvents">
@@ -43,8 +47,6 @@
         </q-item-section>
       </q-item>
     </q-list>
-
-    <q-separator></q-separator>
 
     <q-btn class="full-width"
            align="between"
@@ -67,7 +69,7 @@ export default {
     return {
       filters: [
         {
-          icon: 'asterisk',
+          icon: 'dehaze',
           value: 'ALL',
           label: 'All'
         },

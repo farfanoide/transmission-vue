@@ -5,7 +5,11 @@
     </q-item-label>
     <q-item>
       <q-item-section>
-        <q-select v-model="sortBy" :options="sortOptions" dense>
+        <q-select v-model="sortBy" :options="sortOptions" dense borderless>
+            <template v-slot:selected>
+              <q-avatar :icon="sortBy.icon"></q-avatar>
+              {{ sortBy.label }}
+            </template>
           <template v-slot:option="scope">
             <q-item v-bind="scope.itemProps"
                     v-on="scope.itemEvents">
