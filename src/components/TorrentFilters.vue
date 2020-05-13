@@ -26,6 +26,19 @@
       <q-item tag="label" v-ripple dense>
         <q-item-section>
           <q-select v-model='statusFilter' :options="filters" dense>
+            <template v-slot:option="scope">
+              <q-item v-bind="scope.itemProps"
+                      v-on="scope.itemEvents">
+                <q-item-section avatar>
+                  <q-icon :name="scope.opt.icon" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>
+                    {{scope.opt.label}}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </template>
           </q-select>
         </q-item-section>
       </q-item>
