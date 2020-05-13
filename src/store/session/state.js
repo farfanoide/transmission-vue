@@ -7,7 +7,7 @@ export default function () {
     selectedTorrentsIds: [],
     activeFilters: {
       nameFilter: '',
-      statusFilters: [],
+      statusFilter: 'ALL',
     },
     sorting: {
       sortBy: 'queue',

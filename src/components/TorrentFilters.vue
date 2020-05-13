@@ -23,17 +23,10 @@
       <q-item-label header>
         Filter by Status
       </q-item-label>
-      <q-item v-for="filter in filters"
-              :key="`filter-${filter.value}`"
-              tag="label" v-ripple dense>
+      <q-item tag="label" v-ripple dense>
         <q-item-section>
-          <q-item-label>
-            <q-icon :name="filter.icon"></q-icon>
-            {{filter.label}}
-          </q-item-label>
-        </q-item-section>
-        <q-item-section avatar>
-          <q-toggle color="blue" v-model="statusFilters" :val="filter.value" dense />
+          <q-select v-model='statusFilter' :options="filters" dense>
+          </q-select>
         </q-item-section>
       </q-item>
     </q-list>
@@ -60,6 +53,11 @@ export default {
   data() {
     return {
       filters: [
+        {
+          icon: 'asterisk',
+          value: 'ALL',
+          label: 'All'
+        },
         {
           icon: 'swap_vert',
           value: 'ACTIVE',
@@ -101,7 +99,7 @@ export default {
   methods: {
     ...mapMutations('session', {
       updateNameFilter: 'UPDATE_NAME_FILTER',
-      updateStatusFilters: 'UPDATE_STATUS_FILTERS',
+      updateStatusFilter: 'UPDATE_STATUS_FILTER',
       clearFilters: 'CLEAR_FILTERS',
     }),
   },
@@ -117,19 +115,20 @@ export default {
         this.updateNameFilter(nameSubstring)
       }
     },
-    statusFilters: {
+    statusFilter: {
       get: function ()
       {
-        return this.activeFilters.statusFilters
+        console.log(this.activeFilters)
+        return this.filters.find((option) => option.value === this.activeFilters.statusFilter)
       },
-      set: function (filters)
+      set: function (option)
       {
-        this.updateStatusFilters(filters)
+        this.updateStatusFilter(option.value)
       }
     },
     anyActiveFilters: function ()
     {
-      return this.nameFilter || this.statusFilters.length > 0
+      return this.nameFilter || this.statusFilter
     },
     // TODO: add computed property that recalculates trackers only when new
     // torrents are added/removed

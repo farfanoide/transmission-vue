@@ -73,13 +73,13 @@ export function CLEAR_FILTERS  (state)
 {
   state.activeFilters = {
     nameFilter: '',
-    statusFilters: [],
+    statusFilter: 'ALL',
   }
 }
 
-export function UPDATE_STATUS_FILTERS (state, statusFilters)
+export function UPDATE_STATUS_FILTER (state, statusFilter)
 {
-  state.activeFilters.statusFilters = statusFilters
+  state.activeFilters.statusFilter = statusFilter
 }
 
 export function UPDATE_NAME_FILTER (state, nameFilter)

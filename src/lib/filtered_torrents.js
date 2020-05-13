@@ -10,11 +10,6 @@ const AvailableFilters = {
   CHECK:    (torrent) => torrent.isChecking() || torrent.isWaitingToCheck(),
 }
 
-AvailableFilters.enabled = function (statusFilters)
-{
-  return statusFilters.map(filterName => AvailableFilters[filterName])
-}
-
 export default function FilteredTorrents(activeFilters, torrents)
 {
   let filtered = torrents
@@ -23,10 +18,9 @@ export default function FilteredTorrents(activeFilters, torrents)
   {
     filtered = filtered.filter((torrent) => AvailableFilters.name(torrent, activeFilters.nameFilter))
   }
-  if (activeFilters.statusFilters.length > 0)
+  if (activeFilters.statusFilter && activeFilters.statusFilter !== 'ALL')
   {
-    let enabledFilters = AvailableFilters.enabled(activeFilters.statusFilters)
-    filtered = filtered.filter((torrent) => enabledFilters.some((filter) => filter(torrent)))
+    filtered = filtered.filter(AvailableFilters[activeFilters.statusFilter])
   }
   return filtered
 }
