@@ -2,26 +2,31 @@
 
 export const SortReference = {
   options: [
-        {
-          value: 'dateCreated',
-          label: 'Date Created',
-        },
-        {
-          value: 'size',
-          label: 'Size'
-        },
-        {
-          value: 'name',
-          label: 'Name',
-        },
-        {
-          value: 'queue',
-          label: 'Queue Order',
-        },
-        {
-          value: 'percentDone',
-          label: 'Percent Done',
-        }
+    {
+      value: 'queue',
+      label: 'Queue Order',
+      icon: 'get_app',
+    },
+    {
+      value: 'dateCreated',
+      label: 'Date Created',
+      icon: 'calendar_today',
+    },
+    {
+      value: 'size',
+      label: 'Size',
+      icon: 'donut_small',
+    },
+    {
+      value: 'name',
+      label: 'Name',
+      icon: 'sort_by_alpha',
+    },
+    {
+      value: 'percentDone',
+      label: 'Percent Done',
+      icon: 'done_outline',
+    }
   ]
 }
 
