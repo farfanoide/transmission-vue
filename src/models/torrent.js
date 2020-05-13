@@ -6,7 +6,9 @@ class Torrent {
 
   constructor(data)
   {
-    for (var prop in data)
+    Object.assign(this, data)
+
+    for (let prop of TorrentMapper.attrsToMap())
     {
       this[prop] = TorrentMapper.mapValue(prop, data[prop])
     }

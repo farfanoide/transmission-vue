@@ -69,6 +69,11 @@ const MAPPERS = {
 
 class TorrentMapper {
 
+  static attrsToMap()
+  {
+    return Object.keys(MAPPERS)
+  }
+
   static hasMapperFor(prop)
   {
     return Boolean(MAPPERS[prop])
@@ -81,9 +86,7 @@ class TorrentMapper {
 
   static mapValue(prop, value)
   {
-    return this.hasMapperFor(prop) ?
-      this.mapperFor(prop)(value) :
-      value
+    return this.mapperFor(prop)(value)
   }
 }
 
