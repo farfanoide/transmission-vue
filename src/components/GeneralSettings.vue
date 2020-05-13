@@ -1,5 +1,6 @@
 <template>
-
+  <q-dialog v-model="status.opened">
+      <q-layout container class="bg-white">
   <div class="row">
     <div class="col-2">
         <q-tabs
@@ -65,6 +66,8 @@
         </q-tab-panels>
     </div>
   </div>
+  </q-layout>
+  </q-dialog>
 </template>
 
 <script>
@@ -73,6 +76,9 @@ import { mapState } from 'vuex';
 
 export default {
     name: "GeneralSettings",
+    props: [
+      'status'
+    ],
     data () {
       return {
         tab: 'torrents'

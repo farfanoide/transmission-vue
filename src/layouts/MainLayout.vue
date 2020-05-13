@@ -1,26 +1,19 @@
 <template>
   <q-layout view="hhh lpR fFf">
-
     <q-header reveal elevated class="bg-primary text-white">
       <q-toolbar>
         <q-toolbar-title>
-
           <q-avatar size="40px" @click="left = !left">
             <img src="~assets/logo.png" />
           </q-avatar>
-
         </q-toolbar-title>
         <router-link :to="{name: 'servers'}">
           <q-btn round flat color="white" icon='settings'></q-btn>
         </router-link>
-        <q-btn round flat color="yellow" icon='build' @click="generalSettings=true"></q-btn>
+        <q-btn round flat color="yellow" icon='build' @click="settingsModalStatus.opened = true"></q-btn>
       </q-toolbar>
     </q-header>
-    <q-dialog v-model='generalSettings'>
-      <q-layout container class="bg-white">
-        <general-settings></general-settings>
-      </q-layout>
-    </q-dialog>
+    <general-settings v-bind:status='settingsModalStatus'></general-settings>
     <q-drawer v-model="left" side="left" elevated content-class="bg-primary text-white">
       <template v-if="currentServer">
         <network-status></network-status>
@@ -28,11 +21,9 @@
         <torrent-filters></torrent-filters>
       </template>
     </q-drawer>
-
     <q-page-container>
       <router-view></router-view>
     </q-page-container>
-
   </q-layout>
 </template>
 
@@ -54,7 +45,7 @@ export default {
   data () {
     return {
       left: true,
-      generalSettings:false
+      settingsModalStatus: { "opened": false },
     }
   },
   computed:
