@@ -118,7 +118,6 @@ export default {
     statusFilter: {
       get: function ()
       {
-        console.log(this.activeFilters)
         return this.filters.find((option) => option.value === this.activeFilters.statusFilter)
       },
       set: function (option)
@@ -128,7 +127,7 @@ export default {
     },
     anyActiveFilters: function ()
     {
-      return this.nameFilter || this.statusFilter
+      return this.nameFilter || this.activeFilters.statusFilter !== 'ALL'
     },
     // TODO: add computed property that recalculates trackers only when new
     // torrents are added/removed
