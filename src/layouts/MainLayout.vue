@@ -10,7 +10,9 @@
           </q-avatar>
 
         </q-toolbar-title>
-        <add-torrent></add-torrent>
+        <template v-if="currentServer">
+          <add-torrent></add-torrent>
+        </template>
         <router-link :to="{name: 'servers'}">
           <q-btn round flat color="white" icon='settings'></q-btn>
         </router-link>
