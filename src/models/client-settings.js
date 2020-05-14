@@ -12,6 +12,15 @@ export default class ClientSettings
      *        
      */
     constructor(data) {
-        this.settings = Object.assign({}, data)
+        /**
+         * Assigns each data key received an object prop.
+         * 
+         * @TODO Currently all data passed as argument is
+         * is stored on object. So a mapper or something 
+         * like that so only relevant information is stored.
+         */
+        Object.keys(data).forEach(key => {
+            this[key] = data[key]
+        });
     }
 }
