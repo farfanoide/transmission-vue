@@ -15,14 +15,13 @@
         </q-card-section>
 
         <q-card-section>
-          <q-tabs
-            v-model="tab"
-            dense
-            class="text-grey"
-            active-color="primary"
-            indicator-color="primary"
-            align="justify"
-            narrow-indicator>
+          <q-tabs v-model="tab"
+                  dense
+                  class="text-grey"
+                  active-color="primary"
+                  indicator-color="primary"
+                  align="justify"
+                  narrow-indicator>
             <q-tab name='url' label="URL"></q-tab>
             <q-tab name='search' label="Search"></q-tab>
             <q-tab name='file' label="File"></q-tab>
@@ -43,7 +42,10 @@
 
             <q-tab-panel name="file">
               <div class="text-h6">File</div>
-              <q-input type='file' v-model='torrentFile'></q-input>
+              <q-input type='file'
+                       v-model='torrentFile'
+                       accept=".torrent">
+              </q-input>
               <q-btn @click="addTorrentFromFile">Add</q-btn>
             </q-tab-panel>
 
@@ -122,21 +124,22 @@ export default {
       this.torrentUrl = ''
       this.torrentFile = null
     },
+    addBase64: async function (blob)
+    {
+      let base64Torrent = await BlobToBase64(blob)
+
+      this.service.addTorrentFromBase64(base64Torrent)
+        .then(success => {
+          this.handleSuccess({message: 'Torrent Successfully added'})
+        }).catch(error => {
+          this.handleError({ message: error.message })
+        })
+    },
     downloadAndAddTorrent: function ()
     {
+      // TODO: make sure downloaded file is actually a torrent
       this.$http.get(this.torrentUrl, {responseType: 'blob'})
-        .then(async ( response ) => {
-
-          // TODO: make sure downloaded file is actually a torrent
-          let base64Torrent = await BlobToBase64(response.data)
-
-          this.service.addTorrentFromBase64(base64Torrent)
-            .then(success => {
-              this.handleSuccess({message: 'Torrent Successfully added'})
-            }).catch(error => {
-              this.handleError({ message: error.message })
-            })
-        })
+        .then(response => this.addBase64(response.data))
         .catch(error => this.handleError({message: error.message}))
 
     },
@@ -149,21 +152,15 @@ export default {
       } else {
         // handle as simple url or magnet
         this.service.addTorrentFromUrl(this.torrentUrl)
-          .then((success) => {
-            this.handleSuccess({ message: 'Torrent Successfully added' })
-          })
-          .catch((error) => {
-            this.handleError({ message: 'Something went bad' })
-          })
+          .then(success => this.handleSuccess({ message: 'Torrent Successfully added' }))
+          .catch(error => this.handleError({ message: 'Something went bad' }) )
       }
     },
     addTorrentFromFile: function ()
     {
-      this.service.addTorrentFromFile(this.torrentFile)
-        .then(console.log)
-        .catch(console.log)
+      // TODO: maybe add abilitty to load various files at once
+      this.addBase64(this.torrentFile[0])
     }
-
   },
   computed:
   {
