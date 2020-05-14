@@ -14,7 +14,7 @@
         </q-item-section>
 
         <q-item-section @click="chooseServer(server)">
-            {{server.displayName || server.host}}
+          {{server.displayName || server.host}}
         </q-item-section>
 
         <q-item-section side>
@@ -73,12 +73,13 @@
       <q-card style="min-width: 400px;">
         <q-card-section>
           <div class="text-h6">
-            {{(currentServer ? currentServer.isNew : false) ? 'Create Server' : 'Edit Server Settings'}}
+            {{(creatingServer) ? 'Create' : 'Edit'}} Server
           </div>
         </q-card-section>
 
-        <q-card-section class="q-pt-none" v-if="currentServer">
-          <server-form :server-data="currentServer"></server-form>
+        <q-card-section class="q-pt-none" v-if="selectedServer">
+          <server-form :server-data="selectedServer">
+          </server-form>
         </q-card-section>
 
       </q-card>
@@ -104,6 +105,7 @@ export default {
     return {
       showServerModal: false,
       modalsMaximized: false,  // TODO: show modal maximised on mobiles
+      selectedServer: null,
     }
   },
   methods: {
@@ -114,13 +116,16 @@ export default {
     ]),
     editServer(server)
     {
-      this.setCurrentServer(server)
+      this.selectedServer = server
       this.showServerModal = true
+    },
+    clearSelectedServer()
+    {
+      this.selectedServer = null
     },
     addServer()
     {
-      // TODO: dont set current server for adding or editing servers, just pass it as prop
-      this.setCurrentServer(defaultServerTemplate())
+      this.selectedServer = defaultServerTemplate()
       this.showServerModal = true
     },
     confirmAndDeleteServer(server)
@@ -141,7 +146,11 @@ export default {
     }
   },
   computed: {
-    ...mapState('configs', ['servers', 'currentServer'])
+    ...mapState('configs', ['servers']),
+    creatingServer: function ()
+    {
+      return this.selectedServer && !this.selectedServer.id
+    }
   }
 
 }
