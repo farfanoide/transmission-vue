@@ -18,6 +18,7 @@ module.exports = function (/* ctx */) {
       'i18n',
       { path: 'vuex-persist', server: false },
       { path: 'http-client' },
+      { path: 'notify-defaults' },
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css

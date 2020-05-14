@@ -97,25 +97,13 @@ export default {
   {
     handleError: function ({ message })
     {
-      this.$q.notify({
-        color: 'red',
-        textColor: 'white',
-        icon: 'storage',
-        position: 'top-right',
-        message: message
-      })
+      this.$q.notify({ color: 'negative', message: message })
     },
-    handleSuccess: function ({ message })
+    handleSuccess: function (options)
     {
       // show notification all good
       this.resetForms()
-      this.$q.notify({
-        color: 'green-4',
-        textColor: 'white',
-        icon: 'storage',
-        position: 'top-right',
-        message: message
-      })
+      this.$q.notify(options)
       // close popup
       this.$refs["cancel-btn"].$el.click()
     },
@@ -153,7 +141,7 @@ export default {
         // handle as simple url or magnet
         this.service.addTorrentFromUrl(this.torrentUrl)
           .then(success => this.handleSuccess({ message: 'Torrent Successfully added' }))
-          .catch(error => this.handleError({ message: 'Something went bad' }) )
+          .catch(error => this.handleError({ message: 'Something went wrong' }) )
       }
     },
     addTorrentFromFile: function ()

@@ -118,10 +118,7 @@ export default {
       }
 
       this.$q.notify({
-        color: 'green-4',
-        textColor: 'white',
         icon: 'storage',
-        position: 'top-right',
         message: `Server successfully ${this.editing ? 'updated' : 'added'}`
       })
 
