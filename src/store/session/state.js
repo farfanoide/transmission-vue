@@ -9,6 +9,6 @@ export default function () {
       nameFilter: '',
       statusFilters: [],
     },
-    settings: {} //store current server configs
+    settings: undefined //store current server configs
   }
 }
