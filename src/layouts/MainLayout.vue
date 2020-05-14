@@ -13,7 +13,11 @@
         <q-btn round flat color="yellow" icon='build' @click="settingsModalStatus.opened = true"></q-btn>
       </q-toolbar>
     </q-header>
-    <general-settings v-bind:status='settingsModalStatus'></general-settings>
+    <general-settings 
+      v-if="settingsLoaded"
+      v-bind:status='settingsModalStatus'
+      v-bind:clientSettings='settings'
+      ></general-settings>
     <q-drawer v-model="left" side="left" elevated content-class="bg-primary text-white">
       <template v-if="currentServer">
         <network-status></network-status>
@@ -33,6 +37,8 @@ import TorrentSearch from '../components/TorrentSearch'
 import TorrentFilters from '../components/TorrentFilters'
 import GeneralSettings from '../components/GeneralSettings'
 import { mapState } from 'vuex'
+import TransmissionService from '../services/transmission_service'
+import ClientSettings from '../models/client-settings'
 
 export default {
   components:
@@ -48,9 +54,26 @@ export default {
       settingsModalStatus: { "opened": false },
     }
   },
+  created() {
+    // if session settings state is empty. Fetch and set in store.
+    if(!this.settingsLoaded) {
+      (new TransmissionService({store: this.$store}, this.currentServer))
+        .fetchClientSettings()
+    }
+  },
   computed:
   {
-    ...mapState('configs', ['currentServer'])
+    ...mapState('configs', ['currentServer']),
+    ...mapState('session', ['settings']),
+    settingsLoaded: function() {
+      /**
+       * @returns {boolean} Whether the settings
+       * prop in the state is empty or not.
+       * 
+       * @TODO Maybe switch to a getter in the store?
+       */
+      return !!this.settings
+    }
   }
 }
 </script>

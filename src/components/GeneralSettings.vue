@@ -1,5 +1,5 @@
 <template>
-  <q-dialog v-model="status.opened">
+  <q-dialog v-model="status.opened" @hide="sendSettingsToServer">
       <q-layout container class="bg-white">
   <div class="row">
     <div class="col-2">
@@ -26,7 +26,9 @@
         >
           <q-tab-panel name="torrents">
               <div class="text-h4 text-center q-mb-md">Torrents</div>
-              <q-input outlined v-model="settings['download-dir']" label="Download dir" />
+              <q-input outlined 
+                v-model="settings['download-dir']"
+                label="Download dir" />
             <div class="row">
               <q-checkbox  v-model="settings['start-added-torrents']"
                 label="Start when added" />
@@ -73,25 +75,29 @@
 <script>
 import TransmissionService from '../services/transmission_service';
 import { mapState } from 'vuex';
+import ClientSettings from '../models/client-settings';
 
 export default {
     name: "GeneralSettings",
     props: [
-      'status'
+      'status',
+      'clientSettings'
     ],
     data () {
       return {
-        tab: 'torrents'
+        tab: 'torrents',
+        settings: new ClientSettings(this.clientSettings)
       }
     },
-    created() {
-      this.service = new TransmissionService({store: this.$store}, this.currentServer)
-      this.service.fetchClientSettings();
-
-    },
-    computed: {
-      ...mapState('session',['settings']),
-      ...mapState('configs', ['currentServer'])
+    methods: {
+      sendSettingsToServer() {
+        /**
+         * Send settings to the server
+         * 
+         */
+        console.log("SETTINGS DATA SENT TO SERVER", this.settings)
+      }
     }
+    
 }
 </script>
