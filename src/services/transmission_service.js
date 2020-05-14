@@ -59,6 +59,11 @@ class TransmissionService {
     return this.client.addUrl(url)
   }
 
+  addTorrentFromBase64(data)
+  {
+    return this.client.addBase64(data)
+  }
+
   addTorrentFromFile(file)
   {
     console.log('adding from file', file)

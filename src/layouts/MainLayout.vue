@@ -22,7 +22,6 @@
       <template v-if="currentServer">
         <network-status></network-status>
         <div class="q-pa-xs">
-          <torrent-search></torrent-search>
           <torrent-filters></torrent-filters>
           <torrent-sorting></torrent-sorting>
         </div>
@@ -38,7 +37,6 @@
 
 <script>
 import NetworkStatus from '../components/NetworkStatus'
-import TorrentSearch from '../components/TorrentSearch'
 import TorrentFilters from '../components/TorrentFilters'
 import TorrentSorting from '../components/TorrentSorting'
 import AddTorrent from '../components/AddTorrent'
@@ -50,7 +48,6 @@ export default {
     AddTorrent,
     NetworkStatus,
     TorrentFilters,
-    TorrentSearch,
     TorrentSorting,
   },
   data () {

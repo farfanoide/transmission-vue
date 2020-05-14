@@ -1,16 +1,16 @@
 <template>
   <div>
-    <q-btn icon="add" @click="showModal = !showModal">
+    <q-btn icon="add" @click="showModal = !showModal" flat round>
     </q-btn>
 
     <q-dialog v-model="showModal">
-      <q-card>
+      <q-card style="width: 700px; max-width: 80vw;">
         <q-card-section class="row items-center q-pb-none">
           <div class="text-h6">
             Add Torrent
           </div>
           <q-space></q-space>
-          <q-btn icon="close" flat round dense v-close-popup >
+          <q-btn icon="close" flat round dense v-close-popup ref='cancel-btn'>
           </q-btn>
         </q-card-section>
 
@@ -24,20 +24,36 @@
             align="justify"
             narrow-indicator>
             <q-tab name='url' label="URL"></q-tab>
+            <q-tab name='search' label="Search"></q-tab>
             <q-tab name='file' label="File"></q-tab>
+            <q-tab name='create' label="Create"></q-tab>
           </q-tabs>
           <q-separator></q-separator>
           <q-tab-panels v-model="tab" animated>
+
             <q-tab-panel name="url">
               <div class="text-h6">Url</div>
               <q-input v-model="torrentUrl"></q-input>
               <q-btn @click="addTorrentFromUrl">Add</q-btn>
             </q-tab-panel>
 
+            <q-tab-panel name="search">
+              <torrent-search></torrent-search>
+            </q-tab-panel>
+
             <q-tab-panel name="file">
               <div class="text-h6">File</div>
               <q-input type='file' v-model='torrentFile'></q-input>
               <q-btn @click="addTorrentFromFile">Add</q-btn>
+            </q-tab-panel>
+
+            <q-tab-panel name="create">
+              <div class="text-h6">Create</div>
+              <p>
+              Under Construction
+              </p>
+              <!-- <q&#45;input type='create' v&#45;model='torrentCreate'></q&#45;input> -->
+              <!-- <q&#45;btn @click="addTorrentFromCreate">Add</q&#45;btn> -->
             </q-tab-panel>
 
           </q-tab-panels>
@@ -49,10 +65,16 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import TransmissionService from '../services/transmission_service';
+import TransmissionService from '../services/transmission_service'
+import TorrentSearch from './TorrentSearch'
+import { BlobToBase64 } from '../lib/utils'
 
 export default {
   name: 'AddTorrent',
+  components:
+  {
+    TorrentSearch,
+  },
   data()
   {
     return {
@@ -71,12 +93,69 @@ export default {
   },
   methods:
   {
+    handleError: function ({ message })
+    {
+      this.$q.notify({
+        color: 'red',
+        textColor: 'white',
+        icon: 'storage',
+        position: 'top-right',
+        message: message
+      })
+    },
+    handleSuccess: function ({ message })
+    {
+      // show notification all good
+      this.resetForms()
+      this.$q.notify({
+        color: 'green-4',
+        textColor: 'white',
+        icon: 'storage',
+        position: 'top-right',
+        message: message
+      })
+      // close popup
+      this.$refs["cancel-btn"].$el.click()
+    },
+    resetForms()
+    {
+      this.torrentUrl = ''
+      this.torrentFile = null
+    },
+    downloadAndAddTorrent: function ()
+    {
+      this.$http.get(this.torrentUrl, {responseType: 'blob'})
+        .then(async ( response ) => {
+
+          // TODO: make sure downloaded file is actually a torrent
+          let base64Torrent = await BlobToBase64(response.data)
+
+          this.service.addTorrentFromBase64(base64Torrent)
+            .then(success => {
+              this.handleSuccess({message: 'Torrent Successfully added'})
+            }).catch(error => {
+              this.handleError({ message: error.message })
+            })
+        })
+        .catch(error => this.handleError({message: error.message}))
+
+    },
     addTorrentFromUrl: function ()
     {
-      this.service.addTorrentFromUrl(this.torrentUrl)
-        .then(console.log)
-        .catch(console.log)
-      // TODO:  download url and send it as file or base64
+      // TODO: maybe add configuration to make this an opt out functionality
+      if (this.torrentUrl.startsWith('http'))
+      {
+        return this.downloadAndAddTorrent()
+      } else {
+        // handle as simple url or magnet
+        this.service.addTorrentFromUrl(this.torrentUrl)
+          .then((success) => {
+            this.handleSuccess({ message: 'Torrent Successfully added' })
+          })
+          .catch((error) => {
+            this.handleError({ message: 'Something went bad' })
+          })
+      }
     },
     addTorrentFromFile: function ()
     {

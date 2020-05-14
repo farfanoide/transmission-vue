@@ -2,8 +2,6 @@
   <q-form @submit="onSubmit">
     <q-input
       rounded
-      standout
-      dark
       dense
       label="Quick Search"
       input-class="text-right"
