@@ -25,17 +25,17 @@
           transition-next="jump-up"
         >
           <q-tab-panel name="torrents">
-              <div class="text-h4 text-center q-mb-md">Torrents</div>
+            <div class="text-h5 text-center q-mb-md">Torrents</div>
               <q-input outlined 
                 v-model="settings.downloadDir"
                 label="Downloads directory" />
-            <div class="row">
-              <q-checkbox  v-model="settings.startAddedTorrents"
-                label="Start when added" />
-              <q-checkbox  v-model="settings.renamePartialFiles"
-                label="Append .part to incomplete files" />
-            </div>
-            <div class="text-h4 text-center q-mb-md">Seeding</div>
+              <div class="row">
+                <q-checkbox  v-model="settings.startAddedTorrents"
+                  label="Start when added" />
+                <q-checkbox  v-model="settings.renamePartialFiles"
+                  label="Append .part to incomplete files" />
+              </div>
+            <div class="text-h5 text-center q-mb-md">Seeding</div>
               <q-checkbox  v-model="settings.seedRatioLimited"
                 label="Stop seeding at ratio" />
               <q-input outlined 
@@ -53,8 +53,57 @@
           </q-tab-panel>
 
           <q-tab-panel name="speed">
-            <div class="text-h4 q-mb-md">Speed</div>
-            <p> Under construction </p>
+            <div class="text-h5 text-center q-mb-md">Speed Limits</div>
+              
+              <q-checkbox  v-model="settings.speedLimitUpEnabled"
+                label="Upload" />
+              <q-input outlined 
+                v-model="settings.speedLimitUp"
+                label="kB/s"
+                :disable="!settings.speedLimitUpEnabled"
+              />
+              <q-checkbox  v-model="settings.speedLimitDownEnabled"
+                label="Download" />
+              <q-input outlined 
+                v-model="settings.speedLimitDown"
+                label="kB/s"
+                :disable="!settings.speedLimitDownEnabled"
+              />
+
+            <div class="text-h5 text-center q-mb-md">Alternative Speed Limits</div>
+            <p class="text-center"> Override normal speed limits manually </p>
+              <q-input outlined 
+                type="number"
+                v-model="settings.altSpeedUp"
+                label="Upload(kB/s)"
+              />
+              <q-input outlined
+                type="number"
+                v-model="settings.altSpeedDown"
+                label="Download(kB/s)"
+              />
+              <q-checkbox  v-model="settings.altSpeedTimeEnabled"
+                label="Scheduled Times" />
+              <q-select outlined 
+                v-model="settings.altSpeedTimeBegin" 
+                :options="[]" 
+                label="From" 
+                disable
+              />
+              <q-select outlined 
+                v-model="settings.altSpeedTimeEnd" 
+                :options="[]" 
+                label="To" 
+                disable
+              />
+              <q-select outlined 
+                v-model="settings.altSpeedTimeDay" 
+                :options="[]" 
+                label="On days" 
+                disable
+              />
+              
+
           </q-tab-panel>
 
           <q-tab-panel name="peers">

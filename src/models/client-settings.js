@@ -5,13 +5,13 @@
  * Uncomment to make them available in the model.
  */
 const rpc_settings = [
-  //"alt-speed-down",               // | number     | max global download speed (KBps)
+  "alt-speed-down",               // | number     | max global download speed (KBps)
   //"alt-speed-enabled",            // | boolean    | true means use the alt speeds
-  //"alt-speed-time-begin",         // | number     | when to turn on alt speeds (units: minutes after midnight)
-  //"alt-speed-time-enabled",       // | boolean    | true means the scheduled on/off times are used
-  //"alt-speed-time-end",           // | number     | when to turn off alt speeds (units: same)
-  //"alt-speed-time-day",           // | number     | what day(s) to turn on alt speeds (look at tr_sched_day)
-  //"alt-speed-up",                 // | number     | max global upload speed (KBps)
+  "alt-speed-time-begin",         // | number     | when to turn on alt speeds (units: minutes after midnight)
+  "alt-speed-time-enabled",       // | boolean    | true means the scheduled on/off times are used
+  "alt-speed-time-end",           // | number     | when to turn off alt speeds (units: same)
+  "alt-speed-time-day",           // | number     | what day(s) to turn on alt speeds (look at tr_sched_day)
+  "alt-speed-up",                 // | number     | max global upload speed (KBps)
   //"blocklist-url",                // | string     | location of the blocklist to use for "blocklist-update"
   //"blocklist-enabled",            // | boolean    | true means enabled
   //"blocklist-size",               // | number     | number of rules in the blocklist
@@ -44,10 +44,10 @@ const rpc_settings = [
   "seedRatioLimited",             // | boolean    | true if seedRatioLimit is honored by default
   //"seed-queue-size",              // | number     | max number of torrents to uploaded at once (see seed-queue-enabled)
   //"seed-queue-enabled",           // | boolean    | if true, limit how many torrents can be uploaded at once
-  //"speed-limit-down",             // | number     | max global download speed (KBps)
-  //"speed-limit-down-enabled",     // | boolean    | true means enabled
-  //"speed-limit-up",               // | number     | max global upload speed (KBps)
-  //"speed-limit-up-enabled",       // | boolean    | true means enabled
+  "speed-limit-down",             // | number     | max global download speed (KBps)
+  "speed-limit-down-enabled",     // | boolean    | true means enabled
+  "speed-limit-up",               // | number     | max global upload speed (KBps)
+  "speed-limit-up-enabled",       // | boolean    | true means enabled
   "start-added-torrents",         // | boolean    | true means added torrents will be started right away
   //"trash-original-torrent-files", // | boolean    | true means the .torrent file of added torrents will be deleted
   //"units",                        // | object     | see below
@@ -100,6 +100,7 @@ export default class ClientSettings
                 if (ClientSettings.GeneralSettings[name])
                     this[ClientSettings.GeneralSettings[name]] = value
             })
+
     }
 
     /**
