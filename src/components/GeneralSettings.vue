@@ -118,9 +118,23 @@
                 v-model="settings.peerLimitGlobal"
                 label="Max peers overall"
               />
-
             <div class="text-h5 text-center q-mb-md"> Options </div>
-            <p> Under construction </p>
+              <q-select outlined 
+                v-model="settings.encryption" 
+                :options="options.encryption" 
+                label="Encription mode"
+              />
+              
+              <q-checkbox  v-model="settings.pexEnabled"
+                label="Use PEX to find more peers" />
+              <br />
+              <q-checkbox  v-model="settings.dhtEnabled"
+                label="Use DHT to find more peers" />
+              <br />
+              <q-checkbox  v-model="settings.lpdEnabled"
+                label="Use LDP to find more peers" />
+
+            
             <div class="text-h5 text-center q-mb-md"> Blocklist </div>
             <p> Under construction </p>
           </q-tab-panel>
@@ -149,7 +163,10 @@ export default {
     data () {
       return {
         tab: 'torrents',
-        settings: new ClientSettings(this.clientSettings)
+        settings: new ClientSettings(this.clientSettings),
+        options: {
+          encryption: ClientSettings.EncriptionOptions
+        }
       }
     },
     methods: {
