@@ -107,7 +107,21 @@
           </q-tab-panel>
 
           <q-tab-panel name="peers">
-            <div class="text-h4 q-mb-md">peers</div>
+            <div class="text-h5 text-center q-mb-md">Connections</div>
+              <q-input outlined
+                type="number"
+                v-model="settings.peerLimitPerTorrent"
+                label="Max peers per torrent"
+              />
+              <q-input outlined
+                type="number"
+                v-model="settings.peerLimitGlobal"
+                label="Max peers overall"
+              />
+
+            <div class="text-h5 text-center q-mb-md"> Options </div>
+            <p> Under construction </p>
+            <div class="text-h5 text-center q-mb-md"> Blocklist </div>
             <p> Under construction </p>
           </q-tab-panel>
           <q-tab-panel name="network">

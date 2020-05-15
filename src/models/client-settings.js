@@ -27,8 +27,8 @@ const rpc_settings = [
   //"incomplete-dir",               // | string     | path for incomplete torrents, when enabled
   //"incomplete-dir-enabled",       // | boolean    | true means keep torrents in incomplete-dir until done
   //"lpd-enabled",                  // | boolean    | true means allow Local Peer Discovery in public torrents
-  //"peer-limit-global",            // | number     | maximum global number of peers
-  //"peer-limit-per-torrent",       // | number     | maximum global number of peers
+  "peer-limit-global",            // | number     | maximum global number of peers
+  "peer-limit-per-torrent",       // | number     | maximum global number of peers
   //"pex-enabled",                  // | boolean    | true means allow pex in public torrents
   //"peer-port",                    // | number     | port number
   //"peer-port-random-on-start",    // | boolean    | true means pick a random peer port on launch
