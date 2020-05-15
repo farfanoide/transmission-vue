@@ -1,6 +1,7 @@
 // TODO: add more sorting options
 
 export const SortReference = {
+  // TODO: fix queue sorting, need to add queuePosition to client calls
   options: [
     {
       value: 'queue',

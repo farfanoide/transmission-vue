@@ -35,6 +35,17 @@ export function SET_SESSION_TORRENTS (state, torrents)
   state.torrents = Object.fromEntries(torrents.map(torrent => [torrent.id, torrent]))
 }
 
+export function DELETE_TORRENTS (state, torrentIds)
+{
+/**
+ * Removes given torrents from the store
+ **/
+  for (const torrentId of torrentIds)
+  {
+    delete state.torrents[torrentId]
+  }
+}
+
 export function SET_ACTIVE_TORRENTS (state, torrents)
 /**
  * Set current torrents that had some recent activity

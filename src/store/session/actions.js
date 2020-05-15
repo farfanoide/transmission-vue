@@ -74,14 +74,10 @@ export function deleteTorrents( {rootGetters, getters, commit}, payload){
     .then(
       //success!
       resp => {
+        // Update session torrents with undeleted ones
+        commit('DELETE_TORRENTS', getters.selectedTorrentsIds)
         // reset selected torrents
         commit('CLEAR_SELECTED_TORRENTS');
-        // Update session torrents with undeleted ones
-        const remainingTorrents = getters.torrents
-          .filter( torrent => !payload.torrentIds.includes(torrent.id))
-        commit('SET_SESSION_TORRENTS', remainingTorrents)
-        // TODO: maybe change this to a DELETE_TORRENT mutation, so the store
-        // is the only one that actually handles info within it
       },
     )
 }
