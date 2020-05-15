@@ -27,8 +27,10 @@
         <q-item-section>
           <q-select v-model='statusFilter' :options="filters" dense borderless>
             <template v-slot:selected>
-              <q-avatar :icon="statusFilter.icon"></q-avatar>
-              {{ statusFilter.label }}
+              <span class="text-white">
+                <q-avatar :icon="statusFilter.icon"></q-avatar>
+                {{ statusFilter.label }}
+              </span>
             </template>
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps"

@@ -6,10 +6,12 @@
     <q-item>
       <q-item-section>
         <q-select v-model="sortBy" :options="sortOptions" dense borderless>
-            <template v-slot:selected>
+          <template v-slot:selected>
+            <span class="text-white">
               <q-avatar :icon="sortBy.icon"></q-avatar>
               {{ sortBy.label }}
-            </template>
+            </span>
+          </template>
           <template v-slot:option="scope">
             <q-item v-bind="scope.itemProps"
                     v-on="scope.itemEvents">
