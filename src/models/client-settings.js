@@ -30,9 +30,9 @@ const rpc_settings = [
   "peer-limit-global",            // | number     | maximum global number of peers
   "peer-limit-per-torrent",       // | number     | maximum global number of peers
   "pex-enabled",                  // | boolean    | true means allow pex in public torrents
-  //"peer-port",                    // | number     | port number
-  //"peer-port-random-on-start",    // | boolean    | true means pick a random peer port on launch
-  //"port-forwarding-enabled",      // | boolean    | true means enabled
+  "peer-port",                    // | number     | port number
+  "peer-port-random-on-start",    // | boolean    | true means pick a random peer port on launch
+  "port-forwarding-enabled",      // | boolean    | true means enabled
   //"queue-stalled-enabled",        // | boolean    | whether or not to consider idle torrents as stalled
   //"queue-stalled-minutes",        // | number     | torrents that are idle for N minuets aren't counted toward seed-queue-size or download-queue-size
   "rename-partial-files",         // | boolean    | true means append ".part", to incomplete files
@@ -51,7 +51,7 @@ const rpc_settings = [
   "start-added-torrents",         // | boolean    | true means added torrents will be started right away
   //"trash-original-torrent-files", // | boolean    | true means the .torrent file of added torrents will be deleted
   //"units",                        // | object     | see below
-  //"utp-enabled",                  // | boolean    | true means allow utp
+  "utp-enabled",                  // | boolean    | true means allow utp
   //"version",                      // | string     | long version string "$version ($revision)"
 ]
 

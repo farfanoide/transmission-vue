@@ -153,8 +153,23 @@
             </div>
           </q-tab-panel>
           <q-tab-panel name="network">
-            <div class="text-h4 q-mb-md">Network</div>
-            <p> Under construction </p>
+            <div class="text-h5 text-center q-mb-md">Listening Port</div>
+              <q-input outlined
+                bottom-slots=""
+                v-model="settings.peerPort"
+                label="Peer listening port"
+              >
+              <template v-slot:hint> <del>Port is <strong> OPEN</strong></del></template>
+              </q-input>
+              <q-checkbox  v-model="settings.peerPortRandomOnStart"
+                label="Randomize port on launch" />
+              <br />
+              <q-checkbox  v-model="settings.portForwardingEnabled"
+                label="Use port forwarding from my router" />
+              <br />
+            <div class="text-h5 text-center q-mb-md">Options</div>
+            <q-checkbox  v-model="settings.utpEnabled"
+                label="Enable uTP peer communication" />
           </q-tab-panel>
         </q-tab-panels>
     </div>
