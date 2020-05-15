@@ -1,11 +1,12 @@
 <template>
   <div class="torrent-row row shadow-transition"
-       :class="{selected: isSelected, 'shadow-6': isSelected}"
-       @click="toggleSelecedTorrent(torrent.id)">
+       @dblclick="$emit('show-details')"
+       :class="{selected: isSelected, 'shadow-6': isSelected}">
 
     <div class="col-10 data-container">
       <div class="column">
-        <div class="name">
+        <div class="name"
+             @click="toggleSelecedTorrent(torrent.id)">
           <strong>{{torrent.name}}</strong>
         </div>
         <div class="networking">
@@ -112,5 +113,9 @@ export default {
 
 .torrent-row .data-container {
   border-right: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.torrent-row .name:hover {
+  cursor: pointer
 }
 </style>
