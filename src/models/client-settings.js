@@ -102,4 +102,16 @@ export default class ClientSettings
             })
     }
 
+    /**
+     * Returns a subset of this model settings
+     * @param {Array<string>} settingsArray A list of settings to return from model
+     * 
+     * @returns {Object} A subset of settings
+     */
+    getSettings(settingsArray) {
+        return Object.fromEntries(
+            Object.entries(this)
+                .filter(([name,value]) => settingsArray.includes(name))
+        );
+    }
 }
