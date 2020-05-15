@@ -27,28 +27,28 @@
           <q-tab-panel name="torrents">
               <div class="text-h4 text-center q-mb-md">Torrents</div>
               <q-input outlined 
-                v-model="settings['download-dir']"
-                label="Download dir" />
+                v-model="settings.downloadDir"
+                label="Downloads directory" />
             <div class="row">
-              <q-checkbox  v-model="settings['start-added-torrents']"
+              <q-checkbox  v-model="settings.startAddedTorrents"
                 label="Start when added" />
-              <q-checkbox  v-model="settings['rename-partial-files']"
+              <q-checkbox  v-model="settings.renamePartialFiles"
                 label="Append .part to incomplete files" />
             </div>
             <div class="text-h4 text-center q-mb-md">Seeding</div>
-              <q-checkbox  v-model="settings['seedRatioLimited']"
+              <q-checkbox  v-model="settings.seedRatioLimited"
                 label="Stop seeding at ratio" />
               <q-input outlined 
-                v-model="settings['seedRatioLimit']"
+                v-model="settings.seedRatioLimit"
                 label="seed ratio"
-                :disable="!settings['seedRatioLimited']"
+                :disable="!settings.seedRatioLimited"
                 />
-              <q-checkbox  v-model="settings['idle-seeding-limit-enabled']"
+              <q-checkbox  v-model="settings.idleSeedingLimitEnabled"
                 label="stop seeding if idle for" />
               <q-input outlined 
-                v-model="settings['idle-seeding-limit']"
+                v-model="settings.idleSeedingLimit"
                 label="minutes"
-                :disable="!settings['idle-seeding-limit-enabled']"
+                :disable="!settings.idleSeedingLimitEnabled"
                 />
           </q-tab-panel>
 
