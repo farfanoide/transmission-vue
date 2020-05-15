@@ -5,10 +5,12 @@ class TransmissionService {
 
   constructor(options)
   {
-    this.store = options.store
-    this.client = new TransmissionClient(options)
-    this.fetchActivesInterval = null
-    this.fetchActiveIdsInterval = null
+    this.store                     = options.store
+    this.client                    = new TransmissionClient(options)
+    this.fetchActivesInterval      = null
+    this.fetchActiveIdsInterval    = null
+    this.fetchSessionStatsInterval = null
+    this.fetchSessionDataInterval  = null
   }
 
   activate()
@@ -17,16 +19,16 @@ class TransmissionService {
     this.client.session().then(data => {
       this.store.commit('session/SET_SESSION_DATA', data)
       // get session stats
-      this.client.sessionStats().then((stats) => {
-        this.store.commit('session/SET_SESSION_STATS', stats)
-      })
+      this.fetchSessionStats()
       // get torrents data
       this.client.get().then(({torrents}) => {
         this.store.commit('session/SET_SESSION_TORRENTS', Torrent.fromRPC(torrents))
       })
       // TODO make intervals configurable
-      this.fetchActiveIdsInterval = setInterval(this.fetchActiveIds.bind(this), 2000 * 2)
-      this.fetchActivesInterval = setInterval(this.fetchActiveTorrents.bind(this), 2000)
+      this.fetchActiveIdsInterval    = setInterval(this.fetchActiveIds.bind(this), 2000 * 2)
+      this.fetchSessionStatsInterval = setInterval(this.fetchSessionStats.bind(this), 2000 * 2)
+      this.fetchSessionDataInterval = setInterval(this.fetchSessionData.bind(this), 2000 * 2)
+      this.fetchActivesInterval      = setInterval(this.fetchActiveTorrents.bind(this), 2000)
     })
   }
 
@@ -34,6 +36,8 @@ class TransmissionService {
   {
     clearInterval(this.fetchActivesInterval)
     clearInterval(this.fetchActiveIdsInterval)
+    clearInterval(this.fetchSessionStatsInterval)
+    clearInterval(this.fetchSessionDataInterval)
   }
 
   fetchActiveIds()
@@ -51,6 +55,16 @@ class TransmissionService {
     this.client.get(activeTorrentsIds).then(({torrents}) => {
       this.store.commit('session/UPDATE_TORRENTS', Torrent.fromRPC(torrents))
     })
+  }
+
+  fetchSessionStats()
+  {
+    this.client.sessionStats().then(stats => this.store.commit('session/SET_SESSION_STATS', stats))
+  }
+
+  fetchSessionData()
+  {
+    this.client.session().then(data => this.store.commit('session/SET_SESSION_DATA', data))
   }
 
   addTorrentFromUrl(url)
