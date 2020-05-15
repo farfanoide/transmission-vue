@@ -12,9 +12,9 @@ const rpc_settings = [
   "alt-speed-time-end",           // | number     | when to turn off alt speeds (units: same)
   "alt-speed-time-day",           // | number     | what day(s) to turn on alt speeds (look at tr_sched_day)
   "alt-speed-up",                 // | number     | max global upload speed (KBps)
-  //"blocklist-url",                // | string     | location of the blocklist to use for "blocklist-update"
-  //"blocklist-enabled",            // | boolean    | true means enabled
-  //"blocklist-size",               // | number     | number of rules in the blocklist
+  "blocklist-url",                // | string     | location of the blocklist to use for "blocklist-update"
+  "blocklist-enabled",            // | boolean    | true means enabled
+  "blocklist-size",               // | number     | number of rules in the blocklist
   //"cache-size-mb",                // | number     | maximum size of the disk cache (MB)
   //"config-dir",                   // | string     | location of transmission's configuration directory
   "download-dir",                 // | string     | default path to download torrents

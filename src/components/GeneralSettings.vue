@@ -134,9 +134,23 @@
               <q-checkbox  v-model="settings.lpdEnabled"
                 label="Use LDP to find more peers" />
 
-            
+            <div disabled>
             <div class="text-h5 text-center q-mb-md"> Blocklist </div>
-            <p> Under construction </p>
+              <q-checkbox  v-model="settings.blocklistEnabled"
+                label="Enable blocklist" />
+              <q-input outlined
+                bottom-slots
+                v-model="settings.blocklistUrl"
+                :disable="!settings.blocklistEnabled"
+                readonly
+              >        
+              <template v-slot:after>
+                <q-btn dense flat :disable="!settings.blocklistEnabled">Update</q-btn>
+              </template>
+              <template v-slot:hint>Blocklist has {{settings.blocklistSize}} rules</template>
+              </q-input>
+
+            </div>
           </q-tab-panel>
           <q-tab-panel name="network">
             <div class="text-h4 q-mb-md">Network</div>
