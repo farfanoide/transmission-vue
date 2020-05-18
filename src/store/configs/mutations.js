@@ -33,6 +33,16 @@ export function TOGGLE_DEFAULT_SERVER (state, server)
     s.isDefault = (s.id == server.id) ?
       setDefault :
       ((setDefault) ? false : s.isDefault)
-      // other servers must only be changed if a new default is set
+    // other servers must only be changed if a new default is set
   }
+}
+
+export function SET_CLIENT (state, client)
+{
+  state.client = client
+}
+
+export function CLEAR_CLIENT (state)
+{
+  state.client = null
 }

@@ -112,7 +112,7 @@ export default {
     ...mapActions('configs', [
       'deleteServer',
       'setCurrentServer',
-      'toggleDefaultServer'
+      'toggleDefaultServer',
     ]),
     editServer(server)
     {

@@ -66,8 +66,7 @@
 </template>
 
 <script>
-import { mapMutations, mapState } from 'vuex'
-import TransmissionService from '../services/transmission_service'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import TorrentSearch from './TorrentSearch'
 import { BlobToBase64 } from '../lib/utils'
 
@@ -82,16 +81,9 @@ export default {
     return {
       showModal: false,
       tab: 'url',
-      service: null,
       torrentUrl: null,
       torrentFile: null,
     }
-  },
-  mounted()
-  {
-    this.service = new TransmissionService(
-      Object.assign({store: this.$store}, this.currentServer)
-    )
   },
   methods:
   {
@@ -116,7 +108,7 @@ export default {
     {
       let base64Torrent = await BlobToBase64(blob)
 
-      this.service.addTorrentFromBase64(base64Torrent)
+      this.client.addBase64(base64Torrent)
         .then(success => {
           this.handleSuccess({message: 'Torrent Successfully added'})
         }).catch(error => {
@@ -139,7 +131,7 @@ export default {
         return this.downloadAndAddTorrent()
       } else {
         // handle as simple url or magnet
-        this.service.addTorrentFromUrl(this.torrentUrl)
+        this.client.addUrl(this.torrentUrl)
           .then(success => this.handleSuccess({ message: 'Torrent Successfully added' }))
           .catch(error => this.handleError({ message: 'Something went wrong' }) )
       }
@@ -152,7 +144,9 @@ export default {
   },
   computed:
   {
-    ...mapState('configs', ['currentServer']),
+    ...mapState('configs', [
+      'client',
+    ]),
   }
 
 }

@@ -13,7 +13,7 @@
 
 <script>
 
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import TorrentRow from './TorrentRow'
 import TorrentDetails from './TorrentDetails'
 
@@ -39,6 +39,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('configs', [
+      'currentServer',
+    ]),
     ...mapGetters('session', {
       torrents: 'filteredTorrents'
     }),

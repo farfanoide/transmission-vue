@@ -1,5 +1,6 @@
 // no need to use actions since we're using localstorage but just in case we
 // need to change this in the future everything is already set up
+// TODO: return promises from all actions
 
 export function setServers ({ commit }, servers)
 {
@@ -21,9 +22,9 @@ export function setCurrentServer ({ commit }, server)
   commit('SET_CURRENT_SERVER', server)
 }
 
-export function setDefaultServerAsCurrent ({ commit, getters, state })
+export function setDefaultServerAsCurrent ({ commit, getters })
 {
-  return setCurrentServer({ commit }, getters.defaultServer)
+  commit('SET_CURRENT_SERVER', getters.defaultServer)
 }
 
 export function deleteServer ({ commit }, server)
