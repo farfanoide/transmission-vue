@@ -9,7 +9,6 @@
 
 <script>
 import { mapState, mapActions } from 'vuex'
-import TransmissionFormatter from '../lib/formatter'
 
 export default {
   name: 'SpeedSetting',
@@ -21,7 +20,6 @@ export default {
   },
   methods:
   {
-    // TODO: check and add a loading state
     ...mapActions('session', ['toggleSpeedSetting']),
     requestToggle: function ()
     {
@@ -36,9 +34,13 @@ export default {
   computed:
   {
     ...mapState('session', ['data']),
+    statusText: function ()
+    {
+      return this.altSpeedEnabled ? 'enabled' : 'disabled'
+    },
     message: function ()
     {
-      return  `Alternative speed ${this.altSpeedEnabled ? 'enabled' : 'disabled'}`
+      return  `Alternative speed ${this.statusText}`
     },
     altSpeedEnabled: function ()
     {
@@ -46,7 +48,7 @@ export default {
     },
     iconClass: function ()
     {
-      return `alternative-speed-${this.altSpeedEnabled ? 'enabled' : 'disabled'}`
+      return `alternative-speed-${this.statusText}`
     }
   },
 }
@@ -55,12 +57,10 @@ export default {
 <style>
 .alternative-speed-enabled {
   color: var(--q-color-negative);
-  /* text-shadow: 1px 0 3px var(--q-color-negative); */
 }
 
 .alternative-speed-disabled {
   color: var(--q-color-positive);
-  /* text-shadow: 1px 0 2px var(--q-color-positive); */
 }
 
 </style>
