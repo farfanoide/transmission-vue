@@ -23,7 +23,7 @@
         </q-btn>
         <q-btn icon="library_add_check"
                flat round
-               @click="verifyLocalData">
+               @click="verifySelectedTorrents">
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Verify Local Data
           </q-tooltip>
@@ -31,7 +31,7 @@
 
         <q-btn icon="priority_high"
                flat round
-               @click="startTorrentsNow">
+               @click="startSelectedTorrentsNow">
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Start Now
           </q-tooltip>
@@ -39,13 +39,13 @@
 
         <q-btn icon="play_arrow"
                flat round
-               @click="startTorrents">
+               @click="startSelectedTorrents">
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Start
           </q-tooltip>
         </q-btn>
 
-        <q-btn flat round icon="pause" @click="stopTorrents">
+        <q-btn flat round icon="pause" @click="stopSelectedTorrents">
           <q-tooltip anchor="top middle" :offset="[30, 30]">
             Pause
           </q-tooltip>
@@ -88,22 +88,22 @@ export default {
       clearSelectedTorrents: 'CLEAR_SELECTED_TORRENTS',
     }),
     ...mapActions("session", [
-      "deleteTorrents",
+      "deleteSelectedTorrents",
       "reannounceSelectedTorrents",
-      "startTorrents",
-      "startTorrentsNow",
-      "stopTorrents",
-      "verifyLocalData",
+      "startSelectedTorrents",
+      "startSelectedTorrentsNow",
+      "stopSelectedTorrents",
+      "verifySelectedTorrents",
     ]),
     confirmDelete: function ({ deleteFiles })
     {
       this.$q.dialog({
         title: 'Confirm',
-        message: `Are you sure you want to delete this torrent ${deleteFiles ? 'and all of its files' : ''}?`,
+        message: `Are you sure you want to delete this torrents ${deleteFiles ? 'and all of its files' : ''}?`,
         cancel: true,
         persistent: true
       }).onOk(() => {
-        this.deleteTorrents({ deleteFiles })
+        this.deleteSelectedTorrents({ deleteFiles })
       })
 
     },

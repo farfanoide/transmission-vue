@@ -3,11 +3,18 @@
        @dblclick="$emit('show-details')"
        :class="{selected: isSelected, 'shadow-6': isSelected}">
 
-    <div class="col-10 data-container">
+    <div class="col-12 data-container">
       <div class="column">
-        <div class="name"
-             @click="toggleSelecedTorrent(torrent.id)">
-          <strong>{{torrent.name}}</strong>
+        <div class="row">
+          <div class="col-8 name text-no-wrap"
+               @click="toggleSelecedTorrent(torrent.id)">
+            <strong>{{torrent.name}}</strong>
+          </div>
+          <div class="col-4">
+            <torrent-actions :torrentId="torrent.id"
+                             :isPaused="torrent.isPaused()">
+            </torrent-actions>
+          </div>
         </div>
         <div class="networking">
           <span :class="{'text-negative': torrent.hasErrors()}">
@@ -18,7 +25,7 @@
           </template>
         </div>
         <div class="progressbar">
-          <q-linear-progress :color='progressColor' :value="torrent.percentDone" class="q-mt-md" size="10px">
+          <q-linear-progress rounded :color='progressColor' :value="torrent.percentDone" class="q-mt-md" size="10px">
           </q-linear-progress>
           <!-- TODO: check how to add  gradient to progressbars -->
           <!-- style="background: linear&#45;gradient(145deg,#1976d2 11%,#0f477e 75%)"  -->
@@ -34,9 +41,6 @@
         </div>
       </div>
     </div>
-    <div class="col-2 actions-container">
-      <torrent-actions :torrent="torrent" :torrentPresenter="torrentPresenter"></torrent-actions>
-    </div>
   </div>
 </template>
 
@@ -47,7 +51,7 @@ import TorrentActions from './TorrentActions.vue'
 
 export default {
   name: 'TorrentRow',
-  props: ['torrent', 'enabledColumns'],
+  props: ['torrent'],
   components: {
     TorrentActions,
   },
@@ -111,8 +115,8 @@ export default {
   padding: .5em;
 }
 
-.torrent-row .data-container {
-  border-right: 1px solid rgba(0, 0, 0, 0.3);
+.torrent-row .name {
+  overflow: hidden;
 }
 
 .torrent-row .name:hover {
