@@ -1,5 +1,5 @@
 <template>
-  <q-btn icon='speed' flat round :class="iconClass" @click="toggleSpeedSetting">
+  <q-btn :loading="loading" icon='speed' flat round :class="iconClass" @click="requestToggle">
     <q-tooltip anchor="bottom left" :offset="[30, 30]">
       {{message}}
     </q-tooltip>
@@ -13,10 +13,25 @@ import TransmissionFormatter from '../lib/formatter'
 
 export default {
   name: 'SpeedSetting',
+  data()
+  {
+    return {
+      loading: false,
+    }
+  },
   methods:
   {
     // TODO: check and add a loading state
     ...mapActions('session', ['toggleSpeedSetting']),
+    requestToggle: function ()
+    {
+      this.loading = true
+
+      setTimeout(() => {
+        this.toggleSpeedSetting()
+          .finally(() => this.loading = false)
+      }, 500)
+    },
   },
   computed:
   {
