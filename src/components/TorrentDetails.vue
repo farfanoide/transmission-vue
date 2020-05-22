@@ -42,7 +42,7 @@
 
           <q-tab-panel name="files">
             <div class="text-h4 q-mb-md">Files</div>
-            <p> Under construction </p>
+            <files-list :files="torrent.files"></files-list>
           </q-tab-panel>
 
         </q-tab-panels>
@@ -56,6 +56,7 @@
 import { mapGetters } from 'vuex'
 import TrackersList from './TrackersList'
 import PeersList from './PeersList'
+import FilesList from './FilesList'
 import TorrentInfo from './TorrentInfo'
 
 export default {
@@ -63,15 +64,16 @@ export default {
   components:
   {
     // TODO create individual componentts for each tab
+    FilesList,
     PeersList,
-    TrackersList,
     TorrentInfo,
+    TrackersList,
   },
   props: ['torrent', 'initialtab'],
   data()
   {
     return {
-      tab: 'info',
+      tab: 'files',
     }
   },
   created()
