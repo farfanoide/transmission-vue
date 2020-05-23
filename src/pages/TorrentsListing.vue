@@ -10,7 +10,6 @@
 import { mapActions, mapGetters, mapMutations, mapState } from 'vuex'
 import TorrentList from '../components/TorrentList'
 import MultiTorrentActions from '../components/MultiTorrentActions'
-import TransmissionService from '../services/transmission_service';
 
 export default {
   name: 'TorrentsListing',
@@ -21,50 +20,82 @@ export default {
   data()
   {
     return {
-      service: null,
+      intervals: {
+        activeIds: null,
+        sessionStats: null,
+        sessionData: null,
+        actives: null,
+      }
     }
   },
   created()
   {
     // TODO: move to maybe a beforeEnter on the route itself
-    if (!this.currentServer)
+    if (this.currentServer)
     {
+      this.enableClient()
+    } else {
       if (this.hasDefaultServer)
       {
-        this.setDefaultServerAsCurrent().then(this.activateClient)
+        this.setDefaultServerAsCurrent().then(this.enableClient)
       } else {
         this.$router.push({name: 'servers'})
       }
-    } else {
-      this.activateClient()
     }
   },
   beforeDestroy()
   {
-    this.deactivateClient()
+    if (this.currentServer)
+    {
+      this.disableClient()
+    }
     this.setCurrentServer(null)
+    this.clearSessionTorrents()
   },
   methods:
   {
     ...mapActions('configs', [
       'setCurrentServer',
-      'setDefaultServerAsCurrent'
+      'setDefaultServerAsCurrent',
     ]),
-    deactivateClient: function ()
+    ...mapActions('session', [
+      'getSessionData',
+      'getSessionStats',
+      'getTorrents',
+      'updateActiveTorrentsIds',
+      'updateActiveTorrents'
+    ]),
+    ...mapMutations('session', {
+      clearSessionTorrents: 'CLEAR_SESSION_TORRENTS',
+    }),
+    disableClient()
     {
-      this.service.deactivate()
+      Object.keys(this.intervals).forEach(key => clearInterval(this.intervals[key]))
     },
-    activateClient: function ()
+    enableClient: function ()
     {
-      this.service = new TransmissionService(
-        Object.assign({store: this.$store}, this.currentServer)
-      )
-      this.service.activate()
-    }
+      // Initial fetch of data
+      this.getSessionData()
+      this.getSessionStats()
+      this.getTorrents()
+      this.updateActiveTorrentsIds()
+      this.updateActiveTorrents()
+
+      // set intervals to fetch data regularly
+      // TODO: make intervals configurable
+      this.intervals.sessionData  = setInterval(this.getSessionData, 2000 * 2)
+      this.intervals.sessionStats = setInterval(this.getSessionStats, 2000 * 2)
+      this.intervals.activeIds    = setInterval(this.updateActiveTorrentsIds, 2000 * 2)
+      this.intervals.actives      = setInterval(this.updateActiveTorrents, 2000)
+
+    },
   },
   computed:
   {
-    ...mapGetters('configs', ['hasDefaultServer']),
+    ...mapGetters('configs', [
+      'hasDefaultServer',
+      'client',
+    ]),
     ...mapState('configs', ['currentServer']),
   }
 }

@@ -1,16 +1,13 @@
 
 const AvailableFilters = {
-  name: (torrent, nameSubstring) => torrent.name.toLowerCase().includes(nameSubstring.toLowerCase()),
-  ACTIVE: (torrent) => torrent.isActive(),
-  SEED: (torrent) => torrent.isSeeding() || torrent.isWaitingToSeed(),
+  name:     (torrent, nameSubstring) => torrent.name.toLowerCase().includes(nameSubstring.toLowerCase()),
+  ACTIVE:   (torrent) => torrent.isActive(),
+  SEED:     (torrent) => torrent.isSeeding() || torrent.isWaitingToSeed(),
   DOWNLOAD: (torrent) => torrent.isDownloading() || torrent.isWaitingToDownload(),
-  STOPPED: (torrent) => torrent.isPaused(),
+  STOPPED:  (torrent) => torrent.isPaused(),
   FINISHED: (torrent) => torrent.hasFinished(),
-}
-
-AvailableFilters.enabled = function (statusFilters)
-{
-  return statusFilters.map(filterName => AvailableFilters[filterName])
+  ERROR:    (torrent) => torrent.hasErrors(),
+  CHECK:    (torrent) => torrent.isChecking() || torrent.isWaitingToCheck(),
 }
 
 export default function FilteredTorrents(activeFilters, torrents)
@@ -21,10 +18,9 @@ export default function FilteredTorrents(activeFilters, torrents)
   {
     filtered = filtered.filter((torrent) => AvailableFilters.name(torrent, activeFilters.nameFilter))
   }
-  if (activeFilters.statusFilters.length > 0)
+  if (activeFilters.statusFilter && activeFilters.statusFilter !== 'ALL')
   {
-    let enabledFilters = AvailableFilters.enabled(activeFilters.statusFilters)
-    filtered = filtered.filter((torrent) => enabledFilters.some((filter) => filter(torrent)))
+    filtered = filtered.filter(AvailableFilters[activeFilters.statusFilter])
   }
   return filtered
 }

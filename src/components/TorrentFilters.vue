@@ -1,47 +1,63 @@
 <template>
-  <div class="q-pa-md">
-      <q-list>
-        <q-item-label header>
-          Filter by Name
-        </q-item-label>
-        <!-- TODO: add ? icon to show info on how filters are applied -->
-        <q-item>
-          <q-item-section>
-            <q-input dense outlined v-model="nameFilter" >
-              <template v-slot:append>
-                <q-icon name="search" />
-              </template>
-            </q-input>
-          </q-item-section>
-        </q-item>
-      </q-list>
+  <div>
+    <q-list>
+      <!-- TODO: add ? icon to show info on how filters are applied -->
+      <q-item>
+        <q-item-section>
+          <q-input rounded standout dark dense
+                   placeholder="Filter by Name"
+                   input-class="text-left"
+                   clearable
+                   v-model="nameFilter">
 
-      <q-list>
-        <q-item-label header>
-          Filter by Status
-        </q-item-label>
-        <q-item v-for="filter in filters" :key="`filter-${filter.value}`" tag="label" v-ripple dense>
-          <q-item-section>
-            <q-item-label>
-              <q-icon :name="filter.icon"></q-icon>
-              {{filter.label}}
-            </q-item-label>
-          </q-item-section>
-          <q-item-section avatar>
-            <q-toggle color="blue" v-model="statusFilters" :val="filter.value" />
-          </q-item-section>
-        </q-item>
-      </q-list>
+            <template v-slot:append>
+              <q-icon name="search" />
+            </template>
 
-      <q-separator></q-separator>
+          </q-input>
+        </q-item-section>
+      </q-item>
+    </q-list>
 
-      <q-btn class="full-width"
-             align="between"
-             icon-right="clear"
-             @click="clearFilters"
-             v-if="anyActiveFilters">
-        Clear
-      </q-btn>
+    <q-list>
+      <q-item-label header>
+        Filter by Status
+      </q-item-label>
+      <q-item tag="label" v-ripple dense>
+        <q-item-section>
+          <q-select v-model='statusFilter' :options="filters" dense borderless>
+            <template v-slot:selected>
+              <span class="text-white">
+                <q-avatar :icon="statusFilter.icon"></q-avatar>
+                {{ statusFilter.label }}
+              </span>
+            </template>
+            <template v-slot:option="scope">
+              <q-item v-bind="scope.itemProps"
+                      v-on="scope.itemEvents">
+                <q-item-section avatar>
+                  <q-icon :name="scope.opt.icon" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>
+                    {{scope.opt.label}}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+            </template>
+          </q-select>
+        </q-item-section>
+      </q-item>
+    </q-list>
+
+    <q-btn class="full-width"
+           align="between"
+           icon-right="clear"
+           flat
+           @click="clearFilters"
+           v-if="anyActiveFilters">
+      Clear All
+    </q-btn>
   </div>
 </template>
 
@@ -54,6 +70,11 @@ export default {
   data() {
     return {
       filters: [
+        {
+          icon: 'dehaze',
+          value: 'ALL',
+          label: 'All'
+        },
         {
           icon: 'swap_vert',
           value: 'ACTIVE',
@@ -79,14 +100,23 @@ export default {
           value: 'FINISHED',
           label: 'Finished'
         },
-
+        {
+          icon: 'warning',
+          value: 'ERROR',
+          label: 'Has Error'
+        },
+        {
+          icon: 'disc_full',
+          value: 'CHECK',
+          label: 'Verifying'
+        }
       ],
     }
   },
   methods: {
     ...mapMutations('session', {
       updateNameFilter: 'UPDATE_NAME_FILTER',
-      updateStatusFilters: 'UPDATE_STATUS_FILTERS',
+      updateStatusFilter: 'UPDATE_STATUS_FILTER',
       clearFilters: 'CLEAR_FILTERS',
     }),
   },
@@ -102,19 +132,19 @@ export default {
         this.updateNameFilter(nameSubstring)
       }
     },
-    statusFilters: {
+    statusFilter: {
       get: function ()
       {
-        return this.activeFilters.statusFilters
+        return this.filters.find((option) => option.value === this.activeFilters.statusFilter)
       },
-      set: function (filters)
+      set: function (option)
       {
-        this.updateStatusFilters(filters)
+        this.updateStatusFilter(option.value)
       }
     },
     anyActiveFilters: function ()
     {
-      return this.nameFilter || this.statusFilters.length > 0
+      return this.nameFilter || this.activeFilters.statusFilter !== 'ALL'
     },
     // TODO: add computed property that recalculates trackers only when new
     // torrents are added/removed

@@ -1,13 +1,10 @@
 <template>
-  <q-form @submit="onSubmit" class="q-mx-md">
+  <q-form @submit="onSubmit">
     <q-input
       rounded
-      standout
-      dark
       dense
       label="Quick Search"
       input-class="text-right"
-      class="q-ml-md"
       v-model="searchString"
     >
       <template v-slot:append>

@@ -13,6 +13,18 @@ export function SET_SESSION_STATS (state, stats)
   state.stats = stats;
 }
 
+export function CLEAR_SESSION_TORRENTS (state)
+{
+  /**
+   * Clear sessions torrents, particularly useful when changing
+   * from one server to the next so we dont show old data while
+   * new torrent service is being enabled.
+   **/
+  state.torrents = {}
+  // TODO: check if we should delete state.torrents before to avoid mem leaks
+  // or too much GC dependency
+}
+
 export function SET_SESSION_TORRENTS (state, torrents)
 {
   /**
@@ -21,6 +33,17 @@ export function SET_SESSION_TORRENTS (state, torrents)
    * easyer.
    */
   state.torrents = Object.fromEntries(torrents.map(torrent => [torrent.id, torrent]))
+}
+
+export function DELETE_TORRENTS (state, torrentIds)
+{
+/**
+ * Removes given torrents from the store
+ **/
+  for (const torrentId of torrentIds)
+  {
+    delete state.torrents[torrentId]
+  }
 }
 
 export function SET_ACTIVE_TORRENTS (state, torrents)
@@ -32,7 +55,12 @@ export function SET_ACTIVE_TORRENTS (state, torrents)
   state.activeTorrentsIds = torrents.map(torrent => torrent.id);
 }
 
-export function UPDATE_ACTIVE_TORRENTS (state, torrents)
+export function ADD_ACTIVE_TORRENTS_IDS (state, torrentsIds)
+{
+  state.activeTorrentsIds = [...(new Set(state.activeTorrentsIds.concat(torrentsIds)))]
+}
+
+export function UPDATE_TORRENTS (state, torrents)
 {
   for (const torrent of torrents)
   {
@@ -56,13 +84,13 @@ export function CLEAR_FILTERS  (state)
 {
   state.activeFilters = {
     nameFilter: '',
-    statusFilters: [],
+    statusFilter: 'ALL',
   }
 }
 
-export function UPDATE_STATUS_FILTERS (state, statusFilters)
+export function UPDATE_STATUS_FILTER (state, statusFilter)
 {
-  state.activeFilters.statusFilters = statusFilters
+  state.activeFilters.statusFilter = statusFilter
 }
 
 export function UPDATE_NAME_FILTER (state, nameFilter)
@@ -72,4 +100,14 @@ export function UPDATE_NAME_FILTER (state, nameFilter)
 
 export function SET_SETTINGS (state, settings) {
   state.settings = settings;
+}
+
+export function UPDATE_SORT_BY (state, sort)
+{
+  state.sorting.sortBy = sort
+}
+
+export function UPDATE_SORT_REVERSED (state, reverse)
+{
+  state.sorting.reverse = reverse
 }

@@ -6,7 +6,9 @@ class Torrent {
 
   constructor(data)
   {
-    for (var prop in data)
+    Object.assign(this, data)
+
+    for (let prop of TorrentMapper.attrsToMap())
     {
       this[prop] = TorrentMapper.mapValue(prop, data[prop])
     }
@@ -64,6 +66,12 @@ class Torrent {
   {
     this.isFinished;
   }
+
+  hasErrors()
+  {
+    return this.error !== 0
+  }
+
   // TODO: add a fromMany method to handle instantiation of multiple torrents
   // at once
 

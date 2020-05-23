@@ -13,23 +13,5 @@ export function defaultServerTemplate()
     username: '',
     password: '',
     connection: 'unknown',
-    isNew: true,
   }
 }
-
-export function emptyServerTemplate()
-{
-  return {
-    isDefault: false,
-    displayName: null,
-    host: '',
-    url: '',
-    ssl: null,
-    port: 0,
-    username: '',
-    password: '',
-    connection: '',
-    isNew: null,
-  }
-}
-

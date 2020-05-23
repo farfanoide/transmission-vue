@@ -2,46 +2,127 @@ export function toggleSpeedSetting ({ rootGetters, state, commit })
 {
   let sessionParams = {'alt-speed-enabled': !state.data['alt-speed-enabled']}
 
-  rootGetters['configs/client'].session(sessionParams)
+  return rootGetters['configs/client'].session(sessionParams)
     .then((resp) => commit('UPDATE_SESSION_DATA', sessionParams))
 }
 
-// TODO: after calling the api, need to update active torrents
-export function startTorrentsNow ( {rootGetters, getters } )
+export function verifyTorrents ( {rootGetters, commit }, torrentsIds)
+{
+  return rootGetters['configs/client'].verify(torrentsIds)
+    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
+}
+
+export function verifySelectedTorrents (context)
+{
+  /**
+   * Set marked torrents to Verify Local Data
+   **/
+  return verifyTorrents(context, context.state.selectedTorrentsIds)
+}
+
+export function reannounceTorrents ({rootGetters, commit}, torrentsIds)
+{
+  /**
+   * Reannounce torrents
+   **/
+  return rootGetters['configs/client'].reannounce(torrentsIds)
+    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
+}
+
+export function reannounceSelectedTorrents (context)
+{
+  /**
+   * Reannounce selected torrents
+   **/
+  return reannounceTorrents(context, context.state.selectedTorrentsIds)
+}
+
+export function startTorrentsNow ({rootGetters, commit}, torrentsIds)
 {
   /**
    * Start marked torrents inmediately calling transmission rpc
-   * thru torrent service wrapper. 
+   * thru torrent service wrapper.
    * Bypasses the download queue says the docs.
    */
-  rootGetters['configs/client'].startNow(getters.selectedTorrentsIds)
-    .then(console.log)
-    .catch(console.log)      
+  return rootGetters['configs/client'].startNow(torrentsIds)
+    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
 }
 
-export function startTorrents( {rootGetters, getters} )
-{ 
+export function startSelectedTorrentsNow (context)
+{
+  /**
+   * Start marked torrents inmediately calling transmission rpc
+   * thru torrent service wrapper.
+   * Bypasses the download queue says the docs.
+   */
+  return startTorrentsNow(context, context.state.selectedTorrentsIds)
+}
+
+export function startTorrents({rootGetters, commit}, torrentsIds)
+{
   /**
    * Start marked torrents calling transmission rpc thru torrent
    * service wrapper.
    */
-  rootGetters['configs/client'].start(getters.selectedTorrentsIds)
-    .then(console.log)
-    .catch(console.log)
+  return rootGetters['configs/client'].start(torrentsIds)
+    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
 }
 
-export function stopTorrents ( {rootGetters, getters} )
+export function startSelectedTorrents(context)
+{
+  /**
+   * Start marked torrents calling transmission rpc thru torrent
+   * service wrapper.
+   */
+  return startTorrents(context, context.state.selectedTorrentsIds)
+}
+
+export function stopTorrents ({rootGetters, commit}, torrentsIds)
 {
   /**
    * Stop marked torrents calling transmission rpc thru torrent
    * service wrapper.
    */
-  rootGetters['configs/client'].stop(getters.selectedTorrentsIds)
-    .then(console.log)
-    .catch(console.log)
+  return rootGetters['configs/client'].stop(torrentsIds)
+    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
 }
 
-export function deleteTorrents( {rootGetters, getters, commit}, payload){
+export function stopSelectedTorrents (context)
+{
+  /**
+   * Stop marked torrents calling transmission rpc thru torrent
+   * service wrapper.
+   */
+  return stopTorrents(context, context.state.selectedTorrentsIds)
+}
+
+
+export function deleteTorrents({ rootGetters, commit }, payload)
+{
+  /**
+   * Perform a torrent deletion calling transmission rpc thru torrent
+   * service wrapper.
+   * @param payload A js plain object consisting of :
+   *                * torrentsIds : array => IDS of the torrents to
+   *                  delete
+   *                * deleteFiles : boolean => Wether to delete or not
+   *                  torrent associated files(the downloads)
+   */
+  return rootGetters['configs/client']
+    .remove(payload.torrentsIds, payload.deleteFiles)
+    .then(
+      //success!
+      resp => {
+        // Update session torrents with undeleted ones
+        commit('DELETE_TORRENTS', payload.torrentsIds)
+        // reset selected torrents
+        commit('CLEAR_SELECTED_TORRENTS');
+      },
+    )
+}
+
+export function deleteSelectedTorrents(context, { deleteFiles })
+{
   /**
    * Perform a torrent deletion calling transmission rpc thru torrent
    * service wrapper.
@@ -49,20 +130,40 @@ export function deleteTorrents( {rootGetters, getters, commit}, payload){
    *                * deleteFiles : boolean => Wether to delete or not
    *                  torrent associated files(the downloads)
    */
-  rootGetters['configs/client']
-    .remove(getters.selectedTorrentsIds, payload.deleteFiles)
-    .then(
-      //success!
-      resp => {
-        // reset selected torrents
-        commit('CLEAR_SELECTED_TORRENTS');
-        // Update session torrents with undeleted ones
-        const remainingTorrents = getters.torrents
-          .filter( torrent => !payload.torrentIds.includes(torrent.id))
-        commit('SET_SESSION_TORRENTS', remainingTorrents)
-      },
-      // error :(
-      error => console.log(error)
-    )
+  return deleteTorrents(context, {
+    torrentsIds: context.state.selectedTorrentsIds,
+    deleteFiles: deleteFiles
+  })
 }
 
+
+export function getSessionData({ rootGetters, state, getters, commit })
+{
+  return rootGetters['configs/client'].session()
+    .then(data => commit('SET_SESSION_DATA', data))
+}
+
+export function getSessionStats({ rootGetters, getters, commit })
+{
+  return rootGetters['configs/client'].sessionStats()
+    .then(stats => commit('SET_SESSION_STATS', stats))
+}
+
+
+export function getTorrents({ rootGetters, getters, commit })
+{
+  return rootGetters['configs/client'].get()
+    .then(torrents => commit('SET_SESSION_TORRENTS', torrents))
+}
+
+export function updateActiveTorrentsIds({ rootGetters, getters, commit })
+{
+  return rootGetters['configs/client'].active()
+    .then(torrents => commit('ADD_ACTIVE_TORRENTS_IDS', torrents.map(torrent => torrent.id)))
+}
+
+export function updateActiveTorrents({ rootGetters, getters, commit, state })
+{
+  return rootGetters['configs/client'].get(state.activeTorrentsIds)
+    .then(torrents => commit('UPDATE_TORRENTS', torrents))
+}

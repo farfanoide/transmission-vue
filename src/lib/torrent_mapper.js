@@ -51,11 +51,11 @@ const MAPPERS = {
   // 'seedIdleMode':            'Seed Idle Mode',
   // 'seedRatioLimit':          'Seed Ratio Limit',
   // 'seedRatioMode':           'Seed Ratio Mode',
-  'sizeWhenDone':            libmappers.size,
+  // 'sizeWhenDone':            libmappers.size,
   'startDate':               libmappers.date,
   'status':                  libmappers.status,
   // 'torrentFile':             'Torrent File',
-  'totalSize':               libmappers.size,
+  // 'totalSize':               libmappers.size,
   // 'trackerStats':            'Tracker Stats',
   // 'trackers':                'Trackers',
   // 'uploadLimit':             'Upload Limit',
@@ -69,6 +69,11 @@ const MAPPERS = {
 
 class TorrentMapper {
 
+  static attrsToMap()
+  {
+    return Object.keys(MAPPERS)
+  }
+
   static hasMapperFor(prop)
   {
     return Boolean(MAPPERS[prop])
@@ -81,9 +86,7 @@ class TorrentMapper {
 
   static mapValue(prop, value)
   {
-    return this.hasMapperFor(prop) ?
-      this.mapperFor(prop)(value) :
-      value
+    return this.mapperFor(prop)(value)
   }
 }
 

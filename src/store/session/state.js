@@ -1,14 +1,20 @@
 export default function () {
   return {
-    data: {}, // rename to session or something better
+    data: {}, // TODO: rename to session or something better
     stats: {},
     torrents: {},
     activeTorrentsIds: [],
     selectedTorrentsIds: [],
+    settings: undefined, //store current server configs
     activeFilters: {
       nameFilter: '',
-      statusFilters: [],
+      statusFilter: 'ALL',
     },
-    settings: undefined //store current server configs
+    sorting: {
+      sortBy: 'queue',
+      reverse: false,
+    }
+    // TODO: maybe store last filters and sorting on localstorage but it should
+    // probably be per server
   }
 }
