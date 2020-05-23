@@ -56,5 +56,21 @@ class TransmissionService {
         return response
       })
   }
+
+  setClientSettings(settingsData)
+  {
+    // since blocklist-url is not handled by
+    // session call remove it from settings data
+    delete settingsData['blocklist-url']
+    delete settingsData['blocklist-size']
+    delete settingsData['idle-seeding-limit']
+    return this.client.session(settingsData)
+      .then( response => {
+        console.log("response from server", response)
+        this.store.commit('session/SET_SETTINGS', settingsData)
+        return response;
+      }
+      )
+  }
 }
 export default TransmissionService

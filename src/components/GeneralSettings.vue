@@ -26,7 +26,7 @@
         >
           <q-tab-panel name="torrents">
             <div class="text-h5 text-center q-mb-md">Torrents</div>
-              <q-input outlined 
+              <q-input outlined
                 v-model="settings.downloadDir"
                 label="Downloads directory" />
               <div class="row">
@@ -38,14 +38,14 @@
             <div class="text-h5 text-center q-mb-md">Seeding</div>
               <q-checkbox  v-model="settings.seedRatioLimited"
                 label="Stop seeding at ratio" />
-              <q-input outlined 
+              <q-input outlined
                 v-model="settings.seedRatioLimit"
                 label="seed ratio"
                 :disable="!settings.seedRatioLimited"
                 />
               <q-checkbox  v-model="settings.idleSeedingLimitEnabled"
                 label="stop seeding if idle for" />
-              <q-input outlined 
+              <q-input outlined
                 v-model="settings.idleSeedingLimit"
                 label="minutes"
                 :disable="!settings.idleSeedingLimitEnabled"
@@ -54,17 +54,17 @@
 
           <q-tab-panel name="speed">
             <div class="text-h5 text-center q-mb-md">Speed Limits</div>
-              
+
               <q-checkbox  v-model="settings.speedLimitUpEnabled"
                 label="Upload" />
-              <q-input outlined 
+              <q-input outlined
                 v-model="settings.speedLimitUp"
                 label="kB/s"
                 :disable="!settings.speedLimitUpEnabled"
               />
               <q-checkbox  v-model="settings.speedLimitDownEnabled"
                 label="Download" />
-              <q-input outlined 
+              <q-input outlined
                 v-model="settings.speedLimitDown"
                 label="kB/s"
                 :disable="!settings.speedLimitDownEnabled"
@@ -72,7 +72,7 @@
 
             <div class="text-h5 text-center q-mb-md">Alternative Speed Limits</div>
             <p class="text-center"> Override normal speed limits manually </p>
-              <q-input outlined 
+              <q-input outlined
                 type="number"
                 v-model="settings.altSpeedUp"
                 label="Upload(kB/s)"
@@ -84,25 +84,25 @@
               />
               <q-checkbox  v-model="settings.altSpeedTimeEnabled"
                 label="Scheduled Times" />
-              <q-select outlined 
-                v-model="settings.altSpeedTimeBegin" 
-                :options="[]" 
-                label="From" 
+              <q-select outlined
+                v-model="settings.altSpeedTimeBegin"
+                :options="[]"
+                label="From"
                 disable
               />
-              <q-select outlined 
-                v-model="settings.altSpeedTimeEnd" 
-                :options="[]" 
-                label="To" 
+              <q-select outlined
+                v-model="settings.altSpeedTimeEnd"
+                :options="[]"
+                label="To"
                 disable
               />
-              <q-select outlined 
-                v-model="settings.altSpeedTimeDay" 
-                :options="[]" 
-                label="On days" 
+              <q-select outlined
+                v-model="settings.altSpeedTimeDay"
+                :options="[]"
+                label="On days"
                 disable
               />
-              
+
 
           </q-tab-panel>
 
@@ -119,12 +119,12 @@
                 label="Max peers overall"
               />
             <div class="text-h5 text-center q-mb-md"> Options </div>
-              <q-select outlined 
-                v-model="settings.encryption" 
-                :options="options.encryption" 
+              <q-select outlined
+                v-model="settings.encryption"
+                :options="options.encryption"
                 label="Encription mode"
               />
-              
+
               <q-checkbox  v-model="settings.pexEnabled"
                 label="Use PEX to find more peers" />
               <br />
@@ -140,10 +140,10 @@
                 label="Enable blocklist" />
               <q-input outlined
                 bottom-slots
-                v-model="settings.blocklistUrl"
+                value=""
                 :disable="!settings.blocklistEnabled"
                 readonly
-              >        
+              >
               <template v-slot:after>
                 <q-btn dense flat :disable="!settings.blocklistEnabled">Update</q-btn>
               </template>
@@ -202,11 +202,15 @@ export default {
       sendSettingsToServer() {
         /**
          * Send settings to the server
-         * 
+         *
          */
-        console.log("SETTINGS DATA SENT TO SERVER", this.settings)
+        new TransmissionService({store: this.$store}, this.currentServer)
+          .setClientSettings(this.settings.toRPC())
       }
+    },
+    computed: {
+      ...mapState('configs', ['currentServer'])
     }
-    
+
 }
 </script>
