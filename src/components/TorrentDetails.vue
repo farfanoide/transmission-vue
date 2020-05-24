@@ -42,7 +42,9 @@
 
           <q-tab-panel name="files">
             <div class="text-h4 q-mb-md">Files</div>
-            <files-list :files="torrent.files"></files-list>
+            <files-list :files="torrent.files"
+                 :file-stats="torrent.fileStats">
+            </files-list>
           </q-tab-panel>
 
         </q-tab-panels>

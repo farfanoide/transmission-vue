@@ -1,4 +1,5 @@
 
+// TODO: maybe return the file category and handle icon representation on vue
 const FileTypeIcon = function (name)
 {
   return FileTypeIcon.index.find(config => config.re.test(name)).icon

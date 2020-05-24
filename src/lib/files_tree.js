@@ -12,6 +12,7 @@ function keyTreeItoUsableTree(name, node)
 
   return {
     label: name,
+    index: `${node.index}-${name}`, // bogus index for folders
     children: Object.keys(node).map(name => keyTreeItoUsableTree(name, node[name]))
   }
 }
@@ -19,7 +20,7 @@ function keyTreeItoUsableTree(name, node)
 export default function FilesTree (files)
 {
   let tree = {}
-  let index
+  let index = 0
   let leaf
 
   for (const file of files)
