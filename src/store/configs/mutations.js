@@ -46,3 +46,8 @@ export function CLEAR_CLIENT (state)
 {
   state.client = null
 }
+
+export function ADD_TRACKER_IMAGE (state, {tracker, imageUrl})
+{
+  state.trackerImages[tracker] = imageUrl
+}
