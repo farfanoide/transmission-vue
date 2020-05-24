@@ -24,8 +24,34 @@
       <template v-if="currentServer">
         <network-status></network-status>
         <div class="q-pa-xs">
-          <torrent-filters></torrent-filters>
-          <torrent-sorting></torrent-sorting>
+          <q-tabs v-model="sidebarTab"
+                  dense
+                  align="justify"
+                  :breakpoint="0">
+            <q-tab name="filters" icon="filter_list">
+
+              <q-tooltip anchor="top middle" :offset="[30, 30]">
+                Filters and Sorting
+              </q-tooltip>
+            </q-tab>
+            <q-tab name="stats" icon="timeline">
+              <q-tooltip anchor="top middle" :offset="[30, 30]">
+                Session Statistics
+              </q-tooltip>
+            </q-tab>
+          </q-tabs>
+
+          <q-tab-panels v-model="sidebarTab" animated class="bg-transparent">
+            <q-tab-panel name="filters">
+              <torrent-filters></torrent-filters>
+              <torrent-sorting></torrent-sorting>
+            </q-tab-panel>
+
+            <q-tab-panel name="stats">
+              <session-stats></session-stats>
+            </q-tab-panel>
+
+          </q-tab-panels>
         </div>
       </template>
     </q-drawer>
@@ -42,6 +68,7 @@ import NetworkStatus from '../components/NetworkStatus'
 import TorrentFilters from '../components/TorrentFilters'
 import TorrentSorting from '../components/TorrentSorting'
 import AddTorrent from '../components/AddTorrent'
+import SessionStats from '../components/SessionStats'
 import { mapState } from 'vuex'
 
 export default {
@@ -49,12 +76,14 @@ export default {
   {
     AddTorrent,
     NetworkStatus,
+    SessionStats,
     TorrentFilters,
     TorrentSorting,
   },
   data () {
     return {
-      left: true
+      left: true,
+      sidebarTab: 'filters',
     }
   },
   computed:
