@@ -5,6 +5,6 @@ export default async ({ store }) => {
   new VuexPersistence({
     key: 'transmission-vue',
     storage: window.localStorage,
-    modules: ['configs'],
+    modules: ['configs', 'countryflags'],
   }).plugin(store);
 };

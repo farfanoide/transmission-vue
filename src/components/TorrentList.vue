@@ -5,7 +5,9 @@
                  :torrent="torrent"
                  :key="`torrent-row-${index}`">
     </torrent-row>
-    <q-dialog v-model='showTorrentDetails'>
+    <q-dialog v-model='showTorrentDetails'
+              full-width
+              full-height>
       <torrent-details :torrent="selectedTorrent"></torrent-details>
     </q-dialog>
   </div>
