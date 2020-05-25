@@ -27,77 +27,77 @@
           <q-tab-panel name="torrents">
             <div class="text-h5 text-center q-mb-md">Torrents</div>
               <q-input outlined
-                v-model="settings.downloadDir"
+                v-model="settings['download-dir']"
                 label="Downloads directory" />
               <div class="row">
-                <q-checkbox  v-model="settings.startAddedTorrents"
+                <q-checkbox  v-model="settings['start-added-torrents']"
                   label="Start when added" />
-                <q-checkbox  v-model="settings.renamePartialFiles"
+                <q-checkbox  v-model="settings['rename-partial-files']"
                   label="Append .part to incomplete files" />
               </div>
             <div class="text-h5 text-center q-mb-md">Seeding</div>
-              <q-checkbox  v-model="settings.seedRatioLimited"
+              <q-checkbox  v-model="settings['seedRatioLimited']"
                 label="Stop seeding at ratio" />
               <q-input outlined
-                v-model="settings.seedRatioLimit"
+                v-model="settings['seedRatioLimit']"
                 label="seed ratio"
-                :disable="!settings.seedRatioLimited"
+                :disable="!settings['seedRatioLimited']"
                 />
-              <q-checkbox  v-model="settings.idleSeedingLimitEnabled"
+              <q-checkbox  v-model="settings['idle-seeding-limit-enabled']"
                 label="stop seeding if idle for" />
               <q-input outlined
-                v-model="settings.idleSeedingLimit"
+                v-model="settings['idle-seeding-limit']"
                 label="minutes"
-                :disable="!settings.idleSeedingLimitEnabled"
+                :disable="!settings['idle-seeding-limit-enabled']"
                 />
           </q-tab-panel>
 
           <q-tab-panel name="speed">
             <div class="text-h5 text-center q-mb-md">Speed Limits</div>
 
-              <q-checkbox  v-model="settings.speedLimitUpEnabled"
+              <q-checkbox  v-model="settings['speed-limit-up-enabled']"
                 label="Upload" />
               <q-input outlined
-                v-model="settings.speedLimitUp"
+                v-model="settings['speed-limit-up']"
                 label="kB/s"
-                :disable="!settings.speedLimitUpEnabled"
+                :disable="!settings['speed-limit-up-enabled']"
               />
-              <q-checkbox  v-model="settings.speedLimitDownEnabled"
+              <q-checkbox  v-model="settings['speed-limit-down-enabled']"
                 label="Download" />
               <q-input outlined
-                v-model="settings.speedLimitDown"
+                v-model="settings['speed-limit-down']"
                 label="kB/s"
-                :disable="!settings.speedLimitDownEnabled"
+                :disable="!settings['speed-limit-down-enabled']"
               />
 
             <div class="text-h5 text-center q-mb-md">Alternative Speed Limits</div>
             <p class="text-center"> Override normal speed limits manually </p>
               <q-input outlined
                 type="number"
-                v-model="settings.altSpeedUp"
+                v-model="settings['alt-speed-up']"
                 label="Upload(kB/s)"
               />
               <q-input outlined
                 type="number"
-                v-model="settings.altSpeedDown"
+                v-model="settings['alt-speed-down']"
                 label="Download(kB/s)"
               />
-              <q-checkbox  v-model="settings.altSpeedTimeEnabled"
+              <q-checkbox  v-model="settings['alt-speed-time-enabled']"
                 label="Scheduled Times" />
               <q-select outlined
-                v-model="settings.altSpeedTimeBegin"
+                v-model="settings['alt-speed-time-begin']"
                 :options="[]"
                 label="From"
                 disable
               />
               <q-select outlined
-                v-model="settings.altSpeedTimeEnd"
+                v-model="settings['alt-speed-time-end']"
                 :options="[]"
                 label="To"
                 disable
               />
               <q-select outlined
-                v-model="settings.altSpeedTimeDay"
+                v-model="settings['alt-speed-time-day']"
                 :options="[]"
                 label="On days"
                 disable
@@ -110,42 +110,42 @@
             <div class="text-h5 text-center q-mb-md">Connections</div>
               <q-input outlined
                 type="number"
-                v-model="settings.peerLimitPerTorrent"
+                v-model="settings['peed-limit-per-torrent']"
                 label="Max peers per torrent"
               />
               <q-input outlined
                 type="number"
-                v-model="settings.peerLimitGlobal"
+                v-model="settings['peed-limit-global']"
                 label="Max peers overall"
               />
             <div class="text-h5 text-center q-mb-md"> Options </div>
               <q-select outlined
-                v-model="settings.encryption"
+                v-model="settings['encryption']"
                 :options="options.encryption"
                 label="Encription mode"
               />
 
-              <q-checkbox  v-model="settings.pexEnabled"
+              <q-checkbox  v-model="settings['pex-enabled']"
                 label="Use PEX to find more peers" />
               <br />
-              <q-checkbox  v-model="settings.dhtEnabled"
+              <q-checkbox  v-model="settings['dht-enabled']"
                 label="Use DHT to find more peers" />
               <br />
-              <q-checkbox  v-model="settings.lpdEnabled"
+              <q-checkbox  v-model="settings['lpd-enabled']"
                 label="Use LDP to find more peers" />
 
             <div disabled>
             <div class="text-h5 text-center q-mb-md"> Blocklist </div>
-              <q-checkbox  v-model="settings.blocklistEnabled"
+              <q-checkbox  v-model="settings['blocklist-enabled']"
                 label="Enable blocklist" />
               <q-input outlined
                 bottom-slots
                 value=""
-                :disable="!settings.blocklistEnabled"
+                :disable="!settings['blocklist-enabled']"
                 readonly
               >
               <template v-slot:after>
-                <q-btn dense flat :disable="!settings.blocklistEnabled">Update</q-btn>
+                <q-btn dense flat :disable="!settings['blocklist-enabled']">Update</q-btn>
               </template>
               <template v-slot:hint>Blocklist has {{settings.blocklistSize}} rules</template>
               </q-input>
@@ -156,19 +156,19 @@
             <div class="text-h5 text-center q-mb-md">Listening Port</div>
               <q-input outlined
                 bottom-slots=""
-                v-model="settings.peerPort"
+                v-model="settings['peer-port']"
                 label="Peer listening port"
               >
               <template v-slot:hint> <del>Port is <strong> OPEN</strong></del></template>
               </q-input>
-              <q-checkbox  v-model="settings.peerPortRandomOnStart"
+              <q-checkbox  v-model="settings['peer-port-random-on-start']"
                 label="Randomize port on launch" />
               <br />
-              <q-checkbox  v-model="settings.portForwardingEnabled"
+              <q-checkbox  v-model="settings['port-forwarding-enabled']"
                 label="Use port forwarding from my router" />
               <br />
             <div class="text-h5 text-center q-mb-md">Options</div>
-            <q-checkbox  v-model="settings.utpEnabled"
+            <q-checkbox  v-model="settings['utp-enabled']"
                 label="Enable uTP peer communication" />
           </q-tab-panel>
         </q-tab-panels>
@@ -204,8 +204,8 @@ export default {
          * Send settings to the server
          *
          */
-        new TransmissionService({store: this.$store}, this.currentServer)
-          .setClientSettings(this.settings.toRPC())
+        new TransmissionService({store: this.$store})
+          .setClientSettings(this.settings)
       }
     },
     computed: {

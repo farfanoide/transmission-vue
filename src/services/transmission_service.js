@@ -1,6 +1,6 @@
 import Torrent from '../models/torrent'
 import TransmissionClient from './transmission_client'
-
+import specV15 from '../lib/rpc_spec/v15.js'
 class TransmissionService {
 
   constructor(options)
@@ -67,19 +67,18 @@ class TransmissionService {
       })
   }
 
-  setClientSettings(settingsData)
+  /**
+   * Set some settings on the server. It has the responsability
+   * to filter which data is being sended to server.
+   * @params {Object} A settings model instance
+   */
+  setClientSettings(settings)
   {
-    // since blocklist-url is not handled by
-    // session call remove it from settings data
-    delete settingsData['blocklist-url']
-    delete settingsData['blocklist-size']
-    delete settingsData['idle-seeding-limit']
-    return this.client.session(settingsData)
-      .then( response => {
-        console.log("response from server", response)
-        this.store.commit('session/SET_SETTINGS', settingsData)
-        return response;
-      })
+    // determine the fields not accepted to set session.
+    const exclude = Object.entries(specV15.session)
+          .filter(([name,spec]) => !spec.set)
+          .map(([name,spec]) => name)
+    return this.client.session(settings.getSettingsExcept(exclude));
   }
 
   fetchSessionStats()
