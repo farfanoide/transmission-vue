@@ -17,12 +17,14 @@ export default class ClientSettings
 
   static EncriptionOptions = ["required", "preferred", "tolerated"]
 
-  constructor(data) {
-    // Filter data received with rpc data specification
+  constructor(data = undefined) {
+    if(data) this.setSettings(data);
+  }
+
+  setSettings(data) {
     Object.keys(data).filter( name => sessionSettingsSpec.includes(name))
       .forEach(name => this[name] = data[name]);
   }
-
   /**
    * Returns a subset of this model settings
    * @param {Array<string>} settingsArray A list of settings to return from model
