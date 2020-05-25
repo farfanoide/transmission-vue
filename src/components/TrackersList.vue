@@ -46,9 +46,9 @@ export default {
     for (let tracker of this.trackers)
     {
       let uri = parseUri(tracker.host)
-      let host = 'http://' + (uri.host.split('.').length > 2) ?
+      let host = 'http://' + ((uri.host.split('.').length > 2) ?
         uri.host.substring(uri.host.indexOf('.') + 1) :
-        uri.host
+        uri.host)
       if (!this.trackerImages[tracker.host])
       {
 
