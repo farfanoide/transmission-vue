@@ -51,7 +51,6 @@ export default {
         uri.host)
       if (!this.trackerImages[tracker.host])
       {
-
         this.$http.get(host)
           .then(({ data: html }) => parseFavicon(html, {
             baseURI: host,
@@ -69,7 +68,6 @@ export default {
           })
           .catch(console.log)
       }
-
     }
   },
   methods:
