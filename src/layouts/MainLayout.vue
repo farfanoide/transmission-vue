@@ -11,7 +11,8 @@
 
         </q-toolbar-title>
         <template v-if="currentServer">
-          <add-torrent></add-torrent>
+          <q-btn icon="add" @click="showAddTorrent = !showAddTorrent" flat round>
+          </q-btn>
         </template>
         <router-link :to="{name: 'servers'}">
           <q-btn round flat color="white" icon='settings'></q-btn>
@@ -60,6 +61,10 @@
       <router-view></router-view>
     </q-page-container>
 
+
+    <q-dialog v-model="showAddTorrent">
+      <add-torrent></add-torrent>
+    </q-dialog>
   </q-layout>
 </template>
 
@@ -84,6 +89,7 @@ export default {
     return {
       left: true,
       sidebarTab: 'filters',
+      showAddTorrent: false,
     }
   },
   computed:
