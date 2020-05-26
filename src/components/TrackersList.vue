@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="tier" v-for="tier in tiers" :key="`tier-${tier}`">
+    <div class="tier col-12" v-for="tier in tiers" :key="`tier-${tier}`">
       <q-list>
         <q-item-label header>
           Tier {{tier}}
