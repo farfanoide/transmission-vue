@@ -2,10 +2,10 @@
   <div class="row items-baseline q-pb-md">
     <div v-if="showIcon" class="col-1" style="max-width: 30px;">
       <q-icon class="q-pt-xs"
-              :name="torrent.isDownloading() ? 'play_arrow' : 'pause'"
+              :name="torrent.isPaused() ? 'pause' : 'play_arrow'"
               :color="progressColor">
         <q-tooltip anchor="top middle" :offset="[30, 30]">
-          {{torrent.status}}
+          {{torrentPresenter.statusName}}
         </q-tooltip>
       </q-icon>
     </div>
@@ -30,6 +30,8 @@
     into black and white -->
 </template>
 <script>
+import TorrentPresenter from '../lib/torrent_presenter'
+
 export default {
   name: 'TorrentProgressBar',
   props: ['torrent', 'size', 'show-icon'],
@@ -53,6 +55,11 @@ export default {
     progressColor: function ()
     {
       return this.statusColors[this.torrent.status]
+    },
+    torrentPresenter: function ()
+    {
+      // TODO: remove torrent presenter
+      return new TorrentPresenter(this.torrent)
     },
   }
 }
