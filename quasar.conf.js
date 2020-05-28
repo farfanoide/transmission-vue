@@ -85,6 +85,7 @@ module.exports = function (/* ctx */) {
 
       // Quasar plugins
       plugins: [
+        'Meta',
         'Dialog',
         'Notify',
       ]
@@ -98,6 +99,8 @@ module.exports = function (/* ctx */) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
+      // TODO: add modern flag to build
+      // modern: true,
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
       // rtl: false, // https://quasar.dev/options/rtl-support
