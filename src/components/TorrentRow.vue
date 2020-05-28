@@ -25,13 +25,7 @@
           </template>
         </div>
         <div class="progressbar">
-          <q-linear-progress rounded :color='progressColor' :value="torrent.percentDone" class="q-mt-md" size="10px">
-          </q-linear-progress>
-          <!-- TODO: check how to add  gradient to progressbars -->
-          <!-- style="background: linear&#45;gradient(145deg,#1976d2 11%,#0f477e 75%)"  -->
-          <!-- idea: backound should be full progressbar with gradient, while
-            the filled progressbar has a css filter that changes background
-            into black and white -->
+          <torrent-progress-bar :torrent="torrent"></torrent-progress-bar>
         </div>
         <div class="file-stats">
           {{torrentPresenter.progressInfo}}
@@ -47,28 +41,15 @@
 <script>
 import { mapMutations, mapGetters } from 'vuex'
 import TorrentPresenter from '../lib/torrent_presenter'
-import TorrentActions from './TorrentActions.vue'
+import TorrentActions from './TorrentActions'
+import TorrentProgressBar from './TorrentProgressBar'
 
 export default {
   name: 'TorrentRow',
   props: ['torrent'],
   components: {
     TorrentActions,
-  },
-  data()
-  {
-    return {
-      statusColors: {
-        STOPPED:       'blue-grey-6',
-        CHECK_WAIT:    'blue-grey-6',
-        CHECK:         'warning',
-        DOWNLOAD_WAIT: 'teal-6',
-        DOWNLOAD:      'blue',
-        SEED_WAIT:     'cyan-6',
-        SEED:          'positive',
-        ISOLATED:      'blue-2',
-      }
-    }
+    TorrentProgressBar,
   },
   methods:
   {
@@ -80,10 +61,6 @@ export default {
   computed:
   {
     ...mapGetters('session', ['selectedTorrentsIds']),
-    progressColor: function ()
-    {
-      return this.statusColors[this.torrent.status]
-    },
     torrentPresenter: function ()
     {
       return new TorrentPresenter(this.torrent)

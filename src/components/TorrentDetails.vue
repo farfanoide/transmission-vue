@@ -1,5 +1,38 @@
 <template>
   <q-layout container class="bg-white">
+    <div class="q-px-lg">
+      <div class="row">
+        <div class="name">
+          <h5 class="q-my-sm">
+            {{torrent.name}}
+          </h5>
+        </div>
+      </div>
+      <div class="row justify-between">
+        <div class="short-stats col">
+          <span class="q-pa-sm">
+            ↓{{torrent.rateDownload|speedBps}} {{torrent.sizeWhenDone - torrent.leftUntilDone | size}}
+          </span>
+          <span class="q-pa-sm">
+            ↑{{torrent.rateUpload|speedBps}} {{torrent.uploadedEver | size}}
+          </span>
+          <span class="q-pa-sm">
+            o{{torrent.uploadRatio}}
+          </span>
+          <!-- <span class="q&#45;pa&#45;sm"> -->
+          <!--   TODO: maybe add running time or date  added -->
+          <!-- </span> -->
+        </div>
+        <div class="actions col-3 text-right">
+          <!-- TODO: add priority -->
+          <torrent-actions :torrent="torrent"></torrent-actions>
+        </div>
+      </div>
+      <div>
+        <torrent-progress-bar :torrent="torrent" size="3px" :show-icon="true"></torrent-progress-bar>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-2">
 
@@ -60,6 +93,9 @@ import TrackersList from './TrackersList'
 import PeersList from './PeersList'
 import FilesList from './FilesList'
 import TorrentInfo from './TorrentInfo'
+import TorrentProgressBar from './TorrentProgressBar'
+import TransmissionFormatter from '../lib/formatter'
+import TorrentActions from './TorrentActions'
 
 export default {
   name: 'TorrentDetails',
@@ -68,7 +104,9 @@ export default {
     // TODO create individual componentts for each tab
     FilesList,
     PeersList,
+    TorrentActions,
     TorrentInfo,
+    TorrentProgressBar,
     TrackersList,
   },
   props: ['torrent', 'initialtab'],
@@ -86,5 +124,17 @@ export default {
   {
 
   },
+  filters:
+  {
+    speedBps: function (bytes)
+    {
+      return TransmissionFormatter.speedBps(bytes)
+    },
+    size: function (bytes)
+    {
+      return TransmissionFormatter.size(bytes)
+    }
+  }
+
 }
 </script>
