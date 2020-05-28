@@ -43,32 +43,7 @@ export default {
   props: ['trackers'],
   mounted()
   {
-    for (let tracker of this.trackers)
-    {
-      let uri = parseUri(tracker.host)
-      let host = 'http://' + ((uri.host.split('.').length > 2) ?
-        uri.host.substring(uri.host.indexOf('.') + 1) :
-        uri.host)
-      if (!this.trackerImages[tracker.host])
-      {
-        this.$http.get(host)
-          .then(({ data: html }) => parseFavicon(html, {
-            baseURI: host,
-            allowUseNetwork: true,
-            allowParseImage: true
-          }))
-          .then(response => {
-            if (response.length >= 1)
-            {
-              this.addTrackerImage({
-                tracker: tracker.host,
-                imageUrl: response[0]['url']
-              })
-            }
-          })
-          .catch(console.log)
-      }
-    }
+    this.findTrackersFavicons()
   },
   methods:
   {
@@ -78,6 +53,35 @@ export default {
     faviconFor: function (trackerUrl)
     {
       return this.trackerImages[trackerUrl]
+    },
+    findTrackersFavicons: function ()
+    {
+      for (let tracker of this.trackers)
+      {
+        let uri = parseUri(tracker.host)
+        let host = 'http://' + ((uri.host.split('.').length > 2) ?
+          uri.host.substring(uri.host.indexOf('.') + 1) :
+          uri.host)
+        if (!this.trackerImages[tracker.host])
+        {
+          this.$http.get(host)
+            .then(({ data: html }) => parseFavicon(html, {
+              baseURI: host,
+              allowUseNetwork: true,
+              allowParseImage: true
+            }))
+            .then(response => {
+              if (response.length >= 1)
+              {
+                let bestTracker = response.reduce((best, favicon) => {
+                  return parseInt(favicon.size.split('x')[0]) > parseInt(best.size.split('x')[0]) ? favicon : best
+                }, response[0])
+                this.addTrackerImage({tracker: tracker.host, imageUrl: bestTracker.url})
+              }
+            })
+            .catch(console.log)
+        }
+      }
     }
   },
   computed:

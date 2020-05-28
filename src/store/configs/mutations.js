@@ -51,3 +51,10 @@ export function ADD_TRACKER_IMAGE (state, {tracker, imageUrl})
 {
   state.trackerImages[tracker] = imageUrl
 }
+
+// TODO: maybe add cache expiration for favicon images or catch 404s to try and
+// fetch them again.
+export function CLEAR_TRACKER_IMAGES (state)
+{
+  state.trackerImages = {}
+}
