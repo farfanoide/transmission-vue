@@ -55,6 +55,13 @@
 
       </q-tab-panels>
     </q-card-section>
+    <q-inner-loading :showing="loading">
+      <q-spinner
+        color="primary"
+        size="3em"
+        :thickness="2"
+        />
+    </q-inner-loading>
   </q-card>
 </template>
 
@@ -75,6 +82,7 @@ export default {
       tab: 'url',
       torrentUrl: null,
       torrentFile: null,
+      loading: false,
     }
   },
   methods:
@@ -82,6 +90,7 @@ export default {
     handleError: function ({ message })
     {
       this.$q.notify({ color: 'negative', message: message })
+      this.loading = false
     },
     handleSuccess: function (options)
     {
@@ -90,6 +99,7 @@ export default {
       this.$q.notify(options)
       // close popup
       this.$refs["cancel-btn"].$el.click()
+      this.loading = false
     },
     resetForms()
     {
@@ -98,6 +108,9 @@ export default {
     },
     addBase64: async function (blob)
     {
+      //TODO: create external object to handle all of this so it can be reused
+      // on bex context menus
+      this.loading = true
       let base64Torrent = await BlobToBase64(blob)
 
       this.client.addBase64(base64Torrent)
@@ -117,6 +130,7 @@ export default {
     },
     addTorrentFromUrl: function ()
     {
+      this.loading = true
       // TODO: maybe add configuration to make this an opt out functionality
       if (this.torrentUrl.startsWith('http'))
       {
