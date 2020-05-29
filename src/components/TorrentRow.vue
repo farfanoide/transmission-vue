@@ -22,7 +22,7 @@
             {{torrent.errorString}}
           </span>
           <span v-else>
-            {{torrent.status | statusName}}
+            {{torrent.statusName}}
           </span>
           <span v-if="torrent.isDownloading()">
             {{downloadingPeersInfo}}

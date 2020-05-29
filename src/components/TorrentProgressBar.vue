@@ -5,7 +5,7 @@
               :name="torrent.isPaused() ? 'pause' : 'play_arrow'"
               :color="progressColor">
         <q-tooltip anchor="top middle" :offset="[30, 30]">
-          {{torrent.status | statusName}}
+          {{torrent.statusName}}
         </q-tooltip>
       </q-icon>
     </div>
@@ -52,7 +52,7 @@ export default {
   {
     progressColor: function ()
     {
-      return this.statusColors[this.torrent.status]
+      return this.statusColors[this.torrent.statusSlug]
     }
   }
 }

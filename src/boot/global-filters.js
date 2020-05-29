@@ -10,5 +10,4 @@ export default async ({ Vue }) => {
   Vue.filter('size',              bts => TransmissionFormatter.size(bts))
   Vue.filter('timeInterval',      tms => TransmissionFormatter.timeInterval(tms))
   Vue.filter('timestamp',         tms => TransmissionFormatter.timestamp(tms))
-  Vue.filter('statusName',        sts => RPCReference.statusName(sts))
 }
