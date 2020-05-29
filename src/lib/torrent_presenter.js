@@ -19,54 +19,6 @@ const TorrentPresenterHandler = {
     return `${target.percentDone}%`
   },
 
-  statusName: function (target, prop, receiver)
-  {
-    return RPCReference.statusName(target.status)
-  },
-
-  downloadingPeersInfo: function (target, prop, receiver)
-  {
-    if (target.peersConnected && target.webseedsSendingToUs)
-    {
-      // happy path, we have both peers and webseed available
-      return `Downloading from ${target.peersSendingToUs} of ${target.peersConnected} peer${target.peersConnected === 1 ? '' : 's'} and ${target.webseedsSendingToUs} webseed${target.webseedsSendingToUs > 1 ? 's' : ''}`
-    }
-
-    if (target.webseedsSendingToUs)
-    {
-      // happy path, we have both peers and webseed available
-      return `Downloading from ${target.webseedsSendingToUs} webseed${target.webseedsSendingToUs > 1 ? 's' : ''}`
-    }
-
-    // happy path, we have both peers and webseed available
-    return `Downloading from ${target.peersSendingToUs} of ${target.peersConnected} peer${target.peersConnected === 1 ? '' : 's'}`
-
-  },
-
-
-  seedingPeersInfo: function (target, prop, receiver)
-  {
-    // TODO: add localization to use proper pluralization
-    return `Seeding to ${target.peersGettingFromUs} of ${target.peersConnected} ${target.peersConnected > 1 ? 'peer' : 'peers'  }`
-  },
-
-  checkingPeersInfo: function (target, prop, receiver)
-  {
-    return `Verifying local data (${TransmissionFormatter.percentString(target.recheckProgress * 100)}% tested)`
-  },
-
-  peersInfo: function (target, prop, receiver)
-  {
-    if (target.isDownloading()) {
-      return this.downloadingPeersInfo(target, prop, receiver)
-    } else if (target.isSeeding()) {
-      return this.seedingPeersInfo(target, prop, receiver)
-    } else if (target.isChecking()) {
-      return this.checkingPeersInfo(target, prop, receiver)
-    }
-    return this.statusName(target, prop, receiver)
-  },
-
   progressInfo: function (target, prop, receiver)
   {
     return target.isSeeding() ?
@@ -82,13 +34,6 @@ const TorrentPresenterHandler = {
   seedingProgressInfo: function (target, prop, receiver)
   {
     return `${TransmissionFormatter.size(target.sizeWhenDone)}, uploaded ${TransmissionFormatter.size(target.uploadedEver)} (Ratio ${target.uploadRatio.toTruncFixed(2)})`
-  },
-
-  networkStats: function (target, prop, receiver)
-  {
-    return target.isDownloading() ?
-      `↓ ${TransmissionFormatter.speedBps(target.rateDownload)} ↑ ${TransmissionFormatter.speedBps(target.rateUpload)}` :
-      `↑ ${TransmissionFormatter.speedBps(target.rateUpload)}`
   },
 
   dateCreated: function(target, prop, receiver)

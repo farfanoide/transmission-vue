@@ -20,7 +20,7 @@
         <td>{{peer.address}}</td>
         <td>{{peer.clientName}}</td>
         <td>{{peer.flagStr}}</td>
-        <td>{{peer.progress * 100}}%</td>
+        <td>{{peer.progress|toPercent|percentString}}%</td>
         <td>{{peer.rateToClient | speedBps}}</td>
         <td>{{peer.rateToPeer | speedBps}}</td>
       </tr>

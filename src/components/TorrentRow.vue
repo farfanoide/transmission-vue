@@ -12,17 +12,33 @@
           </div>
           <div class="col-4">
             <torrent-actions :torrentId="torrent.id"
-                             :isPaused="torrent.isPaused()">
+               :isPaused="torrent.isPaused()">
             </torrent-actions>
           </div>
         </div>
         <div class="networking">
-          <span :class="{'text-negative': torrent.hasErrors()}">
-            {{torrent.hasErrors() ? torrent.errorString : torrentPresenter.peersInfo}}
+          <span v-if="torrent.hasErrors()"
+                :class="{'text-negative': torrent.hasErrors()}">
+            {{torrent.errorString}}
           </span>
-          <template v-if="torrent.isActive() && !torrent.isChecking()">
-            - {{torrentPresenter.networkStats}}
-          </template>
+          <span v-else>
+            {{torrent.status | statusName}}
+          </span>
+          <span v-if="torrent.isDownloading()">
+            {{downloadingPeersInfo}}
+          </span>
+          <span v-if="torrent.isSeeding()">
+            {{seedingPeersInfo}}
+          </span>
+          <span v-if="torrent.isActive() && torrent.isDownloading()">
+            ↓ {{torrent.rateDownload | speedBps}}
+          </span>
+          <span v-if="torrent.isActive() && !torrent.isChecking()">
+            ↑ {{torrent.rateUpload | speedBps}}
+          </span>
+          <span v-if="torrent.isChecking()">
+            ({{ this.torrent.recheckProgress | toPercent | percentString }}% tested)
+          </span>
         </div>
         <div class="progressbar">
           <torrent-progress-bar :torrent="torrent"></torrent-progress-bar>
@@ -68,8 +84,29 @@ export default {
     isSelected: function ()
     {
       return this.selectedTorrentsIds.includes(this.torrent.id)
-    }
-  }
+    },
+    downloadingPeersInfo: function ()
+    {
+      // TODO: review this method
+      if (this.torrent.peersConnected && this.torrent.webseedsSendingToUs)
+      {
+        // happy path, we have both peers and webseed available
+        return `from ${this.torrent.peersSendingToUs} of ${this.torrent.peersConnected} peer${this.torrent.peersConnected === 1 ? '' : 's'} and ${this.torrent.webseedsSendingToUs} webseed${this.torrent.webseedsSendingToUs > 1 ? 's' : ''}`
+      }
+      if (this.torrent.webseedsSendingToUs)
+      {
+        // we have only webseeds
+        return `from ${this.torrent.webseedsSendingToUs} webseed${this.torrent.webseedsSendingToUs > 1 ? 's' : ''}`
+      }
+      // we have only peers
+      return `from ${this.torrent.peersSendingToUs} of ${this.torrent.peersConnected} peer${this.torrent.peersConnected === 1 ? '' : 's'}`
+    },
+    seedingPeersInfo: function ()
+    {
+      // TODO: add localization to use proper pluralization
+      return `to ${this.torrent.peersGettingFromUs} of ${this.torrent.peersConnected} ${this.torrent.peersConnected > 1 ? 'peer' : 'peers'  }`
+    },
+  },
 }
 </script>
 
