@@ -17,7 +17,7 @@
             ↑{{ torrent.rateUpload | speedBps }} {{torrent.uploadedEver | size}}
           </span>
           <span class="q-pa-sm">
-            <ratio-icon size="12px"></ratio-icon> {{ torrent.uploadRatio | ratioString }}
+            <ratio-icon></ratio-icon> {{ torrent.uploadRatio | ratioString }}
           </span>
           <!-- <span class="q&#45;pa&#45;sm"> -->
           <!--   TODO: maybe add running time or date  added -->

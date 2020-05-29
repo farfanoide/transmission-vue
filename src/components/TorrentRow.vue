@@ -44,9 +44,22 @@
           <torrent-progress-bar :torrent="torrent"></torrent-progress-bar>
         </div>
         <div class="file-stats">
-          {{torrentPresenter.progressInfo}}
           <template v-if="torrent.isDownloading()">
-            - {{torrent.eta | timeInterval}} remaining
+            <span class="downloaded">
+              {{torrent.sizeWhenDone - torrent.leftUntilDone | size}} of {{ torrent.sizeWhenDone | size }}
+            </span>
+            -
+            <span class="eta">
+              {{torrent.eta | timeInterval}} remaining
+            </span>
+          </template>
+          <template v-if="torrent.isSeeding()">
+            <span class="uploaded">
+              {{ torrent.sizeWhenDone | size }}, uploaded {{ torrent.uploadedEver | size}}
+            </span>
+            <span class="ratio">
+              (<ratio-icon></ratio-icon> {{ torrent.uploadRatio | ratioString }})
+            </span>
           </template>
         </div>
       </div>
@@ -56,14 +69,15 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
-import TorrentPresenter from '../lib/torrent_presenter'
 import TorrentActions from './TorrentActions'
 import TorrentProgressBar from './TorrentProgressBar'
+import RatioIcon from './RatioIcon'
 
 export default {
   name: 'TorrentRow',
   props: ['torrent'],
   components: {
+    RatioIcon,
     TorrentActions,
     TorrentProgressBar,
   },
@@ -77,10 +91,6 @@ export default {
   computed:
   {
     ...mapGetters('session', ['selectedTorrentsIds']),
-    torrentPresenter: function ()
-    {
-      return new TorrentPresenter(this.torrent)
-    },
     isSelected: function ()
     {
       return this.selectedTorrentsIds.includes(this.torrent.id)
