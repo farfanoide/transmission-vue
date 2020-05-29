@@ -106,9 +106,6 @@ StatusReference.names = {
 // a SSOT for all RPC related data
 class RPCReference {
 
-  static status = StatusReference;
-  static fields = TorrentColumnsReference;
-
   static columnName(column)
   {
     return this.fields[column] || column
@@ -125,5 +122,8 @@ class RPCReference {
   }
 
 }
+
+RPCReference.status = StatusReference;
+RPCReference.fields = TorrentColumnsReference;
 
 export default RPCReference

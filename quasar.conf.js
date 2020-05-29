@@ -9,7 +9,7 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
 
-module.exports = function (/* ctx */) {
+module.exports = function (ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -100,8 +100,7 @@ module.exports = function (/* ctx */) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
-      // TODO: add modern flag to build
-      // modern: true,
+      modern: ctx.dev, // Only enable modern mode for dev until dual option is provided
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
       // rtl: false, // https://quasar.dev/options/rtl-support
