@@ -97,24 +97,25 @@ export default {
     },
     downloadingPeersInfo: function ()
     {
+      // TODO: maybe handle whole strings inside i18n
       // TODO: review this method
       if (this.torrent.peersConnected && this.torrent.webseedsSendingToUs)
       {
         // happy path, we have both peers and webseed available
-        return `from ${this.torrent.peersSendingToUs} of ${this.torrent.peersConnected} peer${this.torrent.peersConnected === 1 ? '' : 's'} and ${this.torrent.webseedsSendingToUs} webseed${this.torrent.webseedsSendingToUs > 1 ? 's' : ''}`
+        return `from ${this.torrent.peersSendingToUs} of ${this.$tc('peer', this.torrent.peersConnected)} and ${this.torrent.webseedsSendingToUs} ${this.$tc('webseed', this.webseedsSendingToUs)}`
       }
       if (this.torrent.webseedsSendingToUs)
       {
         // we have only webseeds
-        return `from ${this.torrent.webseedsSendingToUs} webseed${this.torrent.webseedsSendingToUs > 1 ? 's' : ''}`
+        return `from ${this.torrent.webseedsSendingToUs} ${this.$tc('webseed', this.torrent.webseedsSendingToUs)}`
       }
       // we have only peers
-      return `from ${this.torrent.peersSendingToUs} of ${this.torrent.peersConnected} peer${this.torrent.peersConnected === 1 ? '' : 's'}`
+      return `from ${this.torrent.peersSendingToUs} of ${this.$tc('peer', this.torrent.peersConnected)}`
     },
     seedingPeersInfo: function ()
     {
       // TODO: add localization to use proper pluralization
-      return `to ${this.torrent.peersGettingFromUs} of ${this.torrent.peersConnected} ${this.torrent.peersConnected > 1 ? 'peer' : 'peers'  }`
+      return `to ${this.torrent.peersGettingFromUs} of ${this.$tc('peer', this.torrent.peersConnected)}`
     },
   },
 }
