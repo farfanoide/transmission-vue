@@ -17,8 +17,7 @@
                          :size="size || '10px'">
 
         <q-tooltip anchor="top middle" :offset="[30, 30]">
-          {{ torrent.percentDone | toPercent | percentString }} %
-          <!-- TODO: maybe add custom filter to do all of this in same function -->
+          {{ torrent.percentDone | fullPercentString }}
         </q-tooltip>
 
       </q-linear-progress>

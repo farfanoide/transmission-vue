@@ -37,7 +37,7 @@
             ↑ {{torrent.rateUpload | speedBps}}
           </span>
           <span v-if="torrent.isChecking()">
-            ({{ this.torrent.recheckProgress | toPercent | percentString }}% tested)
+            ({{ this.torrent.recheckProgress | fullPercentString }} tested)
           </span>
         </div>
         <div class="progressbar">
