@@ -30,7 +30,6 @@
 
 <script>
 import { mapMutations, mapState } from 'vuex'
-import TransmissionFormatter from '../lib/formatter'
 import CountryFlag from 'vue-country-flag'
 import CountryMask from '../lib/country_mask'
 
@@ -81,14 +80,6 @@ export default {
       return (this.countriesByMask[countryMask] || {code: '', country: null}).code.toLowerCase()
     }
   },
-  filters:
-  {
-    // TODO: add this as global filters maybe
-    speedBps: function (bytes)
-    {
-      return TransmissionFormatter.speedBps(bytes)
-    }
-  }
 }
 </script>
 

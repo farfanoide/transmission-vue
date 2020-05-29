@@ -94,7 +94,6 @@ import PeersList from './PeersList'
 import FilesList from './FilesList'
 import TorrentInfo from './TorrentInfo'
 import TorrentProgressBar from './TorrentProgressBar'
-import TransmissionFormatter from '../lib/formatter'
 import TorrentActions from './TorrentActions'
 
 export default {
@@ -120,21 +119,5 @@ export default {
   {
     this.tab = this.initialtab ? this.initialtab : this.tab
   },
-  computed:
-  {
-
-  },
-  filters:
-  {
-    speedBps: function (bytes)
-    {
-      return TransmissionFormatter.speedBps(bytes)
-    },
-    size: function (bytes)
-    {
-      return TransmissionFormatter.size(bytes)
-    }
-  }
-
 }
 </script>

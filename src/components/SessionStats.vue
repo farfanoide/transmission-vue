@@ -22,7 +22,6 @@
 
 <script>
 import { mapState } from 'vuex'
-import TransmissionFormatter from '../lib/formatter'
 
 export default {
   name: 'SessionStats',
@@ -37,18 +36,6 @@ export default {
     {
       return this.stats['cumulative-stats']
     }
-  },
-  filters:
-  {
-    size: function (bytes)
-    {
-      return TransmissionFormatter.size(bytes)
-    },
-    timeInterval: function (seconds)
-    {
-      return TransmissionFormatter.timeInterval(seconds)
-    }
   }
-
 }
 </script>
