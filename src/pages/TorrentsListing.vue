@@ -3,6 +3,13 @@
     <torrent-list></torrent-list>
     <!-- bottom sheet -->
     <multi-torrent-actions></multi-torrent-actions>
+    <q-inner-loading :showing="loading">
+      <q-spinner
+        color="primary"
+        size="5em"
+        :thickness="2">
+      </q-spinner>
+    </q-inner-loading>
   </q-page>
 </template>
 
@@ -20,6 +27,10 @@ export default {
   data()
   {
     return {
+      // TODO: move loading to vuex to allow for actions to individually modify
+      // it. for example if the server goes down, any failed action might want to
+      // set this property
+      loading: true,
       intervals: {
         activeIds: null,
         sessionStats: null,
@@ -77,7 +88,7 @@ export default {
       // Initial fetch of data
       this.getSessionData()
       this.getSessionStats()
-      this.getTorrents()
+      this.getTorrents().then(() => this.loading = false)
       this.updateActiveTorrentsIds()
       this.updateActiveTorrents()
 
