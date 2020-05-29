@@ -11,13 +11,13 @@
       <div class="row justify-between">
         <div class="short-stats col">
           <span class="q-pa-sm">
-            ↓{{torrent.rateDownload|speedBps}} {{torrent.sizeWhenDone - torrent.leftUntilDone | size}}
+            ↓{{ torrent.rateDownload | speedBps }} {{ torrent.sizeWhenDone - torrent.leftUntilDone | size }}
           </span>
           <span class="q-pa-sm">
-            ↑{{torrent.rateUpload|speedBps}} {{torrent.uploadedEver | size}}
+            ↑{{ torrent.rateUpload | speedBps }} {{torrent.uploadedEver | size}}
           </span>
           <span class="q-pa-sm">
-            o{{torrent.uploadRatio}}
+            <ratio-icon size="12px"></ratio-icon> {{ torrent.uploadRatio | ratioString }}
           </span>
           <!-- <span class="q&#45;pa&#45;sm"> -->
           <!--   TODO: maybe add running time or date  added -->
@@ -87,7 +87,6 @@
 </template>
 
 <script>
-
 import { mapGetters } from 'vuex'
 import TrackersList from './TrackersList'
 import PeersList from './PeersList'
@@ -95,6 +94,7 @@ import FilesList from './FilesList'
 import TorrentInfo from './TorrentInfo'
 import TorrentProgressBar from './TorrentProgressBar'
 import TorrentActions from './TorrentActions'
+import RatioIcon from './RatioIcon'
 
 export default {
   name: 'TorrentDetails',
@@ -103,6 +103,7 @@ export default {
     // TODO create individual componentts for each tab
     FilesList,
     PeersList,
+    RatioIcon,
     TorrentActions,
     TorrentInfo,
     TorrentProgressBar,
