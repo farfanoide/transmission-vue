@@ -34,3 +34,8 @@ export function altSpeedEnabled (state)
 {
   return state.data['alt-speed-enabled']
 }
+
+export function selectedTorrent (state)
+{
+  return state.torrents[state.selectedTorrentId]
+}

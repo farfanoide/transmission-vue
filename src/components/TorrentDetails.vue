@@ -65,12 +65,12 @@
 
           <q-tab-panel name="peers">
             <div class="text-h4 q-mb-md">Peers</div>
-            <peers-list :peers="torrent.peers"></peers-list>
+            <peers-list :peers="torrent.peers || []"></peers-list>
           </q-tab-panel>
 
           <q-tab-panel name="trackers">
             <div class="text-h4 q-mb-md">Trackers</div>
-            <trackers-list :trackers="torrent.trackerStats"></trackers-list>
+            <trackers-list :trackers="torrent.trackerStats || []"></trackers-list>
           </q-tab-panel>
 
           <q-tab-panel name="files">
@@ -87,7 +87,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import TrackersList from './TrackersList'
 import PeersList from './PeersList'
 import FilesList from './FilesList'
@@ -95,6 +95,7 @@ import TorrentInfo from './TorrentInfo'
 import TorrentProgressBar from './TorrentProgressBar'
 import TorrentActions from './TorrentActions'
 import RatioIcon from './RatioIcon'
+import RPCReference from '../lib/rpc'
 
 export default {
   name: 'TorrentDetails',
@@ -109,7 +110,7 @@ export default {
     TorrentProgressBar,
     TrackersList,
   },
-  props: ['torrent', 'initialtab'],
+  props: ['initialtab'],
   data()
   {
     return {
@@ -120,5 +121,26 @@ export default {
   {
     this.tab = this.initialtab ? this.initialtab : this.tab
   },
+  mounted()
+  {
+    this.interval = setInterval(this.fetchTorrentData.bind(this), 1000)
+  },
+  beforeDestroy()
+  {
+    clearInterval(this.interval)
+  },
+  methods:
+  {
+    ...mapActions('session', ['getTorrents']),
+    fetchTorrentData: function ()
+    {
+      // fetches all available data for current torrent
+      this.getTorrents({ids: [this.torrent.id], fields: RPCReference.availableFields()})
+    }
+  },
+  computed:
+  {
+    ...mapGetters('session', { torrent: 'selectedTorrent' }),
+  }
 }
 </script>

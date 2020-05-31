@@ -1,3 +1,5 @@
+import RPCReference from '../../lib/rpc'
+
 export function toggleSpeedSetting ({ rootGetters, state, commit })
 {
   let sessionParams = {'alt-speed-enabled': !state.data['alt-speed-enabled']}
@@ -9,7 +11,6 @@ export function toggleSpeedSetting ({ rootGetters, state, commit })
 export function verifyTorrents ( {rootGetters, commit }, torrentsIds)
 {
   return rootGetters['configs/client'].verify(torrentsIds)
-    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
 }
 
 export function verifySelectedTorrents (context)
@@ -26,7 +27,6 @@ export function reannounceTorrents ({rootGetters, commit}, torrentsIds)
    * Reannounce torrents
    **/
   return rootGetters['configs/client'].reannounce(torrentsIds)
-    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
 }
 
 export function reannounceSelectedTorrents (context)
@@ -45,7 +45,6 @@ export function startTorrentsNow ({rootGetters, commit}, torrentsIds)
    * Bypasses the download queue says the docs.
    */
   return rootGetters['configs/client'].startNow(torrentsIds)
-    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
 }
 
 export function startSelectedTorrentsNow (context)
@@ -65,7 +64,6 @@ export function startTorrents({rootGetters, commit}, torrentsIds)
    * service wrapper.
    */
   return rootGetters['configs/client'].start(torrentsIds)
-    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
 }
 
 export function startSelectedTorrents(context)
@@ -84,7 +82,6 @@ export function stopTorrents ({rootGetters, commit}, torrentsIds)
    * service wrapper.
    */
   return rootGetters['configs/client'].stop(torrentsIds)
-    .then(() => commit('ADD_ACTIVE_TORRENTS_IDS', torrentsIds))
 }
 
 export function stopSelectedTorrents (context)
@@ -150,20 +147,14 @@ export function getSessionStats({ rootGetters, getters, commit })
 }
 
 
-export function getTorrents({ rootGetters, getters, commit })
+export function getTorrents({ rootGetters, commit }, payload = {ids: undefined, fields: RPCReference.minimalFields()})
 {
-  return rootGetters['configs/client'].get()
-    .then(torrents => commit('SET_SESSION_TORRENTS', torrents))
-}
-
-export function updateActiveTorrentsIds({ rootGetters, getters, commit })
-{
-  return rootGetters['configs/client'].active()
-    .then(torrents => commit('ADD_ACTIVE_TORRENTS_IDS', torrents.map(torrent => torrent.id)))
+  return rootGetters['configs/client'].get(payload.ids, payload.fields)
+    .then(torrents => commit('UPDATE_TORRENTS', torrents))
 }
 
 export function updateActiveTorrents({ rootGetters, getters, commit, state })
 {
-  return rootGetters['configs/client'].get(state.activeTorrentsIds)
+  return rootGetters['configs/client'].active()
     .then(torrents => commit('UPDATE_TORRENTS', torrents))
 }

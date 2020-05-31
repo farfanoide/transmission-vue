@@ -1,11 +1,11 @@
-import Transmission from 'transmission-promise'
+import Transmission from './transmission_promise'
 import Torrent from '../models/torrent'
 
 class TransmissionClient extends Transmission
 {
-  active(...args)
+  active(fields)
   {
-    return super.active(...args).then(({torrents}) => Torrent.fromRPC(torrents))
+    return super.get('recently-active', fields || []).then(({torrents}) => Torrent.fromRPC(torrents))
   }
 
   get(...args)

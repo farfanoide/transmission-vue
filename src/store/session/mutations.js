@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 export function SET_SESSION_DATA (state, data)
 {
   state.data = data;
@@ -25,6 +27,7 @@ export function CLEAR_SESSION_TORRENTS (state)
   // or too much GC dependency
 }
 
+// TODO: mark for deprecation and delete
 export function SET_SESSION_TORRENTS (state, torrents)
 {
   /**
@@ -64,7 +67,7 @@ export function UPDATE_TORRENTS (state, torrents)
 {
   for (const torrent of torrents)
   {
-    state.torrents[torrent.id] = torrent
+    Vue.set(state.torrents, torrent.id, torrent)
   }
 }
 
@@ -106,4 +109,9 @@ export function UPDATE_SORT_BY (state, sort)
 export function UPDATE_SORT_REVERSED (state, reverse)
 {
   state.sorting.reverse = reverse
+}
+
+export function SET_SELECTED_TORRENT_ID (state, id)
+{
+  state.selectedTorrentId = id
 }

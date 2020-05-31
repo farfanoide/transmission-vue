@@ -73,7 +73,6 @@ export default {
       'getSessionData',
       'getSessionStats',
       'getTorrents',
-      'updateActiveTorrentsIds',
       'updateActiveTorrents'
     ]),
     ...mapMutations('session', {
@@ -89,14 +88,11 @@ export default {
       this.getSessionData()
       this.getSessionStats()
       this.getTorrents().then(() => this.loading = false)
-      this.updateActiveTorrentsIds()
-      this.updateActiveTorrents()
 
       // set intervals to fetch data regularly
       // TODO: make intervals configurable
       this.intervals.sessionData  = setInterval(this.getSessionData, 2000 * 2)
       this.intervals.sessionStats = setInterval(this.getSessionStats, 2000 * 2)
-      this.intervals.activeIds    = setInterval(this.updateActiveTorrentsIds, 2000 * 2)
       this.intervals.actives      = setInterval(this.updateActiveTorrents, 2000)
 
     },
