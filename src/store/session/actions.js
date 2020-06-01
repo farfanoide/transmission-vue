@@ -153,8 +153,8 @@ export function getTorrents({ rootGetters, commit }, payload = {ids: undefined, 
     .then(torrents => commit('UPDATE_TORRENTS', torrents))
 }
 
-export function updateActiveTorrents({ rootGetters, getters, commit, state })
+export function updateActiveTorrents({ rootGetters, getters, commit, state }, fields)
 {
-  return rootGetters['configs/client'].active()
+  return rootGetters['configs/client'].active(fields || RPCReference.minimalFields())
     .then(torrents => commit('UPDATE_TORRENTS', torrents))
 }

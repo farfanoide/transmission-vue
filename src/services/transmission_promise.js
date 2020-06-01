@@ -569,10 +569,10 @@ class Transmission extends EventEmitter {
    *
    * @returns {Promise}
    */
-  active () {
+  active (fields) {
     return this.callServer({
       arguments: {
-        fields: this.methods.torrents.fields,
+        fields: fields || this.methods.torrents.fields,
         ids: 'recently-active'
       },
       method: this.methods.torrents.get,
