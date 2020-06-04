@@ -106,12 +106,12 @@ export function deleteTorrents({ rootGetters, commit }, payload)
    *                  torrent associated files(the downloads)
    */
   return rootGetters['configs/client']
-    .remove(payload.torrentsIds, payload.deleteFiles)
+    .remove(payload.torrentIds, payload.deleteFiles)
     .then(
       //success!
       resp => {
         // Update session torrents with undeleted ones
-        commit('DELETE_TORRENTS', payload.torrentsIds)
+        commit('DELETE_TORRENTS', payload.torrentIds)
         // reset selected torrents
         commit('CLEAR_SELECTED_TORRENTS');
       },
@@ -128,7 +128,7 @@ export function deleteSelectedTorrents(context, { deleteFiles })
    *                  torrent associated files(the downloads)
    */
   return deleteTorrents(context, {
-    torrentsIds: context.state.selectedTorrentsIds,
+    torrentIds:  context.state.selectedTorrentsIds,
     deleteFiles: deleteFiles
   })
 }
