@@ -5,6 +5,11 @@ class Torrent {
 
   constructor(data)
   {
+    this.update(data)
+  }
+
+  update(data)
+  {
     Object.assign(this, data)
     this.statusSlug = RPCReference.statusSlug(this.status)
     this.statusName = RPCReference.statusName(this.statusSlug)

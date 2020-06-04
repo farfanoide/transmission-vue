@@ -96,12 +96,9 @@ export default {
     {
       // Although not common, tiers might have more than one tracker so we
       // group them by tier.
-      let trackersByTier = Object.fromEntries(this.tiers.map(tier => [tier, []]))
-      for (const tracker of this.trackers)
-      {
-        trackersByTier[tracker.tier].push(tracker)
-      }
-      return trackersByTier
+      return Object.fromEntries(this.tiers.map((tier) => {
+        return [tier, this.trackers.filter(tracker => tracker.tier === tier)]
+      }))
     }
   }
 }
