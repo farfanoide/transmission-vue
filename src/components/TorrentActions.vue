@@ -23,59 +23,95 @@
         </q-btn>
       </template>
 
-      <q-btn icon="youtube_searched_for"
-             flat dense
-             size="sm"
-             v-if="showExtra"
-             @click="reannounceTorrents([torrentId])">
-        <q-tooltip anchor="top middle" :offset="[30, 30]">
-          Reannounce (ask tracker for more peers)
-        </q-tooltip>
-      </q-btn>
+      <template v-if="showExtra">
+        <q-btn icon="youtube_searched_for"
+               flat dense
+               size="sm"
+               @click="reannounceTorrents([torrentId])">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Reannounce (ask tracker for more peers)
+          </q-tooltip>
+        </q-btn>
 
-      <q-btn icon="library_add_check"
-             flat dense
-             size="sm"
-             v-if="showExtra"
-             @click="verifyTorrents([torrentId])">
-        <q-tooltip anchor="top middle" :offset="[30, 30]">
-          Verify Local Data
-        </q-tooltip>
-      </q-btn>
+        <q-btn icon="library_add_check"
+               flat dense
+               size="sm"
+               @click="verifyTorrents([torrentId])">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Verify Local Data
+          </q-tooltip>
+        </q-btn>
 
-      <q-btn icon="priority_high"
-             flat dense
-             size="sm"
-             v-if="showExtra"
-             @click="startTorrentsNow([torrentId])">
-        <q-tooltip anchor="top middle" :offset="[30, 30]">
-          Start Now
-        </q-tooltip>
-      </q-btn>
+        <q-btn icon="first_page"
+               class="queue-top"
+               flat dense
+               size="sm"
+               @click="queueMoveTop([torrentId])">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Move to Top of Queue
+          </q-tooltip>
+        </q-btn>
 
-      <q-btn icon="delete"
-             flat dense
-             size="sm"
-             v-if="showExtra"
-             @click="confirmDelete({deleteFiles: false})">
-        <q-tooltip anchor="top middle" :offset="[30, 30]">
-          Remove
-        </q-tooltip>
-      </q-btn>
+        <q-btn icon="expand_less"
+               flat dense
+               size="sm"
+               @click="queueMoveUp([torrentId])">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Move up in the queue
+          </q-tooltip>
+        </q-btn>
 
-      <q-btn icon="delete_forever"
-             flat dense
-             size="sm"
-             v-if="showExtra"
-             @click="confirmDelete({deleteFiles: true})">
-        <q-tooltip anchor="top middle" :offset="[30, 30]">
-          Delete Files and Remove
-        </q-tooltip>
-      </q-btn>
+        <q-btn icon="expand_more"
+               flat dense
+               size="sm"
+               @click="queueMoveDown([torrentId])">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Move down in the queue
+          </q-tooltip>
+        </q-btn>
+
+        <q-btn icon="last_page"
+               class="queue-bottom"
+               flat dense
+               size="sm"
+               @click="queueMoveBottom([torrentId])">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Move to Bottom of Queue
+          </q-tooltip>
+        </q-btn>
+
+        <q-btn icon="priority_high"
+               flat dense
+               size="sm"
+               @click="startTorrentsNow([torrentId])">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Start Now
+          </q-tooltip>
+        </q-btn>
+
+        <q-btn icon="delete"
+               flat dense
+               size="sm"
+               @click="confirmDelete({deleteFiles: false})">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Remove
+          </q-tooltip>
+        </q-btn>
+
+        <q-btn icon="delete_forever"
+               flat dense
+               size="sm"
+               @click="confirmDelete({deleteFiles: true})">
+          <q-tooltip anchor="top middle" :offset="[30, 30]">
+            Delete Files and Remove
+          </q-tooltip>
+        </q-btn>
+      </template>
 
       <q-btn flat dense
              size="sm"
-             v-if="showExtra" icon="close" @click="showExtra = !showExtra">
+             v-if="showExtra"
+             icon="close" @click="showExtra = !showExtra">
         <q-tooltip anchor="top middle" :offset="[30, 30]">
           Cancel
         </q-tooltip>
@@ -116,6 +152,10 @@ export default {
       "startTorrentsNow",
       "stopTorrents",
       "verifyTorrents",
+      "queueMoveTop",
+      "queueMoveUp",
+      "queueMoveDown",
+      "queueMoveBottom",
     ]),
     confirmDelete: function ({ deleteFiles })
     {
@@ -146,6 +186,10 @@ export default {
 
 .torrent-actions.show-extra {
   border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.queue-top, .queue-bottom {
+  transform: rotate(90deg);
 }
 </style>
 

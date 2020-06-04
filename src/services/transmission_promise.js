@@ -206,6 +206,45 @@ class Transmission extends EventEmitter {
     })
   }
 
+  queue (ids, action) {
+    const availableActions = ['queue-move-up', 'queue-move-down', 'queue-move-top', 'queue-move-bottom']
+    return new Promise((resolve, reject) => {
+      if (typeof action !== 'string')
+      {
+        return reject(new Error(`Action required, must be one of ${availableActions.join(', ')}`))
+      }
+
+      ids = Array.isArray(ids) ? ids : [ids]
+      const args = { ids }
+
+      this.callServer({
+        arguments: args,
+        method: action,
+        tag: uuid()
+      })
+        .then(res => resolve(res))
+        .catch(err => reject(err))
+    })
+  }
+
+  queueMoveUp (ids)
+  {
+    return this.queue(ids, 'queue-move-up')
+  }
+  queueMoveDown (ids)
+  {
+    return this.queue(ids, 'queue-move-down')
+  }
+  queueMoveTop (ids)
+  {
+    return this.queue(ids, 'queue-move-top')
+  }
+  queueMoveBottom (ids)
+  {
+    return this.queue(ids, 'queue-move-bottom')
+  }
+
+
   /**
    * An alias for `addUrl()`
    *

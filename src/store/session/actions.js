@@ -158,3 +158,26 @@ export function updateActiveTorrents({ rootGetters, getters, commit, state }, fi
   return rootGetters['configs/client'].active(fields || RPCReference.minimalFields())
     .then(torrents => commit('UPDATE_TORRENTS', torrents))
 }
+
+// TODO: these queue dont really need the store, maybe they could be invoked
+// directly on a client on the component itself?
+export function queueMoveTop({ rootGetters }, ids)
+{
+  return rootGetters['configs/client'].queueMoveTop(ids)
+}
+
+export function queueMoveUp({ rootGetters }, ids)
+{
+  return rootGetters['configs/client'].queueMoveUp(ids)
+}
+
+export function queueMoveDown({ rootGetters }, ids)
+{
+  return rootGetters['configs/client'].queueMoveDown(ids)
+}
+
+export function queueMoveBottom({ rootGetters }, ids)
+{
+  return rootGetters['configs/client'].queueMoveBottom(ids)
+}
+
