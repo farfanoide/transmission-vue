@@ -7,7 +7,7 @@ Simple vuejs web client for the transmissionbt
 yarn
 ```
 
-### Currently supported only BEX mode (Browser Extension)
+### BEX mode (Browser Extension)
 
 Start the app in development mode (hot-code reloading, error reporting, etc.)
 

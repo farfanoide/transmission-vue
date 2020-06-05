@@ -55,6 +55,8 @@
             </q-tab>
             <q-tab name="files" label="Files" icon="file_copy">
             </q-tab>
+            <q-tab name="options" label="Options" icon="settings">
+            </q-tab>
           </q-tabs>
 
         </div>
@@ -89,6 +91,11 @@
               </files-list>
             </q-tab-panel>
 
+            <q-tab-panel name="options">
+              <div class="text-h4 q-mb-md">Options</div>
+              <torrent-options></torrent-options>
+            </q-tab-panel>
+
           </q-tab-panels>
         </div>
       </div>
@@ -97,16 +104,19 @@
 </template>
 
 <script>
+
 import { mapActions, mapGetters, mapState } from 'vuex'
-import TrackersList from './TrackersList'
-import PeersList from './PeersList'
+
 import FilesList from './FilesList'
-import TorrentInfo from './TorrentInfo'
-import TorrentProgressBar from './TorrentProgressBar'
-import TorrentActions from './TorrentActions'
-import RatioIcon from './RatioIcon'
+import PeersList from './PeersList'
 import RPCReference from '../lib/rpc'
+import RatioIcon from './RatioIcon'
 import Torrent from '../models/torrent'
+import TorrentActions from './TorrentActions'
+import TorrentInfo from './TorrentInfo'
+import TorrentOptions from './TorrentOptions'
+import TorrentProgressBar from './TorrentProgressBar'
+import TrackersList from './TrackersList'
 
 export default {
   name: 'TorrentDetails',
@@ -118,6 +128,7 @@ export default {
     RatioIcon,
     TorrentActions,
     TorrentInfo,
+    TorrentOptions,
     TorrentProgressBar,
     TrackersList,
   },
@@ -125,7 +136,7 @@ export default {
   data()
   {
     return {
-      tab: 'trackers',
+      tab: 'info',
       torrent: null,
       loading: true,
     }
