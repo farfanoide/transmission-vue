@@ -93,7 +93,7 @@
 
             <q-tab-panel name="options">
               <div class="text-h4 q-mb-md">Options</div>
-              <torrent-options></torrent-options>
+              <torrent-options :torrent="torrent"></torrent-options>
             </q-tab-panel>
 
           </q-tab-panels>
@@ -136,7 +136,7 @@ export default {
   data()
   {
     return {
-      tab: 'info',
+      tab: 'options',
       torrent: null,
       loading: true,
     }
