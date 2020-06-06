@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'SpeedSetting',
@@ -33,7 +33,8 @@ export default {
   },
   computed:
   {
-    ...mapState('session', ['data']),
+      ...mapState('session', ['data']),
+      ...mapGetters('session', ['altSpeedEnabled']),
     statusText: function ()
     {
       return this.altSpeedEnabled ? 'enabled' : 'disabled'
@@ -41,10 +42,6 @@ export default {
     message: function ()
     {
       return  `Alternative speed ${this.statusText}`
-    },
-    altSpeedEnabled: function ()
-    {
-      return this.data['alt-speed-enabled']
     },
     iconClass: function ()
     {
