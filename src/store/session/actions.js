@@ -175,3 +175,13 @@ export function updateActiveTorrents({ rootGetters, getters, commit, state })
   return rootGetters['configs/client'].get(state.activeTorrentsIds)
     .then(torrents => commit('UPDATE_TORRENTS', torrents))
 }
+
+export function updateSettings({commit}, settings)
+/**
+ *  Update settings on store. Uses mutator
+ *  @param settings A plain js object with settings
+ *                  to store.
+ */
+{
+  commit('UPDATE_SESSION_DATA', settings);
+}
