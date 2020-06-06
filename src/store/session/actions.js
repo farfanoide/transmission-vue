@@ -139,8 +139,16 @@ export function deleteSelectedTorrents(context, { deleteFiles })
 
 export function getSessionData({ rootGetters, state, getters, commit })
 {
-  return rootGetters['configs/client'].session()
-    .then(data => commit('SET_SESSION_DATA', data))
+  // if session.data already exists dont go to the
+  // client. one request less _:)
+  return !Object.keys(state.data).length?
+    rootGetters['configs/client'].session()
+    .then(response => {
+      commit('SET_SESSION_DATA', response);
+      return response;
+    })
+    :
+    state.data;
 }
 
 export function getSessionStats({ rootGetters, getters, commit })

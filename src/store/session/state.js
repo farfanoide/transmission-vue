@@ -5,7 +5,7 @@ export default function () {
     torrents: {},
     activeTorrentsIds: [],
     selectedTorrentsIds: [],
-    settings: undefined, //store current server configs
+    settings: undefined, //store current server configs // cleanup when fully adapt to data ^^^^
     activeFilters: {
       nameFilter: '',
       statusFilter: 'ALL',
