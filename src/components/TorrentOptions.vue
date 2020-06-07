@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Torrent Options</h1>
     <dl>
       <dt>Priority</dt>
       <dd>

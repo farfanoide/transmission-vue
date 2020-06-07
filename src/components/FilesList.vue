@@ -72,14 +72,8 @@ export default {
         let filesWanted = ticked.filter(t => Number.isInteger(t))
         let filesUnwanted = Object.keys(this.torrent.files).filter((i) => !ticked.includes(parseInt(i))).map((i) => parseInt(i))
 
-        if (filesWanted.length != 0)
-        {
-          options['files-wanted'] = filesWanted
-        }
-        if (filesUnwanted.length != 0)
-        {
-          options['files-unwanted'] = filesUnwanted
-        }
+        if (filesWanted.length != 0)   { options['files-wanted'] = filesWanted }
+        if (filesUnwanted.length != 0) { options['files-unwanted'] = filesUnwanted }
 
         this.client.set([this.torrent.id], options)
           .finally(() => this.loading = false)
