@@ -1,0 +1,44 @@
+<template>
+  <div>
+    <div class="text-h5 text-center q-mb-md">Speed Limits</div>
+
+    <q-checkbox  v-model="clientSettings['speed-limit-up-enabled']"
+                 label="Upload" />
+    <q-input outlined
+             v-model="clientSettings['speed-limit-up']"
+             label="kB/s"
+             :disable="!clientSettings['speed-limit-up-enabled']"
+             />
+    <q-checkbox  v-model="clientSettings['speed-limit-down-enabled']"
+                 label="Download" />
+    <q-input outlined
+             v-model="clientSettings['speed-limit-down']"
+             label="kB/s"
+             :disable="!clientSettings['speed-limit-down-enabled']"
+             />
+
+  </div>
+</template>
+<script>
+  export default {
+  name: "TorrentSettings",
+  methods: {
+  ...mapActions('session',['updateSettings']),
+  },
+  computed: {
+  ...mapState('session', ['data']),
+  downloadDir: {
+  get () { return this.data['download-dir']},
+  set (value) { this.updateSettings({'download-dir': value })}
+  },
+  startAddedTorrents: {
+  get () { return this.data['start-added-torrents']},
+  set (value) { this.updateSettings({'start-added-torrents': value})}
+  },
+  renamePartialFiles: {
+  get () {return this.data['rename-partial-files']},
+  set (value) { this.updateSettings({'rename-partial-files': value}) }
+  },
+  }
+  }
+</script>

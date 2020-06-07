@@ -37,9 +37,11 @@
                   <seeding-settings></seeding-settings>
                 </section>
               </q-tab-panel>
-              <!-- <q-tab-panel name="speed"> -->
-
-              <!--   <div class="text-h5 text-center q-mb-md">Speed Limits</div> -->
+              <q-tab-panel name="speed">
+                <section class="panel">
+                  <speed-settings></speed-settings>
+                </section>
+                <!--   <div class="text-h5 text-center q-mb-md">Speed Limits</div> -->
 
               <!--   <q-checkbox  v-model="clientSettings['speed-limit-up-enabled']" -->
               <!--                label="Upload" /> -->
@@ -95,7 +97,7 @@
               <!--             /> -->
 
 
-              <!-- </q-tab-panel> -->
+              </q-tab-panel>
 
               <!-- <q-tab-panel name="peers"> -->
               <!--   <div class="text-h5 text-center q-mb-md">Connections</div> -->
@@ -176,10 +178,12 @@ import { mapState, mapActions } from 'vuex';
 import ClientSettings from '../../models/client-settings';
 import TorrentSettings from './Torrents';
 import SeedingSettings from './Seeding';
+import SpeedSettings from './Speed'
 export default {
     components: {
         TorrentSettings,
-        SeedingSettings
+        SeedingSettings,
+        SpeedSettings
     },
     name: "GeneralSettings",
     data () {
