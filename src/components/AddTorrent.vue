@@ -85,6 +85,23 @@ export default {
       loading: false,
     }
   },
+  mounted()
+  {
+    // TODO: allow for this to be opt in
+    // TODO: check compatibility with electron and mobile
+    navigator.clipboard.readText()
+      .then(text => {
+        if (text.startsWith('http') || text.startsWith('magnet'))
+        {
+          // TODO: show icon or notification that clipboard has been pasted
+          this.torrentUrl = text
+        }
+      })
+      .catch(error => this.$q.notify({
+        message: 'Sorry we couldnt fetch your clipboard contents.',
+        color: 'negative',
+      }))
+  },
   methods:
   {
     handleError: function ({ message })
