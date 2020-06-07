@@ -296,8 +296,19 @@ const specV15 = {
       name: "version",
       get: true,
       set: false
+    },
+    getSetableParams: () => {
+      console.log("GSP",this);
+      return Object.entries(specV15.session)
+        .filter(([fieldName, fieldSpec]) => fieldSpec.set)
+        .map(([fieldName,fieldSpec]) =>  fieldName );
+    },
+    getUnsetableParams: () => {
+      const setable = specV15.session.getSetableParams();
+      return Object.keys(specV15.session).filter(fieldName => !setable.includes(fieldName));
     }
   }
+
 }
 
 export default specV15;
