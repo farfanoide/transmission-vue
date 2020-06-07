@@ -15,7 +15,7 @@
              />
     <q-checkbox  v-model="altSpeedTimeEnabled"
                  label="Scheduled Times" />
-    <q-sele3ct outlined
+    <q-select outlined
                class="q-mb-sm"
                v-model="altSpeedTimeBegin"
                :options="[]"
