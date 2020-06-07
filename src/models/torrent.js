@@ -1,4 +1,3 @@
-import TorrentMapper from '../lib/torrent_mapper'
 import RPCReference from '../lib/rpc'
 
 
@@ -6,12 +5,14 @@ class Torrent {
 
   constructor(data)
   {
-    Object.assign(this, data)
+    this.update(data)
+  }
 
-    for (let prop of TorrentMapper.attrsToMap())
-    {
-      this[prop] = TorrentMapper.mapValue(prop, data[prop])
-    }
+  update(data)
+  {
+    Object.assign(this, data)
+    this.statusSlug = RPCReference.statusSlug(this.status)
+    this.statusName = RPCReference.statusName(this.statusSlug)
   }
 
   isFinished()
@@ -21,12 +22,12 @@ class Torrent {
 
   isDownloading()
   {
-    return this.status === RPCReference.status.DOWNLOAD
+    return this.statusSlug === RPCReference.status.DOWNLOAD
   }
 
   isWaitingToDownload()
   {
-    return this.status === RPCReference.status.DOWNLOAD_WAIT
+    return this.statusSlug === RPCReference.status.DOWNLOAD_WAIT
   }
 
   isActive()
@@ -34,32 +35,32 @@ class Torrent {
     return (this.peersGettingFromUs > 0) ||
       (this.peersSendingToUs > 0) ||
       (this.webseedsSendingToUs > 0) ||
-      (this.status === RPCReference.status.CHECK)
+      (this.statusSlug === RPCReference.status.CHECK)
   }
 
   isChecking()
   {
-    return this.status === RPCReference.status.CHECK
+    return this.statusSlug === RPCReference.status.CHECK
   }
 
   isWaitingToCheck()
   {
-    return this.status === RPCReference.status.CHECK_WAIT
+    return this.statusSlug === RPCReference.status.CHECK_WAIT
   }
 
   isSeeding()
   {
-    return this.status === RPCReference.status.SEED
+    return this.statusSlug === RPCReference.status.SEED
   }
 
   isWaitingToSeed()
   {
-    return this.status === RPCReference.status.SEED_WAIT
+    return this.statusSlug === RPCReference.status.SEED_WAIT
   }
 
   isPaused()
   {
-    return this.status === RPCReference.status.STOPPED
+    return this.statusSlug === RPCReference.status.STOPPED
   }
 
   hasFinished()
@@ -71,9 +72,6 @@ class Torrent {
   {
     return this.error !== 0
   }
-
-  // TODO: add a fromMany method to handle instantiation of multiple torrents
-  // at once
 
   static fromRPC(rpcData)
   {

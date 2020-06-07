@@ -12,31 +12,54 @@
           </div>
           <div class="col-4">
             <torrent-actions :torrentId="torrent.id"
-                             :isPaused="torrent.isPaused()">
+               :isPaused="torrent.isPaused()">
             </torrent-actions>
           </div>
         </div>
         <div class="networking">
-          <span :class="{'text-negative': torrent.hasErrors()}">
-            {{torrent.hasErrors() ? torrent.errorString : torrentPresenter.peersInfo}}
+          <span v-if="torrent.hasErrors()"
+                :class="{'text-negative': torrent.hasErrors()}">
+            {{torrent.errorString}}
           </span>
-          <template v-if="torrent.isActive() && !torrent.isChecking()">
-            - {{torrentPresenter.networkStats}}
-          </template>
+          <span v-else>
+            {{torrent.statusName}}
+          </span>
+          <span v-if="torrent.isDownloading()">
+            {{downloadingPeersInfo}}
+          </span>
+          <span v-if="torrent.isSeeding()">
+            {{seedingPeersInfo}}
+          </span>
+          <span v-if="torrent.isActive() && torrent.isDownloading()">
+            ↓ {{torrent.rateDownload | speedBps}}
+          </span>
+          <span v-if="torrent.isActive() && !torrent.isChecking()">
+            ↑ {{torrent.rateUpload | speedBps}}
+          </span>
+          <span v-if="torrent.isChecking()">
+            ({{ this.torrent.recheckProgress | fullPercentString }} tested)
+          </span>
         </div>
         <div class="progressbar">
-          <q-linear-progress rounded :color='progressColor' :value="torrent.percentDone" class="q-mt-md" size="10px">
-          </q-linear-progress>
-          <!-- TODO: check how to add  gradient to progressbars -->
-          <!-- style="background: linear&#45;gradient(145deg,#1976d2 11%,#0f477e 75%)"  -->
-          <!-- idea: backound should be full progressbar with gradient, while
-            the filled progressbar has a css filter that changes background
-            into black and white -->
+          <torrent-progress-bar :torrent="torrent"></torrent-progress-bar>
         </div>
         <div class="file-stats">
-          {{torrentPresenter.progressInfo}}
           <template v-if="torrent.isDownloading()">
-            - {{torrentPresenter.eta}} remaining
+            <span class="downloaded">
+              {{torrent.sizeWhenDone - torrent.leftUntilDone | size}} of {{ torrent.sizeWhenDone | size }}
+            </span>
+            -
+            <span class="eta">
+              {{torrent.eta | timeInterval}} remaining
+            </span>
+          </template>
+          <template v-if="torrent.isSeeding()">
+            <span class="uploaded">
+              {{ torrent.sizeWhenDone | size }}, uploaded {{ torrent.uploadedEver | size}}
+            </span>
+            <span class="ratio">
+              (<ratio-icon></ratio-icon> {{ torrent.uploadRatio | ratioString }})
+            </span>
           </template>
         </div>
       </div>
@@ -46,29 +69,17 @@
 
 <script>
 import { mapMutations, mapGetters } from 'vuex'
-import TorrentPresenter from '../lib/torrent_presenter'
-import TorrentActions from './TorrentActions.vue'
+import TorrentActions from './TorrentActions'
+import TorrentProgressBar from './TorrentProgressBar'
+import RatioIcon from './RatioIcon'
 
 export default {
   name: 'TorrentRow',
   props: ['torrent'],
   components: {
+    RatioIcon,
     TorrentActions,
-  },
-  data()
-  {
-    return {
-      statusColors: {
-        STOPPED:       'blue-grey-6',
-        CHECK_WAIT:    'blue-grey-6',
-        CHECK:         'warning',
-        DOWNLOAD_WAIT: 'teal-6',
-        DOWNLOAD:      'blue',
-        SEED_WAIT:     'cyan-6',
-        SEED:          'positive',
-        ISOLATED:      'blue-2',
-      }
-    }
+    TorrentProgressBar,
   },
   methods:
   {
@@ -80,19 +91,33 @@ export default {
   computed:
   {
     ...mapGetters('session', ['selectedTorrentsIds']),
-    progressColor: function ()
-    {
-      return this.statusColors[this.torrent.status]
-    },
-    torrentPresenter: function ()
-    {
-      return new TorrentPresenter(this.torrent)
-    },
     isSelected: function ()
     {
       return this.selectedTorrentsIds.includes(this.torrent.id)
-    }
-  }
+    },
+    downloadingPeersInfo: function ()
+    {
+      // TODO: maybe handle whole strings inside i18n
+      // TODO: review this method
+      if (this.torrent.peersConnected && this.torrent.webseedsSendingToUs)
+      {
+        // happy path, we have both peers and webseed available
+        return `from ${this.torrent.peersSendingToUs} of ${this.$tc('peer', this.torrent.peersConnected)} and ${this.torrent.webseedsSendingToUs} ${this.$tc('webseed', this.webseedsSendingToUs)}`
+      }
+      if (this.torrent.webseedsSendingToUs)
+      {
+        // we have only webseeds
+        return `from ${this.torrent.webseedsSendingToUs} ${this.$tc('webseed', this.torrent.webseedsSendingToUs)}`
+      }
+      // we have only peers
+      return `from ${this.torrent.peersSendingToUs} of ${this.$tc('peer', this.torrent.peersConnected)}`
+    },
+    seedingPeersInfo: function ()
+    {
+      // TODO: add localization to use proper pluralization
+      return `to ${this.torrent.peersGettingFromUs} of ${this.$tc('peer', this.torrent.peersConnected)}`
+    },
+  },
 }
 </script>
 

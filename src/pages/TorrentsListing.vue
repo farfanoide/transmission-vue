@@ -3,6 +3,13 @@
     <torrent-list></torrent-list>
     <!-- bottom sheet -->
     <multi-torrent-actions></multi-torrent-actions>
+    <q-inner-loading :showing="loading">
+      <q-spinner
+        color="primary"
+        size="5em"
+        :thickness="2">
+      </q-spinner>
+    </q-inner-loading>
   </q-page>
 </template>
 
@@ -20,6 +27,10 @@ export default {
   data()
   {
     return {
+      // TODO: move loading to vuex to allow for actions to individually modify
+      // it. for example if the server goes down, any failed action might want to
+      // set this property
+      loading: true,
       intervals: {
         activeIds: null,
         sessionStats: null,
@@ -62,7 +73,6 @@ export default {
       'getSessionData',
       'getSessionStats',
       'getTorrents',
-      'updateActiveTorrentsIds',
       'updateActiveTorrents'
     ]),
     ...mapMutations('session', {
@@ -77,15 +87,13 @@ export default {
       // Initial fetch of data
       this.getSessionData()
       this.getSessionStats()
-      this.getTorrents()
-      this.updateActiveTorrentsIds()
-      this.updateActiveTorrents()
+      this.getTorrents().then(() => this.loading = false)
 
       // set intervals to fetch data regularly
       // TODO: make intervals configurable
-      this.intervals.sessionData  = setInterval(this.getSessionData, 2000 * 2)
+      // this.intervals.sessionData  = setInterval(this.getSessionData, 2000 * 2)
+      // no need to fetch session data that often
       this.intervals.sessionStats = setInterval(this.getSessionStats, 2000 * 2)
-      this.intervals.activeIds    = setInterval(this.updateActiveTorrentsIds, 2000 * 2)
       this.intervals.actives      = setInterval(this.updateActiveTorrents, 2000)
 
     },

@@ -9,7 +9,7 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 
 
-module.exports = function (/* ctx */) {
+module.exports = function (ctx) {
   return {
     // app boot file (/src/boot)
     // --> boot files are part of "main.js"
@@ -19,6 +19,7 @@ module.exports = function (/* ctx */) {
       { path: 'vuex-persist', server: false },
       { path: 'http-client' },
       { path: 'notify-defaults' },
+      { path: 'global-filters' },
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -30,7 +31,7 @@ module.exports = function (/* ctx */) {
     extras: [
       // 'ionicons-v4',
       // 'mdi-v5',
-      // 'fontawesome-v5',
+      'fontawesome-v5',
       // 'eva-icons',
       // 'themify',
       // 'line-awesome',
@@ -85,6 +86,7 @@ module.exports = function (/* ctx */) {
 
       // Quasar plugins
       plugins: [
+        'Meta',
         'Dialog',
         'Notify',
       ]
@@ -98,6 +100,7 @@ module.exports = function (/* ctx */) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-build
     build: {
+      modern: ctx.dev, // Only enable modern mode for dev until dual option is provided
       vueRouterMode: 'hash', // available values: 'hash', 'history'
 
       // rtl: false, // https://quasar.dev/options/rtl-support

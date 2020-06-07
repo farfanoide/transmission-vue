@@ -25,7 +25,6 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import TransmissionFormatter from '../lib/formatter'
 import NetworkChart from './NetworkChart'
 import SpeedSetting from './SpeedSetting'
 
@@ -39,13 +38,5 @@ export default {
   computed: {
     ...mapGetters('session', ['totalUploadRate', 'totalDownloadRate', 'altSpeedEnabled'])
   },
-  filters:
-  {
-    speedBps: function (bytes)
-    {
-      return TransmissionFormatter.speedBps(bytes)
-    }
-  }
-
 }
 </script>

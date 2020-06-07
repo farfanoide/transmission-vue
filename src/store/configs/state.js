@@ -3,5 +3,6 @@ export default function () {
     servers: [],
     currentServer: null,
     service: null,
+    trackerImages: {},
   }
 }

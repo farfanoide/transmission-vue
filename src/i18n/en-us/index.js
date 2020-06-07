@@ -2,6 +2,6 @@
 // so you can safely delete all default props below
 
 export default {
-  failed: 'Action failed',
-  success: 'Action was successful'
+  peer: '{n} peer | {n} peers',
+  webseed: '{n} webseed | {n} webseeds',
 }

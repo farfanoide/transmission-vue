@@ -153,6 +153,11 @@ const TransmissionFormatter = {
   },
 
   timeInterval: function (seconds) {
+    if (!seconds || seconds <= 0)
+    {
+      return 'N/A';
+    }
+
     var days = Math.floor(seconds / 86400),
       hours = Math.floor((seconds % 86400) / 3600),
       minutes = Math.floor((seconds % 3600) / 60),
@@ -184,7 +189,8 @@ const TransmissionFormatter = {
   },
 
   timestamp: function (seconds) {
-    if (!seconds) {
+    if (!seconds || seconds <= 0)
+    {
       return 'N/A';
     }
 

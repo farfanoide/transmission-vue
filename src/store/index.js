@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 import configs from './configs'
 import session from './session'
+import countryflags from './countryflags'
 
 Vue.use(Vuex)
 
@@ -21,6 +22,7 @@ export default function (/* { ssrContext } */) {
       // example
       configs,
       session,
+      countryflags,
     },
 
     // enable strict mode (adds overhead!)

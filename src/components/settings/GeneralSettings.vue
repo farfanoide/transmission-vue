@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-btn round flat color="yellow" icon='build' @click="opened=!opened">
+    <q-btn round flat color="white" icon='build' @click="opened=!opened">
     </q-btn>
 
     <q-dialog v-model="opened" @hide="sendSettingsToServer">
@@ -74,7 +74,6 @@
 </template>
 
 <script>
-import TransmissionService from '../../services/transmission_service';
 import { mapState, mapActions } from 'vuex';
 import TorrentSettings from './Torrents';
 import SeedingSettings from './Seeding';

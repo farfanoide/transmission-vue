@@ -4,7 +4,8 @@ export default function () {
     stats: {},
     torrents: {},
     activeTorrentsIds: [],
-    selectedTorrentsIds: [],
+    selectedTorrentsIds: [], // used for multi actions
+    selectedTorrentId: null, // used to get torrent data on details modal
     activeFilters: {
       nameFilter: '',
       statusFilter: 'ALL',

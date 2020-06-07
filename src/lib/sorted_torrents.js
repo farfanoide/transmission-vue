@@ -27,7 +27,13 @@ export const SortReference = {
       value: 'percentDone',
       label: 'Percent Done',
       icon: 'done_outline',
+    },
+    {
+      value: 'ratio',
+      label: 'Ratio',
+      icon: 'radio_button_unchecked',
     }
+
   ]
 }
 
@@ -37,6 +43,7 @@ const SortFunctions = {
   percentDone: (torrenta, torrentb) => torrenta.percentDone - torrentb.percentDone,
   size:        (torrenta, torrentb) => torrenta.sizeWhenDone - torrentb.sizeWhenDone,
   queue:       (torrenta, torrentb) => torrenta.queuePosition - torrentb.queuePosition,
+  ratio:       (torrenta, torrentb) => torrentb.uploadRatio - torrenta.uploadRatio,
   name: (torrenta, torrentb) => {
     if      (torrenta.name < torrentb.name) { return -1 }
     else if (torrenta.name > torrentb.name) { return 1  }

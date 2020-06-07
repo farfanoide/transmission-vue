@@ -13,12 +13,12 @@ export function selectedTorrentsIds (state)
 
 export function totalUploadRate (state)
 {
-  return torrents(state).reduce((sum, torrent) => {return sum + torrent.rateUpload}, 0)
+  return state.stats.uploadSpeed
 }
 
 export function totalDownloadRate (state)
 {
-  return torrents(state).reduce((sum, torrent) => {return sum + torrent.rateDownload}, 0)
+  return state.stats.downloadSpeed
 }
 
 export function filteredTorrents (state)
@@ -33,4 +33,9 @@ export function filteredTorrents (state)
 export function altSpeedEnabled (state)
 {
   return state.data['alt-speed-enabled']
+}
+
+export function selectedTorrent (state)
+{
+  return state.torrents[state.selectedTorrentId]
 }

@@ -1,19 +1,21 @@
 <template>
   <div class="torrents-list">
     <torrent-row v-for="( torrent, index ) in torrents"
-                 @show-details="showDetailsFor(torrent)"
+                 @show-details="setSelectedTorrentId(torrent.id)"
                  :torrent="torrent"
                  :key="`torrent-row-${index}`">
     </torrent-row>
-    <q-dialog v-model='showTorrentDetails'>
-      <torrent-details :torrent="selectedTorrent"></torrent-details>
+    <q-dialog v-model='showTorrentDetails'
+              full-width
+              full-height>
+      <torrent-details></torrent-details>
     </q-dialog>
   </div>
 </template>
 
 <script>
 
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapMutations, mapState } from 'vuex'
 import TorrentRow from './TorrentRow'
 import TorrentDetails from './TorrentDetails'
 
@@ -24,38 +26,24 @@ export default {
     TorrentDetails,
     TorrentRow,
   },
-  data()
-  {
-    return {
-      selectedTorrent: null,
-    }
-  },
   methods:
   {
-    showDetailsFor: function (torrent)
-    {
-      console.log('dblclicked')
-      this.selectedTorrent = torrent
-    }
+    ...mapMutations('session', {setSelectedTorrentId: 'SET_SELECTED_TORRENT_ID'}),
   },
   computed: {
-    ...mapGetters('configs', [
-      'currentServer',
-    ]),
-    ...mapGetters('session', {
-      torrents: 'filteredTorrents'
-    }),
+    ...mapState('session', ['selectedTorrentId']),
+    ...mapGetters('configs', ['currentServer']),
+    ...mapGetters('session', {torrents: 'filteredTorrents'}),
     showTorrentDetails: {
-      get:function ()
+      get: function ()
       {
-        return Boolean(this.selectedTorrent)
+        return Boolean(this.selectedTorrentId)
       },
       set: function ()
       {
-        this.selectedTorrent = null
+        this.setSelectedTorrentId(null)
       }
     }
-
   },
 }
 </script>

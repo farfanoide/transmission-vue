@@ -1,5 +1,5 @@
-import Transmission from 'transmission-promise';
-import Torrent from '../models/torrent';
+import Transmission from './transmission_promise'
+import Torrent from '../models/torrent'
 import specV15 from '../lib/rpc_spec/v15.js';
 class TransmissionClient extends Transmission
 {
@@ -14,11 +14,10 @@ class TransmissionClient extends Transmission
           .filter(([fieldName, fieldSpec])=> fieldSpec.set)
           .map(([fieldName, fieldSpec]) => [fieldName, true])
       );
-
   }
-  active(...args)
+  active(fields)
   {
-    return super.active(...args).then(({torrents}) => Torrent.fromRPC(torrents))
+    return super.get('recently-active', fields || []).then(({torrents}) => Torrent.fromRPC(torrents))
   }
 
   get(...args)

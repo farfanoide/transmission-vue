@@ -106,8 +106,42 @@ StatusReference.names = {
 // a SSOT for all RPC related data
 class RPCReference {
 
-  static status = StatusReference;
-  static fields = TorrentColumnsReference;
+  static availableFields()
+  {
+    return Object.keys(this.fields)
+  }
+
+  static minimalFields()
+  {
+    return [
+      "downloadDir",
+      "error",
+      "errorString",
+      "eta",
+      "id",
+      "isFinished",
+      "isStalled",
+      "leftUntilDone",
+      "metadataPercentComplete",
+      "name",
+      "peersConnected",
+      "peersGettingFromUs",
+      "peersSendingToUs",
+      "percentDone",
+      "queuePosition",
+      "rateDownload",
+      "rateUpload",
+      "recheckProgress",
+      "seedRatioLimit",
+      "seedRatioMode",
+      "sizeWhenDone",
+      "status",
+      "trackers",
+      "uploadRatio",
+      "uploadedEver",
+      "webseedsSendingToUs",
+    ]
+  }
 
   static columnName(column)
   {
@@ -125,5 +159,8 @@ class RPCReference {
   }
 
 }
+
+RPCReference.status = StatusReference;
+RPCReference.fields = TorrentColumnsReference;
 
 export default RPCReference
