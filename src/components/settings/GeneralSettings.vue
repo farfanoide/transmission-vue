@@ -41,23 +41,9 @@
                 <section class="panel">
                   <speed-settings></speed-settings>
                 </section>
-                <!--   <div class="text-h5 text-center q-mb-md">Speed Limits</div> -->
-
-              <!--   <q-checkbox  v-model="clientSettings['speed-limit-up-enabled']" -->
-              <!--                label="Upload" /> -->
-              <!--   <q-input outlined -->
-              <!--            v-model="clientSettings['speed-limit-up']" -->
-              <!--            label="kB/s" -->
-              <!--            :disable="!clientSettings['speed-limit-up-enabled']" -->
-              <!--            /> -->
-              <!--   <q-checkbox  v-model="clientSettings['speed-limit-down-enabled']" -->
-              <!--                label="Download" /> -->
-              <!--   <q-input outlined -->
-              <!--            v-model="clientSettings['speed-limit-down']" -->
-              <!--            label="kB/s" -->
-              <!--            :disable="!clientSettings['speed-limit-down-enabled']" -->
-              <!--            /> -->
-
+                <section class="panel">
+                  <alternative-speed-settings></alternative-speed-settings>
+                </section>
               <!--   <div class="text-h5 text-center q-mb-md">Alternative Speed Limits</div> -->
               <!--   <p class="text-center"> Override normal speed limits manually </p> -->
               <!--   <q-input outlined -->
@@ -178,12 +164,14 @@ import { mapState, mapActions } from 'vuex';
 import ClientSettings from '../../models/client-settings';
 import TorrentSettings from './Torrents';
 import SeedingSettings from './Seeding';
-import SpeedSettings from './Speed'
+import SpeedSettings from './Speed';
+import AlternativeSpeedSettings from './AlternativeSpeed';
 export default {
     components: {
         TorrentSettings,
         SeedingSettings,
-        SpeedSettings
+        SpeedSettings,
+        AlternativeSpeedSettings
     },
     name: "GeneralSettings",
     data () {
