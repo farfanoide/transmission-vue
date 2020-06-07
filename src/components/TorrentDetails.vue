@@ -87,8 +87,7 @@
 
             <q-tab-panel name="files">
               <div class="text-h4 q-mb-md">Files</div>
-              <files-list :files="torrent.files" :file-stats="torrent.fileStats">
-              </files-list>
+              <files-list :torrent="torrent"></files-list>
             </q-tab-panel>
 
             <q-tab-panel name="options">
@@ -136,7 +135,7 @@ export default {
   data()
   {
     return {
-      tab: 'options',
+      tab: 'info',
       torrent: null,
       loading: true,
     }
@@ -146,10 +145,7 @@ export default {
     this.tab = this.initialtab ? this.initialtab : this.tab
     this.fetchTorrentData().then(() => {
       this.loading = false
-      this.interval = setInterval(
-        this.fetchTorrentData.bind(this),
-        this.torrent.isActive() ? 1000 : 5000
-      )
+      this.interval = setInterval(this.fetchTorrentData.bind(this), 1000)
     })
   },
   beforeDestroy()
