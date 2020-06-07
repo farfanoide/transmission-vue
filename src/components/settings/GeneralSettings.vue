@@ -30,7 +30,9 @@
               transition-next="jump-up"
               >
               <q-tab-panel name="torrents">
-                <torrent-settings></torrent-settings>
+                <section class="panel">
+                  <torrent-settings></torrent-settings>
+                </section>
               </q-tab-panel>
               <!-- <q-tab-panel name="speed"> -->
 

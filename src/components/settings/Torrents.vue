@@ -13,24 +13,24 @@
                      label="Append .part to incomplete files" />
       </div>
     </div>
-    <section class="panel">
-      <div class="text-h5 text-center q-mb-md">Seeding</div>
-      <q-checkbox  v-model="seedRatioLimited"
-                   label="Stop seeding at ratio" />
-      <q-input outlined
-               v-model="data['seedRatioLimit']"
-               label="seed ratio"
-               :disable="!seedRatioLimited"
-               />
-      <q-checkbox  v-model="idleSeedingLimitEnabled"
-                   label="stop seeding if idle for" />
-      <q-input outlined
+    <!-- <section class="panel"> -->
+    <!--   <div class="text-h5 text-center q-mb-md">Seeding</div> -->
+    <!--   <q-checkbox  v-model="seedRatioLimited" -->
+    <!--                label="Stop seeding at ratio" /> -->
+    <!--   <q-input outlined -->
+    <!--            v-model="data['seedRatioLimit']" -->
+    <!--            label="seed ratio" -->
+    <!--            :disable="!seedRatioLimited" -->
+    <!--            /> -->
+    <!--   <q-checkbox  v-model="idleSeedingLimitEnabled" -->
+    <!--                label="stop seeding if idle for" /> -->
+    <!--   <q-input outlined -->
 
-               v-model="idleSeedingLimit"
-               label="minutes"
-               :disable="!idleSeedingLimitEnabled"
-               />
-    </section>
+    <!--            v-model="idleSeedingLimit" -->
+    <!--            label="minutes" -->
+    <!--            :disable="!idleSeedingLimitEnabled" -->
+    <!--            /> -->
+    <!-- </section> -->
 
   </div>
 </template>
