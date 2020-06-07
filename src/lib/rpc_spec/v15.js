@@ -299,7 +299,6 @@ const specV15 = {
       set: false
     },
     getSetableParams: () => {
-      console.log("GSP",this);
       return Object.entries(specV15.session)
         .filter(([fieldName, fieldSpec]) => fieldSpec.set)
         .map(([fieldName,fieldSpec]) =>  fieldName );
