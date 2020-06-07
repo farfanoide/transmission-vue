@@ -44,75 +44,12 @@
                 <section class="panel">
                   <alternative-speed-settings></alternative-speed-settings>
                 </section>
-              <!--   <div class="text-h5 text-center q-mb-md">Alternative Speed Limits</div> -->
-              <!--   <p class="text-center"> Override normal speed limits manually </p> -->
-              <!--   <q-input outlined -->
-              <!--            class="q-mb-sm" -->
-              <!--            type="number" -->
-              <!--            v-model="clientSettings['alt-speed-up']" -->
-              <!--            label="Upload(kB/s)" -->
-              <!--            /> -->
-              <!--   <q-input outlined -->
-              <!--            class="q-mb-sm" -->
-              <!--            type="number" -->
-              <!--            v-model="clientSettings['alt-speed-down']" -->
-              <!--            label="Download(kB/s)" -->
-              <!--            /> -->
-              <!--   <q-checkbox  v-model="clientSettings['alt-speed-time-enabled']" -->
-              <!--                label="Scheduled Times" /> -->
-              <!--   <q-sele3ct outlined -->
-              <!--             class="q-mb-sm" -->
-              <!--             v-model="clientSettings['alt-speed-time-begin']" -->
-              <!--             :options="[]" -->
-              <!--             label="From" -->
-              <!--             disable -->
-              <!--             /> -->
-              <!--   <q-select outlined -->
-              <!--             class="q-mb-sm" -->
-              <!--             v-model="clientSettings['alt-speed-time-end']" -->
-              <!--             :options="[]" -->
-              <!--             label="To" -->
-              <!--             disable -->
-              <!--             /> -->
-              <!--   <q-select outlined -->
-              <!--             class="q-mb-sm" -->
-              <!--             v-model="clientSettings['alt-speed-time-day']" -->
-              <!--             :options="[]" -->
-              <!--             label="On days" -->
-              <!--             disable -->
-              <!--             /> -->
-
-
               </q-tab-panel>
 
-              <!-- <q-tab-panel name="peers"> -->
-              <!--   <div class="text-h5 text-center q-mb-md">Connections</div> -->
-              <!--   <q-input outlined -->
-              <!--            type="number" -->
-              <!--            v-model="clientSettings['peed-limit-per-torrent']" -->
-              <!--            label="Max peers per torrent" -->
-              <!--            /> -->
-              <!--   <q-input outlined -->
-              <!--            type="number" -->
-              <!--            v-model="clientSettings['peed-limit-global']" -->
-              <!--            label="Max peers overall" -->
-              <!--            /> -->
-              <!--   <div class="text-h5 text-center q-mb-md"> Options </div> -->
-              <!--   <q-select outlined -->
-              <!--             v-model="clientSettings['encryption']" -->
-              <!--             :options="options.encryption" -->
-              <!--             label="Encription mode" -->
-              <!--             /> -->
-
-              <!--   <q-checkbox  v-model="clientSettings['pex-enabled']" -->
-              <!--                label="Use PEX to find more peers" /> -->
-              <!--   <br /> -->
-              <!--   <q-checkbox  v-model="clientSettings['dht-enabled']" -->
-              <!--                label="Use DHT to find more peers" /> -->
-              <!--   <br /> -->
-              <!--   <q-checkbox  v-model="clientSettings['lpd-enabled']" -->
-              <!--               label="Use LDP to find more peers" /> -->
-
+              <q-tab-panel name="peers">
+                <section class="panel">
+                  <connection-settings></connection-settings>
+                </section>
               <!--   <div disabled> -->
               <!--     <div class="text-h5 text-center q-mb-md"> Blocklist </div> -->
               <!--     <q-checkbox  v-model="clientSettings['blocklist-enabled']" -->
@@ -130,7 +67,7 @@
               <!--     </q-input> -->
 
               <!--   </div> -->
-              <!-- </q-tab-panel> -->
+              </q-tab-panel>
               <!-- <q-tab-panel name="network"> -->
               <!--   <div class="text-h5 text-center q-mb-md">Listening Port</div> -->
               <!--   <q-input outlined -->
@@ -166,12 +103,14 @@ import TorrentSettings from './Torrents';
 import SeedingSettings from './Seeding';
 import SpeedSettings from './Speed';
 import AlternativeSpeedSettings from './AlternativeSpeed';
+import ConnectionSettings from './Connections';
 export default {
     components: {
         TorrentSettings,
         SeedingSettings,
         SpeedSettings,
-        AlternativeSpeedSettings
+        AlternativeSpeedSettings,
+        ConnectionSettings
     },
     name: "GeneralSettings",
     data () {
