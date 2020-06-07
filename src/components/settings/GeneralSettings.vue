@@ -33,6 +33,9 @@
                 <section class="panel">
                   <torrent-settings></torrent-settings>
                 </section>
+                <section class="panel">
+                  <seeding-settings></seeding-settings>
+                </section>
               </q-tab-panel>
               <!-- <q-tab-panel name="speed"> -->
 
@@ -172,9 +175,11 @@ import TransmissionService from '../../services/transmission_service';
 import { mapState, mapActions } from 'vuex';
 import ClientSettings from '../../models/client-settings';
 import TorrentSettings from './Torrents';
+import SeedingSettings from './Seeding';
 export default {
     components: {
-        TorrentSettings
+        TorrentSettings,
+        SeedingSettings
     },
     name: "GeneralSettings",
     data () {
