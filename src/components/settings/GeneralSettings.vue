@@ -50,23 +50,9 @@
                 <section class="panel">
                   <connection-settings></connection-settings>
                 </section>
-              <!--   <div disabled> -->
-              <!--     <div class="text-h5 text-center q-mb-md"> Blocklist </div> -->
-              <!--     <q-checkbox  v-model="clientSettings['blocklist-enabled']" -->
-              <!--                  label="Enable blocklist" /> -->
-              <!--     <q-input outlined -->
-              <!--              bottom-slots -->
-              <!--              value="" -->
-              <!--              :disable="!clientSettings['blocklist-enabled']" -->
-              <!--              readonly -->
-              <!--              > -->
-              <!--       <template v-slot:after> -->
-              <!--         <q-btn dense flat :disable="!clientSettings['blocklist-enabled']">Update</q-btn> -->
-              <!--       </template> -->
-              <!--       <template v-slot:hint>Blocklist has {{clientSettings.blocklistSize}} rules</template> -->
-              <!--     </q-input> -->
-
-              <!--   </div> -->
+                <section class="panel">
+                  <blocklist-settings></blocklist-settings>
+                </section>
               </q-tab-panel>
               <!-- <q-tab-panel name="network"> -->
               <!--   <div class="text-h5 text-center q-mb-md">Listening Port</div> -->
@@ -104,13 +90,15 @@ import SeedingSettings from './Seeding';
 import SpeedSettings from './Speed';
 import AlternativeSpeedSettings from './AlternativeSpeed';
 import ConnectionSettings from './Connections';
+import BlocklistSettings from './Blocklist';
 export default {
     components: {
         TorrentSettings,
         SeedingSettings,
         SpeedSettings,
         AlternativeSpeedSettings,
-        ConnectionSettings
+        ConnectionSettings,
+        BlocklistSettings
     },
     name: "GeneralSettings",
     data () {
