@@ -91,7 +91,8 @@ export default {
 
       // set intervals to fetch data regularly
       // TODO: make intervals configurable
-      this.intervals.sessionData  = setInterval(this.getSessionData, 2000 * 2)
+      // this.intervals.sessionData  = setInterval(this.getSessionData, 2000 * 2)
+      // no need to fetch session data that often
       this.intervals.sessionStats = setInterval(this.getSessionStats, 2000 * 2)
       this.intervals.actives      = setInterval(this.updateActiveTorrents, 2000)
 
