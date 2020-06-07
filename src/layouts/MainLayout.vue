@@ -40,7 +40,7 @@
 <script>
 import NetworkStatus from '../components/NetworkStatus'
 import TorrentFilters from '../components/TorrentFilters'
-import GeneralSettings from '../components/GeneralSettings'
+import GeneralSettings from '../components/settings/GeneralSettings'
 import TorrentSorting from '../components/TorrentSorting'
 import AddTorrent from '../components/AddTorrent'
 import { mapState } from 'vuex'

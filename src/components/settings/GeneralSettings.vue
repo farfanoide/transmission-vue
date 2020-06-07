@@ -30,7 +30,7 @@
               transition-next="jump-up"
               >
               <q-tab-panel name="torrents">
-                <torrents-setting-tab></torrents-setting-tab>
+                <torrent-settings></torrent-settings>
               </q-tab-panel>
               <!-- <q-tab-panel name="speed"> -->
 
@@ -166,13 +166,13 @@
 </template>
 
 <script>
-import TransmissionService from '../services/transmission_service';
-import { mapState } from 'vuex';
-import ClientSettings from '../models/client-settings';
-import TorrentsSettingTab from './TorrentsSettingTab';
+import TransmissionService from '../../services/transmission_service';
+import { mapState, mapActions } from 'vuex';
+import ClientSettings from '../../models/client-settings';
+import TorrentSettings from './Torrents';
 export default {
     components: {
-        TorrentsSettingTab
+        TorrentSettings
     },
     name: "GeneralSettings",
     data () {
@@ -185,11 +185,13 @@ export default {
         }
     },
     methods: {
+        ...mapActions('session', ['updateClientSettings']),
         sendSettingsToServer() {
             /**
              * Send settings to the server
              *
              */
+            this.updateClientSettings();
             // this.transmissionService
             //     .setClientSettings(this.clientSettings)
         }
