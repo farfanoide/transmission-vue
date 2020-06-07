@@ -115,7 +115,8 @@ const specV15 = {
       type: "string",
       name: "encryption",
       get: true,
-      set: true
+      set: true,
+      options: ["required", "preferred", "tolerated"]
     },
     "idle-seeding-limit": {
       type: "number",
