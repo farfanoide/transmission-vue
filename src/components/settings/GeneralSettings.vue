@@ -76,7 +76,6 @@
 <script>
 import TransmissionService from '../../services/transmission_service';
 import { mapState, mapActions } from 'vuex';
-import ClientSettings from '../../models/client-settings';
 import TorrentSettings from './Torrents';
 import SeedingSettings from './Seeding';
 import SpeedSettings from './Speed';
@@ -102,22 +101,13 @@ export default {
     data () {
         return {
             tab: 'torrents',
-            options: {
-                encryption: ClientSettings.EncriptionOptions
-            },
             opened: false
         }
     },
     methods: {
         ...mapActions('session', ['updateClientSettings']),
         sendSettingsToServer() {
-            /**
-             * Send settings to the server
-             *
-             */
             this.updateClientSettings();
-            // this.transmissionService
-            //     .setClientSettings(this.clientSettings)
         }
     },
     computed: {
