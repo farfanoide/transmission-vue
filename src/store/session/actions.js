@@ -1,3 +1,5 @@
+import specV15 from '../../lib/rpc_spec/v15';
+
 export function toggleSpeedSetting ({ rootGetters, state, commit })
 {
   let sessionParams = {'alt-speed-enabled': !state.data['alt-speed-enabled']}
@@ -184,4 +186,17 @@ export function updateSettings({commit}, settings)
  */
 {
   commit('UPDATE_SESSION_DATA', settings);
+}
+
+export function updateClientSettings({rootGetters, state})
+/**
+ * Update settings in the transmission client
+ * @todo: Dinamically use spec based on version setting
+ */
+{
+  const setable = specV15.session.getSetableParams();
+  let settings = Object.fromEntries(
+    Object.entries(state.data).filter(([name,value]) => setable.includes(name))
+  );
+  return rootGetters['configs/client'].session(settings);
 }
