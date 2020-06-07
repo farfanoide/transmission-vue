@@ -58,6 +58,9 @@
                 <section class="Panel">
                   <network-settings></network-settings>
                 </section>
+                <section class="panel">
+                  <network-options-settings></network-options-settings>
+                </section>
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -78,6 +81,7 @@ import AlternativeSpeedSettings from './AlternativeSpeed';
 import ConnectionSettings from './Connections';
 import BlocklistSettings from './Blocklist';
 import NetworkSettings from './Network';
+import NetworkOptionsSettings from './NetworkOptions';
 export default {
     components: {
         TorrentSettings,
@@ -86,7 +90,8 @@ export default {
         AlternativeSpeedSettings,
         ConnectionSettings,
         BlocklistSettings,
-        NetworkSettings
+        NetworkSettings,
+        NetworkOptionsSettings
     },
     name: "GeneralSettings",
     data () {

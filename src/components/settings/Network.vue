@@ -14,10 +14,6 @@
   <q-checkbox  v-model="portForwardingEnabled"
                label="Use port forwarding from my router" />
   <br />
-  <div class="text-h5 text-center q-mb-md">Options</div>
-  <q-checkbox  v-model="utpEnabled"
-               label="Enable uTP peer communication" />
-
 </div>
 </template>
 <script>
@@ -40,11 +36,7 @@ export default {
         portForwardingEnabled: {
             get () {return this.data['port-forwarding-enabled']},
             set (value) { this.updateSettings({'port-forwarding-enabled': value}) }
-        },
-        utpEnabled: {
-            get () { return this.data['utp-enabled']},
-            set (value) { this.updateSettings({'utp-enabled': value })}
-        },
+        }
     }
 }
 </Script>
