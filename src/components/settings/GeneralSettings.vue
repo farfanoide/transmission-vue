@@ -54,25 +54,11 @@
                   <blocklist-settings></blocklist-settings>
                 </section>
               </q-tab-panel>
-              <!-- <q-tab-panel name="network"> -->
-              <!--   <div class="text-h5 text-center q-mb-md">Listening Port</div> -->
-              <!--   <q-input outlined -->
-              <!--            bottom-slots="" -->
-              <!--            v-model="clientSettings['peer-port']" -->
-              <!--            label="Peer listening port" -->
-              <!--            > -->
-              <!--     <template v-slot:hint> <del>Port is <strong> OPEN</strong></del></template> -->
-              <!--   </q-input> -->
-              <!--   <q-checkbox  v-model="clientSettings['peer-port-random-on-start']" -->
-              <!--                label="Randomize port on launch" /> -->
-              <!--   <br /> -->
-              <!--   <q-checkbox  v-model="clientSettings['port-forwarding-enabled']" -->
-              <!--                label="Use port forwarding from my router" /> -->
-              <!--   <br /> -->
-              <!--   <div class="text-h5 text-center q-mb-md">Options</div> -->
-              <!--   <q-checkbox  v-model="clientSettings['utp-enabled']" -->
-              <!--                label="Enable uTP peer communication" /> -->
-              <!-- </q-tab-panel> -->
+              <q-tab-panel name="network">
+                <section class="Panel">
+                  <network-settings></network-settings>
+                </section>
+              </q-tab-panel>
             </q-tab-panels>
           </div>
         </div>
@@ -91,6 +77,7 @@ import SpeedSettings from './Speed';
 import AlternativeSpeedSettings from './AlternativeSpeed';
 import ConnectionSettings from './Connections';
 import BlocklistSettings from './Blocklist';
+import NetworkSettings from './Network';
 export default {
     components: {
         TorrentSettings,
@@ -98,7 +85,8 @@ export default {
         SpeedSettings,
         AlternativeSpeedSettings,
         ConnectionSettings,
-        BlocklistSettings
+        BlocklistSettings,
+        NetworkSettings
     },
     name: "GeneralSettings",
     data () {
