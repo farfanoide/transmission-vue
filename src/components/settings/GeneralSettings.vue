@@ -51,6 +51,9 @@
                   <connection-settings></connection-settings>
                 </section>
                 <section class="panel">
+                  <connection-options-settings></connection-options-settings>
+                </section>
+                <section class="panel">
                   <blocklist-settings></blocklist-settings>
                 </section>
               </q-tab-panel>
@@ -79,6 +82,7 @@ import SeedingSettings from './Seeding';
 import SpeedSettings from './Speed';
 import AlternativeSpeedSettings from './AlternativeSpeed';
 import ConnectionSettings from './Connections';
+import ConnectionOptionsSettings from './ConnectionOptions.vue';
 import BlocklistSettings from './Blocklist';
 import NetworkSettings from './Network';
 import NetworkOptionsSettings from './NetworkOptions';
@@ -91,7 +95,8 @@ export default {
         ConnectionSettings,
         BlocklistSettings,
         NetworkSettings,
-        NetworkOptionsSettings
+        NetworkOptionsSettings,
+        ConnectionOptionsSettings
     },
     name: "GeneralSettings",
     data () {
