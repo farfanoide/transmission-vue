@@ -7,7 +7,7 @@
     <q-input outlined
              v-model="speedLimitUp"
              label="kB/s"
-             :disable="!speedLimitUp"
+             :disable="!speedLimitUpEnabled"
              />
     <q-checkbox  v-model="speedLimitDownEnabled"
                  label="Download" />
@@ -34,7 +34,7 @@ export default {
         },
         speedLimitDownEnabled: {
             get () { return this.data['speed-limit-down-enabled']},
-            set (value) { this.downdateSettings({'speed-limit-down-enabled': value })}
+            set (value) { this.updateSettings({'speed-limit-down-enabled': value })}
         },
 
         speedLimitUp: {
@@ -43,7 +43,7 @@ export default {
         },
         speedLimitDown: {
             get () { return this.data['speed-limit-down']},
-            set (value) { this.downdateSettings({'speed-limit-down': value})}
+            set (value) { this.updateSettings({'speed-limit-down': value})}
         },
     }
 }
