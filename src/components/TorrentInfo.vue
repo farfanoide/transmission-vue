@@ -41,15 +41,12 @@
       {{torrent.haveValid + torrent.haveUnchecked + torrent.desiredAvailable | fullPercentString}}
       </dd>
 
-      hardcoded
       <dt>Uploaded:</dt>
-      <!-- <dd>147.5 kB (Ratio: 0.00) </dd> -->
       <dd>
       {{torrent.uploadedEver | size}} (Ratio: {{torrent.uploadRatio | ratioString}})
       </dd>
 
       <dt>Downloaded:</dt>
-      <!-- <dd>41.5 MB (3.14 MB corrupt) </dd> -->
       <dd>
       {{torrent.downloadedEver | size}}
 
@@ -62,24 +59,71 @@
       <dd>{{torrent.statusName}}</dd>
 
       <dt>Running Time: </dt>
-      <dd> TODO </dd>
+      <dd>
+      <template v-if="torrent.isDownloading() || torrent.isSeeding()">
+        {{ Date.now() / 1000 - torrent.startDate | timeInterval }}
+      </template>
+      <template v-else>
+        {{ torrent.statusName }}
+      </template>
+      </dd>
 
       <dt>Remaining Time: </dt>
-      <dd>Unknown TODO</dd>
+      <dd>
+      <template v-if="torrent.isDownloading()">
+        {{torrent.eta | timeInterval}}
+      </template>
+      <template v-else>
+        Unknown
+      </template>
+      </dd>
 
       <dt>Last Activity: </dt>
-      <dd>{{ torrent.activityDate | timeInterval }}</dd>
+      <dd>{{ Date.now() / 1000 - torrent.activityDate | timeInterval }} ago</dd>
 
       <dt>Error:</dt>
       <dd>{{ torrent.hasErrors ? torrent.errorString : 'None'}}</dd>
+      <dt>Magnet Link:</dt>
+      <dd class="magnet-link" @click="copyMagnetToClipboard">
+      <q-tooltip anchor="top middle" :offset="[30, 30]">
+        Click to copy to clipboard
+      </q-tooltip>
+      {{ torrent.magnetLink }}
+      <!-- TODO: add copy to clipboard -->
+      </dd>
     </dl>
   </div>
 </template>
 
 <script>
+
+import { copyToClipboard } from 'quasar'
+
 export default {
   name: 'TorrentInfo',
   props: ['torrent'],
+  methods:
+  {
+    copyMagnetToClipboard: function ()
+    {
+      copyToClipboard(this.torrent.magnetLink)
+        .then(() => {
+          this.$q.notify({ message: 'Magnet Link copied to clipboard'})
+        })
+        .catch(() => {
+          this.$q.notify({
+            color: 'negative',
+            message: 'Couldnt copy Magnet Link to clipboard'
+          })
+        })
+    }
+  }
 }
 </script>
 
+<style>
+.magnet-link {
+  word-wrap: break-word;
+  cursor: pointer;
+}
+</style>
