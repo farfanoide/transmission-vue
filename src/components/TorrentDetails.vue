@@ -35,7 +35,7 @@
           </div>
           <div class="actions col-3 text-right">
             <!-- TODO: add priority -->
-            <torrent-actions :torrent="torrent"></torrent-actions>
+            <torrent-actions :torrent-id="torrent.id" :is-paused="torrent.isPaused()"></torrent-actions>
           </div>
         </div>
         <div>
