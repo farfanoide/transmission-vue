@@ -10,10 +10,10 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.8.2",
+    "@quasar/extras": "^1.9.10",
     "core-js": "^3.6.5",
     "parse-favicon": "^2.0.0",
-    "quasar": "^1.12.3",
+    "quasar": "^1.14.3",
     "smoothie": "^1.35.0",
     "transmission-promise": "^1.1.4",
     "vue-country-flag": "^2.0.1",
