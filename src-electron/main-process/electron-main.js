@@ -20,9 +20,11 @@ function createWindow () {
   /**
    * Initial window options
    */
+  // TODO: save last window size on localstorage and use it after
+  // initialization
   mainWindow = new BrowserWindow({
-    width: 1000,
-    height: 600,
+    width: 1800,
+    height: 900,
     useContentSize: true,
     webPreferences: {
       // Change from /quasar.conf.js > electron > nodeIntegration;
