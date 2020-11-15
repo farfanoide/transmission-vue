@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import TorrentSearch from './TorrentSearch'
 import { BlobToBase64 } from '../lib/utils'
 
@@ -104,6 +104,7 @@ export default {
   },
   methods:
   {
+    ...mapMutations('session', {setSelectedTorrentId: 'SET_SELECTED_TORRENT_ID'}),
     handleError: function ({ message })
     {
       this.$q.notify({ color: 'negative', message: message })
@@ -132,17 +133,23 @@ export default {
 
       this.client.addBase64(base64Torrent)
         .then(success => {
-          this.handleSuccess({message: 'Torrent Successfully added'})
-        }).catch(error => {
+          this.handleSuccess({
+            message: `Torrent Successfully added: ${success.name}`,
+            actions: [
+              this.viewDetailsAction(success.id)
+            ]
+          }
+          )})
+        .catch(error => {
           this.handleError({ message: error.message })
         })
-    },
-    downloadAndAddTorrent: function ()
-    {
-      // TODO: make sure downloaded file is actually a torrent
-      this.$http.get(this.torrentUrl, {responseType: 'blob'})
-        .then(response => this.addBase64(response.data))
-        .catch(error => this.handleError({message: error.message}))
+  },
+  downloadAndAddTorrent: function ()
+  {
+    // TODO: make sure downloaded file is actually a torrent
+    this.$http.get(this.torrentUrl, {responseType: 'blob'})
+      .then(response => this.addBase64(response.data))
+      .catch(error => this.handleError({message: error.message}))
 
     },
     addTorrentFromUrl: function ()
@@ -155,7 +162,15 @@ export default {
       } else {
         // handle as simple url or magnet
         this.client.addUrl(this.torrentUrl)
-          .then(success => this.handleSuccess({ message: 'Torrent Successfully added' }))
+          .then(success => {
+            this.handleSuccess({
+              message: `Torrent Successfully added: ${success.name}`,
+              actions: [
+                this.viewDetailsAction(success.id)
+              ]
+            }
+            )}
+          )
           .catch(error => this.handleError({ message: 'Something went wrong' }) )
       }
     },
@@ -163,6 +178,15 @@ export default {
     {
       // TODO: maybe add abilitty to load various files at once
       this.addBase64(this.torrentFile[0])
+    },
+    viewDetailsAction: function (id)
+    {
+      var self = this
+      return {
+        label: 'View Details',
+        color: 'white',
+        handler: () => { self.setSelectedTorrentId(id) }
+      }
     }
   },
   computed:
