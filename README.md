@@ -2,6 +2,14 @@
 
 Simple vuejs web client for the transmissionbt
 
+![screenshot](https://raw.github.com/farfanoide/img/master/transmission-vue/transmissionvue.png)
+
+## Disclaimer
+
+```
+Still alpha, use at your own risk.
+```
+
 ## Install the dependencies
 ```bash
 yarn
