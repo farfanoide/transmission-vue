@@ -10,10 +10,10 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
-    "@quasar/extras": "^1.9.10",
+    "@quasar/extras": "^1.10.2",
     "core-js": "^3.6.5",
     "parse-favicon": "^2.0.0",
-    "quasar": "^1.14.3",
+    "quasar": "^1.15.9",
     "smoothie": "^1.35.0",
     "transmission-promise": "^1.1.4",
     "vue-country-flag": "^2.0.1",
@@ -21,7 +21,7 @@
     "vuex-persist": "^2.2.0"
   },
   "devDependencies": {
-    "@quasar/app": "^2.1.6",
+    "@quasar/app": "^2.2.3",
     "@vue/devtools": "^5.3.3",
     "babel-eslint": "^10.0.1",
     "devtron": "^1.4.0",
