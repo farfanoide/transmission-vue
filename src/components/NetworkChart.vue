@@ -20,7 +20,7 @@ export default {
       seriesIndex: { downloadGraph: 0, uploadGraph: 1 },
     }
   },
-  beforeDestroy()
+  beforeUnmount()
   {
     clearInterval(this.interval)
   },

@@ -31,13 +31,13 @@
             {{seedingPeersInfo}}
           </span>
           <span v-if="torrent.isActive() && torrent.isDownloading()">
-            ↓ {{torrent.rateDownload | speedBps}}
+            ↓ {{ $filters(torrent.rateDownload)}}
           </span>
           <span v-if="torrent.isActive() && !torrent.isChecking()">
-            ↑ {{torrent.rateUpload | speedBps}}
+            ↑ {{ $filters.speedBps(torrent.rateUpload) }}
           </span>
           <span v-if="torrent.isChecking()">
-            ({{ this.torrent.recheckProgress | fullPercentString }} tested)
+            ({{ $filters.fullPercentString(this.torrent.recheckProgress) }} tested)
           </span>
         </div>
         <div class="progressbar">
@@ -46,19 +46,19 @@
         <div class="file-stats">
           <template v-if="torrent.isDownloading()">
             <span class="downloaded">
-              {{torrent.sizeWhenDone - torrent.leftUntilDone | size}} of {{ torrent.sizeWhenDone | size }}
+              {{ $filters.size(torrent.sizeWhenDone - torrent.leftUntilDone) }} of {{ $filters.size(torrent.sizeWhenDone) }}
             </span>
             -
             <span class="eta">
-              {{torrent.eta | timeInterval}} remaining
+              {{ $filters.timeInterval(torrent.eta) }} remaining
             </span>
           </template>
           <template v-if="torrent.isSeeding()">
             <span class="uploaded">
-              {{ torrent.sizeWhenDone | size }}, uploaded {{ torrent.uploadedEver | size}}
+              {{ $filters.size(torrent.sizeWhenDone) }}, uploaded {{ $filters.size(torrent.uploadedEver) }}
             </span>
             <span class="ratio">
-              (<ratio-icon></ratio-icon> {{ torrent.uploadRatio | ratioString }})
+              (<ratio-icon></ratio-icon> {{ $filters.ratioString(torrent.uploadRatio) }})
             </span>
           </template>
         </div>

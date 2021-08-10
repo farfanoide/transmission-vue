@@ -20,9 +20,9 @@
         <td>{{peer.address}}</td>
         <td>{{peer.clientName}}</td>
         <td>{{peer.flagStr}}</td>
-        <td>{{ peer.progress | fullPercentString }}</td>
-        <td>{{peer.rateToClient | speedBps}}</td>
-        <td>{{peer.rateToPeer | speedBps}}</td>
+        <td>{{ $filters.fullPercentString(peer.progress) }}</td>
+        <td>{{ $filters.speedBps(peer.rateToClient) }}</td>
+        <td>{{ $filters.speedBps(peer.rateToPeer) }}</td>
       </tr>
     </tbody>
   </table>

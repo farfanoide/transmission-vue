@@ -15,7 +15,7 @@
     <q-tree node-key="index"
             default-expand-all
             tick-strategy="leaf"
-            :ticked.sync="ticked"
+            v-model="ticked"
             :nodes="filesTree">
       <template v-slot:default-header="prop">
         <div class="row items-center">
