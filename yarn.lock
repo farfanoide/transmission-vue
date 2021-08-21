@@ -1231,10 +1231,10 @@
     core-js "^3.6.5"
     core-js-compat "^3.6.5"
 
-"@quasar/extras@^1.10.2":
-  version "1.10.10"
-  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.10.10.tgz#515c9e9a69043b9d929034b0b0a0dcc8d898027d"
-  integrity sha512-G1zGj/UVfRSA0zqn1lMtIAghww+7CnVT8vqlUht5v9x9B2Wnxyso51TuDyllrZph91Ryi3AwNqY/KS5eRRd2OA==
+"@quasar/extras@^1.10.11":
+  version "1.10.11"
+  resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.10.11.tgz#19c4f197453c44140400443312f9e50355c252db"
+  integrity sha512-/zJiT8iExl0j2k1zA21Eho8SPMtG5ehcYayszunrq/z7zDp728oWSteI9AfQFnF8/+M06f5HUzy+Vssf6IKH/g==
 
 "@quasar/fastclick@1.1.4":
   version "1.1.4"
@@ -1417,11 +1417,6 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.4.13.tgz#7dfd9c14661edc65cccd43a29eb454174642370d"
   integrity sha512-bLL69sKtd25w7p1nvg9pigE4gtKVpGTPojBFLMkGHXuUgap2sLqQt2qUnqmVCDfzGUL0DRNZP+1prIZJbMeAXg==
 
-"@types/node@^12.0.12":
-  version "12.20.19"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.19.tgz#538e61fc220f77ae4a4663c3d8c3cb391365c209"
-  integrity sha512-niAuZrwrjKck4+XhoCw6AAVQBENHftpXw9F4ryk66fTgYaKQ53R4FI7c9vUGGw5vQis1HKBHDR1gcYI/Bq1xvw==
-
 "@types/node@^14.6.2":
   version "14.17.11"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.17.11.tgz#82d266d657aec5ff01ca59f2ffaff1bb43f7bf0f"
@@ -1601,7 +1596,7 @@
   resolved "https://registry.yarnpkg.com/@vue/devtools-api/-/devtools-api-6.0.0-beta.15.tgz#ad7cb384e062f165bcf9c83732125bffbc2ad83d"
   integrity sha512-quBx4Jjpexo6KDiNUGFr/zF/2A4srKM9S9v2uHgMXSU//hjgq1eGzqkIFql8T9gfX5ZaVOUzYBP3jIdIR3PKIA==
 
-"@vue/devtools@^6":
+"@vue/devtools@^6.0.0-beta.15":
   version "6.0.0-beta.15"
   resolved "https://registry.yarnpkg.com/@vue/devtools/-/devtools-6.0.0-beta.15.tgz#373ed3cbc43d0a7f0632bd67cd3cf44d708167b6"
   integrity sha512-zTo89V+ztGiEpjsRkJYOS0K/6mIqrb+Ia6HT+CXczrGRC297d7SqP5GBXn2HSbaJiSWNdoTLbQ2tm7uj+IBoqQ==
@@ -3655,13 +3650,13 @@ electron@^12.0.6:
     "@types/node" "^14.6.2"
     extract-zip "^1.0.3"
 
-electron@^9.4.0:
-  version "9.4.4"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-9.4.4.tgz#2a74a0655a74bd326216672c5ae6ed3a44451446"
-  integrity sha512-dcPlTrMWQu5xuSm6sYV42KK/BRIqh3erM8v/WtZqaDmG7pkCeJpvw26Dgbqhdt78XmqqGiN96giEe6A3S9vpAQ==
+electron@^13.2.1:
+  version "13.2.1"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-13.2.1.tgz#0dc89ed0e3faf327b39571de533ca1ae18878ff1"
+  integrity sha512-/K0Uw+o3+phbHtrVL6qDFVJqmeRF6EIPwVeUHEH5R8JNy13f4X3RouKjQzVyY/Os8fEqYHGFONWhD6q6g750HQ==
   dependencies:
     "@electron/get" "^1.0.1"
-    "@types/node" "^12.0.12"
+    "@types/node" "^14.6.2"
     extract-zip "^1.0.3"
 
 elementtree@0.1.7:
@@ -3899,7 +3894,7 @@ eslint-loader@^3.0.3:
     object-hash "^2.0.3"
     schema-utils "^2.6.5"
 
-eslint-plugin-vue@^7.0.0:
+eslint-plugin-vue@^7.16.0:
   version "7.16.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-vue/-/eslint-plugin-vue-7.16.0.tgz#7fe9fea039a190b108319c1380adf543ef57707d"
   integrity sha512-0E2dVvVC7I2Xm1HXyx+ZwPj9CNX4NJjs4K4r+GVsHWyt5Pew3JLD4fI7A91b2jeL0TXE7LlszrwLSTJU9eqehw==
