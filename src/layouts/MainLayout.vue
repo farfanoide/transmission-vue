@@ -19,7 +19,7 @@
         <general-settings></general-settings>
       </q-toolbar>
     </q-header>
-    <q-drawer v-model="left" side="left" content-class="bg-primary text-white">
+    <q-drawer v-model="left" side="left" class="bg-primary text-white">
 
       <template v-if="currentServer">
         <network-status></network-status>
