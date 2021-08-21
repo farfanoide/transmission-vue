@@ -1,6 +1,6 @@
 <template>
   <!-- TODO: add configurable or fluid dimensions -->
-  <canvas ref="chartCanvas" height="140px" style="width: 100%">
+  <canvas ref="chartCanvas" height="140" style="width: 100%">
   </canvas>
 </template>
 
