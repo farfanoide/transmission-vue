@@ -21,13 +21,13 @@
         <div class="row justify-between">
           <div class="short-stats col">
             <span class="q-pa-sm">
-              ↓{{ torrent.rateDownload | speedBps }} {{ torrent.sizeWhenDone - torrent.leftUntilDone | size }}
+              ↓{{ $filters.speedBps(torrent.rateDownload) }} {{ $filters.size(torrent.sizeWhenDone - torrent.leftUntilDone) }}
             </span>
             <span class="q-pa-sm">
-              ↑{{ torrent.rateUpload | speedBps }} {{torrent.uploadedEver | size}}
+              ↑{{ $filters.speedBps(torrent.rateUpload) }} {{ $filters.size(torrent.uploadedEver) }}
             </span>
             <span class="q-pa-sm">
-              <ratio-icon></ratio-icon> {{ torrent.uploadRatio | ratioString }}
+              <ratio-icon></ratio-icon> {{ $filters.ratioString(torrent.uploadRatio) }}
             </span>
             <!-- <span class="q&#45;pa&#45;sm"> -->
             <!--   TODO: maybe add running time or date  added -->
@@ -148,7 +148,7 @@ export default {
       this.interval = setInterval(this.fetchTorrentData.bind(this), 1000)
     })
   },
-  beforeDestroy()
+  beforeUnmount()
   {
     if (this.interval) clearInterval(this.interval)
   },

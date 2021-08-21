@@ -36,14 +36,14 @@
 <script>
 import { mapMutations, mapState } from 'vuex'
 import parseUri from '../lib/uri_parser'
-import parseFavicon from 'parse-favicon'
+// import parseFavicon from 'parse-favicon'
 
 export default {
   name: 'TrackersList',
   props: ['trackers'],
   mounted()
   {
-    this.findTrackersFavicons()
+    // this.findTrackersFavicons()
   },
   methods:
   {
@@ -56,32 +56,32 @@ export default {
     },
     findTrackersFavicons: function ()
     {
-      for (let tracker of this.trackers)
-      {
-        let uri = parseUri(tracker.host)
-        let host = 'http://' + ((uri.host.split('.').length > 2) ?
-          uri.host.substring(uri.host.indexOf('.') + 1) :
-          uri.host)
-        if (!this.trackerImages[tracker.host])
-        {
-          this.$http.get(host)
-            .then(({ data: html }) => parseFavicon(html, {
-              baseURI: host,
-              allowUseNetwork: true,
-              allowParseImage: true
-            }))
-            .then(response => {
-              if (response.length >= 1)
-              {
-                let bestTracker = response.reduce((best, favicon) => {
-                  return parseInt(favicon.size.split('x')[0]) > parseInt(best.size.split('x')[0]) ? favicon : best
-                }, response[0])
-                this.addTrackerImage({tracker: tracker.host, imageUrl: bestTracker.url})
-              }
-            })
-            .catch(console.log)
-        }
-      }
+      // for (let tracker of this.trackers)
+      // {
+      //   let uri = parseUri(tracker.host)
+      //   let host = 'http://' + ((uri.host.split('.').length > 2) ?
+      //     uri.host.substring(uri.host.indexOf('.') + 1) :
+      //     uri.host)
+      //   if (!this.trackerImages[tracker.host])
+      //   {
+      //     this.$http.get(host)
+      //       .then(({ data: html }) => parseFavicon(html, {
+      //         baseURI: host,
+      //         allowUseNetwork: true,
+      //         allowParseImage: true
+      //       }))
+      //       .then(response => {
+      //         if (response.length >= 1)
+      //         {
+      //           let bestTracker = response.reduce((best, favicon) => {
+      //             return parseInt(favicon.size.split('x')[0]) > parseInt(best.size.split('x')[0]) ? favicon : best
+      //           }, response[0])
+      //           this.addTrackerImage({tracker: tracker.host, imageUrl: bestTracker.url})
+      //         }
+      //       })
+      //       .catch(console.log)
+      //   }
+      // }
     }
   },
   computed:

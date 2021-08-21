@@ -7,6 +7,7 @@
 
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
+const ESLintPlugin = require('eslint-webpack-plugin')
 
 
 module.exports = function (ctx) {
@@ -124,7 +125,7 @@ module.exports = function (ctx) {
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
     devServer: {
-      // vueDevtools: true,
+      vueDevtools: true,
       https: false,
       port: 8080,
       open: true // opens browser window automatically
@@ -230,10 +231,19 @@ module.exports = function (ctx) {
       // More info: https://quasar.dev/quasar-cli/developing-electron-apps/node-integration
       nodeIntegration: true,
 
-      extendWebpack (/* cfg */) {
-        // do something with Electron main process Webpack cfg
-        // chainWebpack also available besides this extendWebpack
-      }
+      // extendWebpackMain (/* cfg */) {
+      // do something with Electron main process Webpack cfg
+      // chainWebpack also available besides this extendWebpack
+      // },
+      // New!
+      chainWebpackPreload (chain) {
+        // example (adds linting)
+        chain.plugin('eslint-webpack-plugin')
+          .use(ESLintPlugin, [{ extensions: ['js'] }])
+      },
+
+      // New!
+      // extendWebpackPreload (cfg) { /* ... */ }
     }
   }
 }

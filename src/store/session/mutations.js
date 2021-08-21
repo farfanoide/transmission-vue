@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import Torrent from '../../models/torrent'
 
 export function SET_SESSION_DATA (state, data)
@@ -70,7 +69,7 @@ export function UPDATE_TORRENTS (state, torrents)
   {
     (state.torrents[torrent.id])
       ? state.torrents[torrent.id].update(torrent)
-      : Vue.set(state.torrents, torrent.id, new Torrent(torrent))
+      : state.torrents[torrent.id] = new Torrent(torrent)
   }
 }
 

@@ -12,27 +12,27 @@
       <strong>Uploaded:</strong>
       </dt>
       <dd>
-      {{ currentStats.uploadedBytes | size }} ({{ cumulativeStats.uploadedBytes | size }} total)
+      {{ $filters.size(currentStats.uploadedBytes) }} ({{ $filters.size(cumulativeStats.uploadedBytes) }} total)
       </dd>
       <dt>
       <strong>Ratio:</strong>
       </dt>
       <dd>
-      {{ currentStats.uploadedBytes / currentStats.downloadedBytes | ratioString }}
-      ({{ cumulativeStats.uploadedBytes / cumulativeStats.downloadedBytes | ratioString }} total)
+      {{ $filters.ratioString(currentStats.uploadedBytes / currentStats.downloadedBytes ) }}
+      ({{ $filters.ratioString(cumulativeStats.uploadedBytes / cumulativeStats.downloadedBytes ) }} total)
       </dd>
       <dt>
       <strong>Downloaded:</strong>
       </dt>
       <dd>
-      {{ currentStats.downloadedBytes | size }} ({{ cumulativeStats.downloadedBytes | size }} total)
+      {{ $filters.size(currentStats.downloadedBytes ) }} ({{ $filters.size(cumulativeStats.downloadedBytes ) }} total)
       </dd>
       <dt>
 
       <strong>Running Time:</strong>
       </dt>
       <dd>
-      {{ currentStats.secondsActive | timeInterval }} ({{ cumulativeStats.secondsActive | timeInterval }} total)
+      {{ $filters.timeInterval(currentStats.secondsActive ) }} ({{ $filters.timeInterval(cumulativeStats.secondsActive ) }} total)
       </dd>
       <dt>
       <strong>Program Started:</strong>

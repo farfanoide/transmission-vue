@@ -3,12 +3,12 @@
     <div class="stats row justify-around items-center">
       <div>
         <q-btn :color="altSpeedEnabled ? 'negative' : 'positive'" size="sm">
-          ↓ {{ totalDownloadRate | speedBps }}
+          ↓ {{ $filters.speedBps(totalDownloadRate) }}
         </q-btn>
       </div>
       <div>
         <q-btn color="blue" size="sm">
-          ↑ {{ totalUploadRate | speedBps}}
+          ↑ {{ $filters.speedBps(totalUploadRate) }}
         </q-btn>
       </div>
 

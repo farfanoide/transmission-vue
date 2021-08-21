@@ -7,7 +7,7 @@
     <strong>Details</strong>
     <dl>
       <dt>Size:</dt>
-      <dd>{{torrent.totalSize|size}} ({{torrent.pieceCount}} @ {{torrent.pieceSize|size}})</dd>
+      <dd>{{ $filters.size(torrent.totalSize) }} ({{torrent.pieceCount}} @ {{ $filters.size(torrent.pieceSize) }})</dd>
 
       <dt>Location:</dt>
       <dd>{{torrent.downloadDir}}</dd>
@@ -19,7 +19,7 @@
       <dd>{{ torrent.isPrivate ? 'Private' : 'Public' }} torrent</dd>
 
       <dt>Origin:</dt>
-      <dd>Created by {{torrent.creator}} on {{torrent.dateCreated|timestamp}}</dd>
+      <dd>Created by {{torrent.creator}} on {{ $filters.timestamp(torrent.dateCreated) }}</dd>
 
       <dt>Comment:</dt>
       <dd>{{torrent.comment}}</dd>
@@ -29,29 +29,29 @@
     <dl>
       <dt>Have:</dt>
       <dd>
-      {{torrent.haveValid + torrent.haveUnchecked| size}} of {{torrent.sizeWhenDone | size}}
-      ({{torrent.percentDone|fullPercentString}})
+      {{ $filters.size(torrent.haveValid + torrent.haveUnchecked) }} of {{ $filters.size(torrent.sizeWhenDone) }}
+      ({{ $filters.fullPercentString(torrent.percentDone) }})
       <template v-if="torrent.haveUnverified">
-        {{torrent.haveUnverified | size}} unverified
+        {{ $filters.size(torrent.haveUnverified) }} unverified
       </template>
       </dd>
 
       <dt>Availability:</dt>
       <dd>
-      {{torrent.haveValid + torrent.haveUnchecked + torrent.desiredAvailable | fullPercentString}}
+      {{ $filters.fullPercentString(torrent.haveValid + torrent.haveUnchecked + torrent.desiredAvailable) }}
       </dd>
 
       <dt>Uploaded:</dt>
       <dd>
-      {{torrent.uploadedEver | size}} (Ratio: {{torrent.uploadRatio | ratioString}})
+      {{ $filters.size(torrent.uploadedEver) }} (Ratio: {{ $filters.ratioString(torrent.uploadRatio) }})
       </dd>
 
       <dt>Downloaded:</dt>
       <dd>
-      {{torrent.downloadedEver | size}}
+      {{ $filters.size(torrent.downloadedEver) }}
 
       <template v-if="torrent.corruptEver">
-        ({{torrent.corruptEver | size}} corrupt)
+        ({{ $filters.size(torrent.corruptEver) }} corrupt)
       </template>
       </dd>
 
@@ -61,7 +61,7 @@
       <dt>Running Time: </dt>
       <dd>
       <template v-if="torrent.isDownloading() || torrent.isSeeding()">
-        {{ Date.now() / 1000 - torrent.startDate | timeInterval }}
+        {{ $filters.timeInterval(Date.now() / 1000 - torrent.startDate) }}
       </template>
       <template v-else>
         {{ torrent.statusName }}
@@ -71,7 +71,7 @@
       <dt>Remaining Time: </dt>
       <dd>
       <template v-if="torrent.isDownloading()">
-        {{torrent.eta | timeInterval}}
+        {{ $filters.timeInterval(torrent.eta) }}
       </template>
       <template v-else>
         Unknown
@@ -79,7 +79,7 @@
       </dd>
 
       <dt>Last Activity: </dt>
-      <dd>{{ Date.now() / 1000 - torrent.activityDate | timeInterval }} ago</dd>
+      <dd>{{ $filters.timeInterval(Date.now() / 1000 - torrent.activityDate) }} ago</dd>
 
       <dt>Error:</dt>
       <dd>{{ torrent.hasErrors ? torrent.errorString : 'None'}}</dd>
