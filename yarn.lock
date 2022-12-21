@@ -7472,10 +7472,10 @@ smart-buffer@^4.0.2:
   resolved "https://registry.yarnpkg.com/smart-buffer/-/smart-buffer-4.2.0.tgz#6e1d71fa4f18c05f7d0ff216dd16a481d0e8d9ae"
   integrity sha512-94hK0Hh8rPqQl2xXc3HsaBoOXKV20MToPkcXvwbISWLEs+64sBq5kFgn2kJDHb1Pry9yrP0dxrCI9RRci7RXKg==
 
-smoothie@^1.35.0:
-  version "1.35.0"
-  resolved "https://registry.yarnpkg.com/smoothie/-/smoothie-1.35.0.tgz#91dff7f22ec770044c7e6a1323a694a4fd96d001"
-  integrity sha512-tA+p9hDOeLOkETO6HyTgo3ZzGF2mHOGS+Vbc9d9M/iHMlSIsQvVJYuOBIYW21naaAi+eU1NxvVDQ8V9UM56hvQ==
+smoothie@^1.36.1:
+  version "1.36.1"
+  resolved "https://registry.yarnpkg.com/smoothie/-/smoothie-1.36.1.tgz#969958f339913b50e62a1dee206c31630530871b"
+  integrity sha512-499Vr2od6TicP8s7ykcyTfddh/6n11BB41G9RE7gqQRyfoPIAYotUTzwAxQpAfOdVOb+BvcG2qla+hjyqwe+PA==
 
 socket.io-adapter@~1.1.0:
   version "1.1.2"
